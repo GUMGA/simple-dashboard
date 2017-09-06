@@ -24,7 +24,7 @@ export abstract class BaseHighChart {
   public render() :void {
     this.onInit();
     this.processRecordSet(this.recordset, this.configuration);
-    window.Highcharts.chart(this.element, this.getHighChartConfiguration(this.configuration))
+    window.Highcharts.chart(this.element, this.getHighChartConfiguration(this.configuration));
   };
 
   protected getPosition(column: string): number {
