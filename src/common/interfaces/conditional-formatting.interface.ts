@@ -3,5 +3,6 @@ import { StringValue } from './index';
 export interface ConditionalFormatting {
     condition: any;
     value: any;
-    color: StringValue
+    color: StringValue;
+    field: string;
 }

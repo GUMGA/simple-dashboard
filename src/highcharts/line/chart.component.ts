@@ -1,6 +1,7 @@
 import { BaseHighChart } from '../base';
 import { RecordSet     } from '../../common/interfaces';
 import { Configuration } from '../';
+import { CommonProvider} from '../../common/providers';
 
 export class Line extends BaseHighChart {
 
@@ -19,20 +20,44 @@ export class Line extends BaseHighChart {
     });
     configuration.axisY.forEach(axisY => {
       if(axisY && axisY.name){
-        let indexAxisY = this.getPosition(axisY.name), values:Array<any> = [];
+        let indexAxisY = this.getPosition(axisY.name), values:Array<any> = [], colorAxisY = undefined;
         recordset.rows.forEach((row, index) => {
           let value = row[indexAxisY];
           values.push(Number(value));
+          if(index == recordset.rows.length-1) {
+              colorAxisY = this.getConditionFormatDataColor(axisY.name, row[indexAxisY], configuration);
+          }
         });
-        let color = axisY.color && axisY.color.value ? axisY.color.value : '#ff0000';
+        let color = colorAxisY ? colorAxisY : axisY.color ? axisY.color.value : undefined;
         this.addSerie(axisY.label ? axisY.label : axisY.name, values, color);
       }
     });
   }
 
+  private getConditionFormatDataColor(name, value, configuration: Configuration){
+    var color = undefined;
+    configuration
+        .conditionalsFormatting
+        .filter(function(data) {
+            return data.field == name
+        })
+        .forEach(function(data) {
+            if(CommonProvider.isConditionalFormatting(data.condition, value, data.value)) {
+                color = data.color.value;
+            }
+        })
+    return color;
+  }
+
+
   protected getHighChartConfiguration(configuration: Configuration) {
     return {
-          title: configuration.title,
+          title: {
+            text: configuration.title.text,
+            style: {
+              fontSize: (this.getFontSize() + 7) +"px"
+            }
+          },
           lang: {
               noData: "Sem dados para apresentar"
           },
@@ -47,19 +72,33 @@ export class Line extends BaseHighChart {
                       return this.value
                   },
                   style: {
+                    fontSize: this.getFontSize() + "px"
                   }
               }
           },
           legend: {
               itemStyle: {
+                fontSize: this.getFontSize() + "px"
               }
           },
           yAxis: {
-              gridLineWidth:  1,
+              gridLineWidth:  configuration.showGridLineWidthAxisY ? 1 : 0,
               title: {
                   text: ''
               },
               labels: {
+                formatter: function() {
+                    return CommonProvider.formatValue(this.value, configuration.format, configuration.precision)
+                },
+                style: {
+                  fontSize: this.getFontSize() + "px"
+                }
+              }
+          },
+          tooltip: {
+              enabled: configuration ? !configuration.dataLabelAxisY : false,
+              formatter: function() {
+                  return CommonProvider.formatValue(this.y, configuration.format, configuration.precision)
               }
           },
           exporting: {
@@ -69,9 +108,15 @@ export class Line extends BaseHighChart {
           plotOptions: {
               line: {
                   dataLabels: {
-                      enabled:  true
+                    enabled: configuration ? configuration.dataLabelAxisY : true,
+                     formatter: function () {
+                         return CommonProvider.formatValue(this.y, configuration.format, configuration.precision)
+                     },
+                     style: {
+                       fontSize: this.getFontSize() + "px"
+                     }
                   },
-                  showInLegend: true
+                  showInLegend: configuration ? configuration.showLegendAxisY : true
               }
           },
           credits: {

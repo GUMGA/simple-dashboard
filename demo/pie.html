@@ -16,13 +16,23 @@
 
       var data = {"columns":["id","name"],"labels":[],"positions":[],"icons":[],"colors":[],"fontColors":[],"rows":[[1,"Apresentação legal"],[8,"wilson"],[10,"cesar"],[11,"wilson 2"],[12,"sadfasdf"]],"columnFormats":[],"fontFamily":[],"message":"OK","identifier":null,"types":null};
 
-      var bar = new mf.Chart.Pie(document.getElementById('chart'), data, {
+      var Pie = new mf.Chart.Pie(document.getElementById('chart'), data, {
         dataSeries: {
           name: "id"
         },
         labelField: {
           name: "name"
-        }
+        },
+        boardFontSize: 'MEDIUM',
+        conditionalsFormatting: [
+          {
+            condition: 'EQ',
+            value: 'cesar',
+            color: {
+              value: '#00fff6'
+            }
+          }
+        ]
       });
 
     </script>

@@ -21,7 +21,9 @@ export class Pie extends BaseHighChart {
         recordset.rows = recordset.rows || [];
       }
       recordset.rows.forEach(row => {
-         this.addSerie(row[indexLabelField], row[indexDataSeries], this.getConditionFormatLabelColor(configuration, row[indexLabelField]) || this.getConditionFormatLabelColor(configuration, row[indexDataSeries]));
+         this.addSerie(row[indexLabelField], row[indexDataSeries],
+           this.getConditionFormatLabelColor(configuration, row[indexLabelField]) || this.getConditionFormatLabelColor(configuration, row[indexDataSeries]),
+         configuration);
       })
     }
   }
@@ -38,22 +40,34 @@ export class Pie extends BaseHighChart {
           lang: {
               noData: "Sem dados para apresentar"
           },
-          title: configuration.title,
+          title: {
+            text  : configuration.title.text,
+            style : {
+              fontSize: this.getFontSize() + 'px'
+            }
+          },
           legend: {
               itemStyle: {
+                fontSize: this.getFontSize() + 'px'
               }
           },
           tooltip:{
-              enabled: true
-          },
+             formatter: function () {
+                 return CommonProvider.formatValue(this.y, configuration.format, configuration.precision);
+             },
+             enabled: !configuration.showValues ? true : false
+         },
           plotOptions: {
               pie: {
                   allowPointSelect: false,
                   cursor: 'pointer',
                   dataLabels: {
-                      enabled: true
+                    enabled: configuration.showValues ? true : false,
+                    formatter: function(){
+                      return '<b>'+CommonProvider.formatValue(this.y, configuration.format, configuration.precision)+'</b>'
+                    },
                   },
-                  showInLegend: true
+                  showInLegend: configuration.showLegend
               }
           },
           credits: {
@@ -66,9 +80,11 @@ export class Pie extends BaseHighChart {
       };
   }
 
-  private addSerie(name:string, value:any, color: string):void {
-    this.serie.data.push({name:name, y:Number(value), color: color, dataLabels: {
+  private addSerie(name:string, value:any, color: string, configuration: Configuration):void {
+    let categorieValue = CommonProvider.formatValue(name, configuration.labelField.format, configuration.labelField.formatPrecision)
+    this.serie.data.push({name:categorieValue, y:Number(value), color: color, dataLabels: {
       style: {
+        fontSize: this.getFontSize() + 'px'
       }
     }});
   }

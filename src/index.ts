@@ -1,5 +1,13 @@
 import * as Highcharts  from 'highcharts';
-import { Bar, Line, Pie } from './highcharts';
+import * as HighchartsMore  from 'highcharts/highcharts-more';
+import * as HighchartsExporting  from 'highcharts/modules/exporting';
+import * as NoDataToDisplay  from 'highcharts/modules/no-data-to-display';
+import * as SolidGauge  from 'highcharts/modules/solid-gauge';
+import { Bar, Line, Pie, GaugeV1, GaugeV2 } from './highcharts';
+
+HighchartsMore(Highcharts);
+HighchartsExporting(Highcharts);
+SolidGauge(Highcharts);
 
 declare let window;
 
@@ -9,7 +17,9 @@ window.mf = window.mf || {
   Chart: {
     Bar : Bar,
     Line: Line,
-    Pie : Pie
+    Pie : Pie,
+    GaugeV1: GaugeV1,
+    GaugeV2: GaugeV2
   }
 }
 

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Simple Dashboard</title>
+  </head>
+  <body>
+
+    <div id="chart">
+
+    </div>
+
+    <script type="text/javascript" src="../dist/simple-dashboard.js"></script>
+
+
+    <script type="text/javascript">
+
+      var data = {"columns":["id","name"],"labels":[],"positions":[],"icons":[],"colors":[],"fontColors":[],"rows":[[10,"Apresentação legal"],[8,"wilson"],[10,"cesar"],[11,"wilson 2"],[12,"sadfasdf"]],"columnFormats":[],"fontFamily":[],"message":"OK","identifier":null,"types":null};
+
+      var bar = new mf.Chart.GaugeV2(document.getElementById('chart'), data, {
+        fixedValue: true,
+        minimumValue: {
+          value: 0
+        },
+        maximumValue: {
+          value: 100
+        },
+        currentValue: {
+          label: 'Id',
+          name: "id"
+        },
+        conditionalsFormatting: [
+          {
+            condition: 'EQ',
+            value: 10,
+            field: 'id',
+            color: {
+              value: '#00fff6'
+            }
+          }
+        ],
+        bands:  [{
+            from: 0,
+            to: 33,
+            color: '#55BF3B' // green
+        }, {
+            from: 33,
+            to: 70,
+            color: '#DDDF0D' // yellow
+        }, {
+            from: 70,
+            to: 100,
+            color: '#DF5353' // red
+        }]
+      });
+
+    </script>
+
+  </body>
+</html>

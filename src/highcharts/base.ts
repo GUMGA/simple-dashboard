@@ -31,5 +31,17 @@ export abstract class BaseHighChart {
     return this.recordset.columns.indexOf(column);
   }
 
+  protected getFontSize(){
+    switch (this.configuration.boardFontSize) {
+      case 'SMALL':
+        return 11;
+      case 'MEDIUM':
+        return 18;
+      case 'LARGE':
+        return 25;
+      default:
+        return 11;
+    }
+  }
 
 }

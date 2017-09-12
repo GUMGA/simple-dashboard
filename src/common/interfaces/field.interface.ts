@@ -15,6 +15,6 @@ export interface Field {
   title: string;
   sequence: number;
   description: string;
-  value: string;
+  value: any;
   operation: FieldOperation;
 }

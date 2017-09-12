@@ -1,4 +1,4 @@
-import { Title, Field, ConditionalFormatting } from '../common/interfaces';
+import { Title, Field, ConditionalFormatting, GaugeBand, NumberValue } from '../common/interfaces';
 
 export class Configuration {
 
@@ -8,9 +8,35 @@ export class Configuration {
     dataSeries = {} as Field;
     labelField = {} as Field;
     conditionalsFormatting = [] as Array<ConditionalFormatting>;
+    boardFontSize: string;
+    format: string;
+    titleAxisY: string;
+    stacking: string;
+    precision: number;
+    showLegend: Boolean;
+    showValues: Boolean;
+    showGridLineWidthAxisY: Boolean;
+    dataLabelAxisY: Boolean;
+    showLegendAxisY: Boolean;
+    fixedValue: Boolean;
+    minimumValue: Field;
+    maximumValue: Field;
+    currentValue: Field;
+    beginningColor: string;
+    middleColor: string;
+    endColor: string;
+    bands: Array<GaugeBand>;
 
     constructor() {
-
+      this.title = {
+        text: ''
+      }
+      this.boardFontSize = 'SMALL';
+      this.labelField.format = 'no_format';
+      this.showValues = false;
+      this.showLegend = true;
+      this.showGridLineWidthAxisY = true;
+      this.bands = new Array();
     }
 
 }
