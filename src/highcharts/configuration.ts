@@ -26,6 +26,8 @@ export class Configuration {
     middleColor: string;
     endColor: string;
     bands: Array<GaugeBand>;
+    columnAxisY: Field;
+    lineAxisY: Array<Field>;
 
     constructor() {
       this.title = {

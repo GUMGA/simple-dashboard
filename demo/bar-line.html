@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Simple Dashboard</title>
+  </head>
+  <body>
+
+    <div id="chart">
+
+    </div>
+
+    <script type="text/javascript" src="../dist/simple-dashboard.js"></script>
+
+    <script type="text/javascript">
+
+      var data = {"columns":["id","name"],"labels":[],"positions":[],"icons":[],"colors":[],"fontColors":[],"rows":[[1,"Apresentação legal"],[8,"wilson"],[10,"cesar"],[11,"wilson 2"],[12,"sadfasdf"]],"columnFormats":[],"fontFamily":[],"message":"OK","identifier":null,"types":null};
+
+      var bar = new mf.Chart.BarLine(document.getElementById('chart'), data, {
+        axisX: {
+          name: "name",
+        },
+        columnAxisY: {
+          name: "id",
+          label: "Código",
+          color: {
+            value: '#CCCCCC'
+          }
+        },
+        lineAxisY: [
+          {
+            name: "id",
+            label: "oi"
+          }
+        ],
+        conditionalsFormatting: [
+          {
+            condition: 'EQ',
+            value: 10,
+            field: 'id',
+            color: {
+              value: '#00fff6'
+            }
+          }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
