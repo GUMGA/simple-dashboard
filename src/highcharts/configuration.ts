@@ -1,10 +1,10 @@
-import { Title, Field, ConditionalFormatting, GaugeBand, NumberValue } from '../common/interfaces';
+import { Title, Field, ConditionalFormatting, GaugeBand, NumberValue, RecordSet } from '../common/interfaces';
 
 export class Configuration {
 
     title = {} as Title;
     axisX = {} as Field;
-    axisY = [] as Array<Field>;
+    axisY = [] as any;
     dataSeries = {} as Field;
     labelField = {} as Field;
     conditionalsFormatting = [] as Array<ConditionalFormatting>;
@@ -28,6 +28,9 @@ export class Configuration {
     bands: Array<GaugeBand>;
     columnAxisY: Field;
     lineAxisY: Array<Field>;
+    pies: Array<Configuration>;
+    data: RecordSet;
+    name: string;
 
     constructor() {
       this.title = {
@@ -39,6 +42,7 @@ export class Configuration {
       this.showLegend = true;
       this.showGridLineWidthAxisY = true;
       this.bands = new Array();
+      this.pies = new Array();
     }
 
 }

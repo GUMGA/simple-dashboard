@@ -17,4 +17,5 @@ export interface Field {
   description: string;
   value: any;
   operation: FieldOperation;
+  showValues: Boolean;
 }

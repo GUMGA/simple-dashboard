@@ -3,7 +3,7 @@ import * as HighchartsMore  from 'highcharts/highcharts-more';
 import * as HighchartsExporting  from 'highcharts/modules/exporting';
 import * as NoDataToDisplay  from 'highcharts/modules/no-data-to-display';
 import * as SolidGauge  from 'highcharts/modules/solid-gauge';
-import { Bar, Line, Pie, GaugeV1, GaugeV2, BarLine } from './highcharts';
+import { Bar, Line, Pie, GaugeV1, GaugeV2, BarLine, BarLinePie } from './highcharts';
 
 HighchartsMore(Highcharts);
 HighchartsExporting(Highcharts);
@@ -20,7 +20,8 @@ window.mf = window.mf || {
     Pie : Pie,
     GaugeV1: GaugeV1,
     GaugeV2: GaugeV2,
-    BarLine: BarLine
+    BarLine: BarLine,
+    BarLinePie: BarLinePie
   }
 }
 
