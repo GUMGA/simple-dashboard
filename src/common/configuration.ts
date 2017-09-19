@@ -1,4 +1,4 @@
-import { Title, Field, ConditionalFormatting, GaugeBand, NumberValue, RecordSet } from './interfaces';
+import { Title, Field, ConditionalFormatting, GaugeBand, NumberValue, RecordSet, StringValue } from './interfaces';
 
 export class Configuration {
 
@@ -34,6 +34,10 @@ export class Configuration {
     lineAxisY: Array<Field>;
     pies: Array<Configuration>;
     data: RecordSet;
+    color: StringValue;
+    fontColor: StringValue;
+    iconColor: StringValue;
+    icon: StringValue;
     name: string;
 
     constructor() {
