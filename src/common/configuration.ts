@@ -8,6 +8,9 @@ export class Configuration {
     dataSeries = {} as Field;
     labelField = {} as Field;
     field = {} as Field;
+    fieldOne = {} as Field;
+    fieldTwo = {} as Field;
+    fieldThree = {} as Field;
     conditionalsFormatting = [] as Array<ConditionalFormatting>;
     boardFontSize: string;
     format: string;
