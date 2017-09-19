@@ -4,10 +4,20 @@
     <meta charset="utf-8">
     <title>Simple Dashboard</title>
     <link rel="stylesheet" href="../dist/simple-dashboard.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   </head>
   <body>
 
-    <div id="chart" style="width: 300px; height: 100px; position: relative;"></div>
+    <style>
+      body{
+        background: #CCC;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+
+    <div id="chart" style="width: 405px; height: 105px; position: relative;"></div>
 
     <script type="text/javascript" src="../dist/simple-dashboard.js"></script>
 
@@ -17,8 +27,22 @@
 
       var bar = new mf.Chart.CardOne(document.getElementById('chart'), data, {
         field: {
+          title: 'Cotação do Dolar',
           name: "id",
-          label: 'Legal'
+          label: 'Valor atual',
+          format: 'moeda',
+          icon: {
+            value: 'fa fa-user'
+          },
+          color: {
+            value: 'blue'
+          },
+          fontColor: {
+            value: '#000'
+          },
+          iconColor: {
+            value: '#FFF'
+          }
         }
       });
 

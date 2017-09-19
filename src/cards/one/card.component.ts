@@ -16,7 +16,19 @@ export class CardOne extends BaseCard {
     this.card = Object.assign({}, configuration.field);
     if(configuration.field && configuration.field.name){
       let index = this.getPosition(configuration.field.name);
-      this.card.value = recordset.rows[0][index];
+      this.card.value = CommonProvider.formatValue(recordset.rows[0][index], configuration.field.format, configuration.field.formatPrecision);
+    }
+    if(configuration.field && configuration.field.icon && configuration.field.icon.value){
+      this.card.icon = configuration.field.icon.value;
+    }
+    if(configuration.field && configuration.field.color && configuration.field.color.value){
+      this.card.color = configuration.field.color.value;
+    }
+    if(configuration.field && configuration.field.fontColor && configuration.field.fontColor.value){
+      this.card.fontColor = configuration.field.fontColor.value;
+    }
+    if(configuration.field && configuration.field.iconColor && configuration.field.iconColor.value){
+      this.card.iconColor = configuration.field.iconColor.value;
     }
   }
 
@@ -24,18 +36,18 @@ export class CardOne extends BaseCard {
     const template = `
       <div class="board-card">
         <div class="card-one">
-          <div class="card-one-icon">
-            <span>${this.card.icon || ''}</span>
+          <div class="card-one-icon" style="background-color: ${this.card.color}">
+            <i style="color: ${this.card.iconColor}" class="${this.card.icon || ''}"></i>
           </div>
           <div class="card-one-detail">
             <div class="card-one-detail-header">
-              <span>${this.card.title || ''}</span>
+              <span style="color: ${this.card.fontColor}">${this.card.title || ''}</span>
             </div>
             <div class="card-one-detail-body">
-              <span>${this.card.value || ''}</span>
+              <span style="color: ${this.card.fontColor}">${this.card.value || ''}</span>
             </div>
             <div class="card-one-detail-footer">
-              <span>${this.card.label || ''}</span>
+              <span style="color: ${this.card.fontColor}">${this.card.label || ''}</span>
             </div>
           </div>
         </div>
