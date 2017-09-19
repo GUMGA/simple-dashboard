@@ -1,7 +1,7 @@
 import { BaseHighChart } from '../base';
 import { RecordSet     } from '../../common/interfaces';
 import { CommonProvider} from '../../common/providers';
-import { Configuration } from '../';
+import { Configuration }  from '../../common/configuration';
 
 export class Pie extends BaseHighChart {
 

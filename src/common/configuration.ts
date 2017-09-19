@@ -1,4 +1,4 @@
-import { Title, Field, ConditionalFormatting, GaugeBand, NumberValue, RecordSet } from '../common/interfaces';
+import { Title, Field, ConditionalFormatting, GaugeBand, NumberValue, RecordSet } from './interfaces';
 
 export class Configuration {
 
@@ -7,6 +7,7 @@ export class Configuration {
     axisY = [] as any;
     dataSeries = {} as Field;
     labelField = {} as Field;
+    field = {} as Field;
     conditionalsFormatting = [] as Array<ConditionalFormatting>;
     boardFontSize: string;
     format: string;

@@ -1,6 +1,6 @@
 import { BaseHighChart } from '../base';
 import { RecordSet     } from '../../common/interfaces';
-import { Configuration } from '../';
+import { Configuration }  from '../../common/configuration';
 import { CommonProvider} from '../../common/providers';
 
 export class BarLinePie extends BaseHighChart {

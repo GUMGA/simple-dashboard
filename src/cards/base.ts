@@ -1,9 +1,7 @@
 import { Configuration }  from '../common/configuration';
 import { RecordSet } from '../common/interfaces';
 
-declare let window;
-
-export abstract class BaseHighChart {
+export abstract class BaseCard {
 
   private configuration : Configuration;
   private recordset : RecordSet;
@@ -19,12 +17,12 @@ export abstract class BaseHighChart {
 
   protected abstract onInit():void;
   protected abstract processRecordSet(recordset: RecordSet, configuration: Configuration):void;
-  protected abstract getHighChartConfiguration(configuration: Configuration) : any;
+  protected abstract generateTemplate(element: HTMLElement, recordset: RecordSet, configuration: Configuration):void;
 
   public render() :void {
     this.onInit();
     this.processRecordSet(this.recordset, this.configuration);
-    window.Highcharts.chart(this.element, this.getHighChartConfiguration(this.configuration));
+    this.generateTemplate(this.element, this.recordset, this.configuration);
   };
 
   protected getPosition(column: string): number {

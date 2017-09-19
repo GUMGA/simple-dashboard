@@ -1,0 +1,52 @@
+.board-card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.card-one {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  height: 100%;
+  margin:0;
+  padding:0;
+}
+
+.card-one-icon {
+  flex:1 4%;
+  background-color: red;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-one-icon > span {
+  align-items: center;
+  justify-content: center;
+}
+
+.card-one-detail {
+  flex:2 auto;
+  background-color: black;
+  color:white;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 10px;
+}
+// 
+// .card-one-detail-header {
+//   // font-size: 9vh;
+// }
+//
+// .card-one-detail-body {
+//   font-size: 5vh;
+// }
+//
+// .card-one-detail-footer {
+//   // font-size: 6vh;
+// }

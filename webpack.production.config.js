@@ -5,6 +5,11 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const baseName = "simple-dashboard";
 
+const extractSass = new ExtractTextPlugin({
+    filename: baseName + ".min.css",
+    allChunks: true
+});
+
 module.exports = {
     entry: path.join(__dirname, 'src', 'index'),
     output: {
@@ -13,21 +18,35 @@ module.exports = {
     },
     plugins: [
         new UglifyJSPlugin(),
-        new ExtractTextPlugin({
-            filename: baseName + ".min.css",
-            allChunks: true
-        })
+        extractSass
     ],
     resolve: {
       extensions: [".ts", ".tsx", ".js"]
     },
     module: {
         rules: [
-            {
-              test: /\.tsx?$/,
-              use: 'ts-loader',
-              exclude: /node_modules/
-            },
+          {
+            test: /\.(html)$/,
+            use: {
+              loader: 'html-loader'
+            }
+          },
+          {
+            test: /\.scss$/,
+            use: extractSass.extract({
+                use: [{
+                    loader: "css-loader"
+                }, {
+                    loader: "sass-loader"
+                }],
+                fallback: "style-loader"
+            })
+        },
+        {
+          test: /\.tsx?$/,
+          use: 'ts-loader',
+          exclude: /node_modules/
+        },
         {
           test: /\.js$/,
           exclude: /node_modules/,

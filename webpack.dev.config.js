@@ -4,6 +4,11 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const baseName = "simple-dashboard";
 
+const extractSass = new ExtractTextPlugin({
+    filename: baseName + ".css",
+    allChunks: true
+});
+
 module.exports = {
     entry: path.join(__dirname, 'src', 'index'),
     output: {
@@ -16,16 +21,30 @@ module.exports = {
         port: 1111
     },
     plugins: [
-        new ExtractTextPlugin({
-            filename: baseName+".css",
-            allChunks: true
-        })
+        extractSass
     ],
     resolve: {
       extensions: [".ts", ".tsx", ".js"]
     },
     module: {
         rules: [
+            {
+              test: /\.(html)$/,
+              use: {
+                loader: 'html-loader'
+              }
+            },
+            {
+                test: /\.scss$/,
+                use: extractSass.extract({
+                    use: [{
+                        loader: "css-loader"
+                    }, {
+                        loader: "sass-loader"
+                    }],
+                    fallback: "style-loader"
+                })
+            },
             {
               test: /\.tsx?$/,
               use: 'ts-loader',
