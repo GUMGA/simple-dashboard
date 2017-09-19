@@ -19,7 +19,7 @@
 
     <br><br>
 
-    <div id="chart" style="width: 405px; height: 105px; position: relative;"></div>
+    <div id="chart" style="width: 605px; height: 205px; position: relative;"></div>
 
     <script type="text/javascript" src="../dist/simple-dashboard.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
@@ -29,15 +29,15 @@
       angular.module('app', [])
         .controller('ctrl', function($http){
 
-                                                                            
+
           function getBoard(id){
             $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=eterno')
               .then(function(resp){
-                var card = new mf.Chart.CardOne(document.getElementById('chart'), resp.data.data, resp.data);
+                var card = new mf.Chart.CardThree(document.getElementById('chart'), resp.data.data, resp.data);
               });
           }
 
-          getBoard(2383);
+          getBoard(2573);
 
 
         })

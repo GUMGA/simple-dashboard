@@ -29,15 +29,15 @@
       angular.module('app', [])
         .controller('ctrl', function($http){
 
-                                                                            
+
           function getBoard(id){
             $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=eterno')
               .then(function(resp){
-                var card = new mf.Chart.CardOne(document.getElementById('chart'), resp.data.data, resp.data);
+                var card = new mf.Chart.CardTwo(document.getElementById('chart'), resp.data.data, resp.data);
               });
           }
 
-          getBoard(2383);
+          getBoard(2570);
 
 
         })
