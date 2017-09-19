@@ -4,7 +4,7 @@ import { RecordSet     } from '../../common/interfaces';
 import { Configuration }  from '../../common/configuration';
 import { CommonProvider} from '../../common/providers';
 
-export class CardFour extends BaseCard {
+export class CardFive extends BaseCard {
 
   card: any;
 
@@ -34,24 +34,20 @@ export class CardFour extends BaseCard {
 
   protected generateTemplate(element: HTMLElement, recordset: RecordSet, configuration: Configuration): void {
     const template = `
-    <div class="board-card" style="background-color: ${this.card.color}">
-      <div class="card-two">
-        <div class="card-two-detail">
-          <div class="card-two-detail-header">
+      <div class="board-card" style="background-color: ${this.card.color}">
+        <div class="board-five">
+          <div class="board-five-header">
             <span style="color: ${this.card.fontColor}">${this.card.title || ''}</span>
           </div>
-          <div class="card-two-detail-body">
-            <span style="color: ${this.card.fontColor}">${this.card.value || ''}</span>
+          <div class="board-five-body">
+            <i style="color: ${this.card.iconColor}" class="${this.card.icon || ''}"></i>
           </div>
-          <div class="card-two-detail-footer">
-            <span style="color: ${this.card.fontColor}">${this.card.label || ''}</span>
+          <div class="board-five-footer">
+             <span class="board-five-footer-value" style="color: ${this.card.fontColor}">${this.card.value || ''}</span>
+             <span style="color: ${this.card.fontColor}">${this.card.label || ''}</span>
           </div>
         </div>
-        <div class="card-two-icon">
-          <i style="color: ${this.card.iconColor}" class="${this.card.icon || ''}"></i>
-        </div>
-      </div>
-    </div>
+      </div>    
     `;
     element.innerHTML = template;
   }
