@@ -14,7 +14,7 @@ export class CardThree extends BaseCard {
 
   protected processRecordSet(recordset: RecordSet, configuration: Configuration): void {
     this.card = Object.assign({}, configuration.field);
-    if(configuration.field && configuration.field.name){
+    if(configuration.fieldOne && configuration.fieldOne.name){
       let index = this.getPosition(configuration.field.name);
       this.card.value = CommonProvider.formatValue(recordset.rows[0][index], configuration.field.format, configuration.field.formatPrecision);
     }
