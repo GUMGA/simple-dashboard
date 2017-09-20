@@ -4,7 +4,7 @@ import * as HighchartsExporting  from 'highcharts/modules/exporting';
 import * as NoDataToDisplay  from 'highcharts/modules/no-data-to-display';
 import * as SolidGauge  from 'highcharts/modules/solid-gauge';
 import { Bar, Line, Pie, GaugeV1, GaugeV2, BarLine, BarLinePie } from './highcharts';
-import { CardOne, CardTwo, CardThree, CardFive } from './cards';
+import { CardOne, CardTwo, CardThree, CardFive, CardFour } from './cards';
 
 HighchartsMore(Highcharts);
 HighchartsExporting(Highcharts);
@@ -26,7 +26,8 @@ window.mf = window.mf || {
     CardOne: CardOne,
     CardTwo: CardTwo,
     CardThree: CardThree,
-    CardFive: CardFive
+    CardFive: CardFive,
+    CardFour: CardFour
   }
 }
 
