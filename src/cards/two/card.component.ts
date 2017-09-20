@@ -14,22 +14,43 @@ export class CardTwo extends BaseCard {
 
   protected processRecordSet(recordset: RecordSet, configuration: Configuration): void {
     this.card = Object.assign({}, configuration.field);
-    if(configuration.field && configuration.field.name){
-      let index = this.getPosition(configuration.field.name);
-      this.card.value = CommonProvider.formatValue(recordset.rows[0][index], configuration.field.format, configuration.field.formatPrecision);
-    }
+
     if(configuration.field && configuration.field.icon && configuration.field.icon.value){
       this.card.icon = configuration.field.icon.value;
     }
+
     if(configuration.field && configuration.field.color && configuration.field.color.value){
       this.card.color = configuration.field.color.value;
     }
+
     if(configuration.field && configuration.field.fontColor && configuration.field.fontColor.value){
       this.card.fontColor = configuration.field.fontColor.value;
     }
+
     if(configuration.field && configuration.field.iconColor && configuration.field.iconColor.value){
       this.card.iconColor = configuration.field.iconColor.value;
     }
+
+    if(configuration.field && configuration.field.name){
+      let index = this.getPosition(configuration.field.name);
+      let cardValue = recordset.rows[0][index];
+      this.card.value = CommonProvider.formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
+
+      configuration.conditionalsFormatting.forEach(condition => {
+        if (CommonProvider.isConditionalFormatting(condition.condition, cardValue, condition.value)) {
+            if (condition.icon && condition.icon.value) {
+                this.card.icon = condition.icon.value;
+            }
+            if (condition.color && condition.color.value) {
+                this.card.color = condition.color.value;
+            }
+        }
+      })
+
+    }
+
+
+
   }
 
   protected generateTemplate(element: HTMLElement, recordset: RecordSet, configuration: Configuration): void {
