@@ -5,7 +5,8 @@
   "main": "./src/index.js",
   "directories": {},
   "dependencies": {
-    "highcharts": "^5.0.14"
+    "highcharts": "^5.0.14",
+    "moment": "^2.18.1"
   },
   "babel": {
     "presets": [

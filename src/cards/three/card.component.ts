@@ -27,37 +27,73 @@ export class CardThree extends BaseCard {
       this.card.iconColor = configuration.iconColor.value;
     }
     if(configuration.fieldOne && configuration.fieldOne.name){
-      this.card.fieldOne = Object.assign(configuration.fieldOne , { value: recordset.rows[0][this.getPosition(configuration.fieldOne.name)] });
+      let valueOne = recordset.rows[0][this.getPosition(configuration.fieldOne.name)];
+      this.card.fieldOne = Object.assign(configuration.fieldOne ,
+        { value: CommonProvider.formatValue(valueOne, configuration.fieldOne.format, configuration.fieldOne.formatPrecision)}
+      );
+      this.getConditionalsFormatting(configuration, configuration.fieldOne.name).forEach(data => {
+        this.applyConditionalsFormatting(data.condition, valueOne, data.value, data);
+      });
     }
     if(configuration.fieldTwo && configuration.fieldTwo.name){
-      this.card.fieldTwo = { value: recordset.rows[0][this.getPosition(configuration.fieldTwo.name)] };
+      let valueTwo = recordset.rows[0][this.getPosition(configuration.fieldTwo.name)];
+      this.card.fieldTwo = Object.assign(configuration.fieldTwo ,
+        { value: CommonProvider.formatValue(valueTwo, configuration.fieldTwo.format, configuration.fieldTwo.formatPrecision)}
+      );
+      this.getConditionalsFormatting(configuration, configuration.fieldTwo.name).forEach(data => {
+        this.applyConditionalsFormatting(data.condition, valueTwo, data.value, data);
+      });
     }
     if(configuration.fieldThree && configuration.fieldThree.name){
-      this.card.fieldThree = { value: recordset.rows[0][this.getPosition(configuration.fieldThree.name)] };
+      let valueThree = recordset.rows[0][this.getPosition(configuration.fieldThree.name)];
+      this.card.fieldThree = Object.assign(configuration.fieldThree ,
+        { value: CommonProvider.formatValue(valueThree, configuration.fieldThree.format, configuration.fieldThree.formatPrecision)}
+      );
+      this.getConditionalsFormatting(configuration, configuration.fieldThree.name).forEach(data => {
+        this.applyConditionalsFormatting(data.condition, valueThree, data.value, data);
+      });
+    }
+  }
+
+  protected getConditionalsFormatting(configuration: Configuration, field: string){
+    if(configuration.conditionalsFormatting) {
+      return configuration.conditionalsFormatting.filter(data => data.field == field);
+    }
+    return [];
+  }
+
+  protected applyConditionalsFormatting(condition, value, conditionValue, data){
+    if(CommonProvider.isConditionalFormatting(condition, value, conditionValue)) {
+        if(data.icon && data.icon.value) {
+            this.card.icon = data.icon.value;
+        }
+        if(data.color && data.color.value) {
+            this.card.color = data.color.value;
+        }
     }
   }
 
   protected generateTemplate(element: HTMLElement, recordset: RecordSet, configuration: Configuration): void {
     const template = `
       <div class="board-card" style="background-color: ${this.card.color}">
-        <div class="card-four">
-          <div class="card-four-right">
-            <div class="card-four-right-header">
+        <div class="card-three">
+          <div class="card-three-right">
+            <div class="card-three-right-header">
               <span style="color: ${this.card.fontColor}">${this.card.fieldOne.label || ''}</span>
-              <span style="color: ${this.card.fontColor}">${this.card.fieldOne.value || ''}</span>
+              <span class="value" style="color: ${this.card.fontColor}">${this.card.fieldOne.value || ''}</span>
             </div>
-            <div class="card-four-right-footer">
+            <div class="card-three-right-footer">
               <span style="color: ${this.card.fontColor}">${this.card.fieldTwo.label || ''}</span>
-              <span style="color: ${this.card.fontColor}">${this.card.fieldTwo.value || ''}</span>
+              <span class="value" style="color: ${this.card.fontColor}">${this.card.fieldTwo.value || ''}</span>
             </div>
           </div>
-          <div class="card-four-left">
-            <div class="card-four-left-header">
-              <span>icon</span>
+          <div class="card-three-left">
+            <div class="card-three-left-header">
+              <i style="color: ${this.card.iconColor}" class="${this.card.icon || ''}"></i>
             </div>
-            <div class="card-four-left-footer">
+            <div class="card-three-left-footer">
                 <span style="color: ${this.card.fontColor}">${this.card.fieldThree.label || ''}</span>
-                <span style="color: ${this.card.fontColor}">${this.card.fieldThree.value || ''}</span>
+                <span class="value" style="color: ${this.card.fontColor}">${this.card.fieldThree.value || ''}</span>
             </div>
           </div>
         </div>
