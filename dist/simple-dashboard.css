@@ -90,11 +90,16 @@
 .card-two-detail-header {
   font-size: 18px;
   text-transform: none;
+  text-align: left;
   font-weight: bold; }
 
 .card-two-detail-body {
+  text-align: left;
   font-size: 2em;
   font-weight: 700; }
+
+.card-two-detail-footer {
+  text-align: left; }
 .board-card {
   position: absolute;
   width: 100%;
@@ -125,7 +130,7 @@
   display: flex;
   flex-flow: column; }
   .card-three-right-header span.value {
-    font-size: 3em; }
+    font-size: 1.3em; }
 
 .card-three-right-footer {
   display: flex;
@@ -145,7 +150,7 @@
   display: flex;
   flex-flow: column; }
   .card-three-left-header i {
-    font-size: 5em; }
+    font-size: 70px; }
 
 .card-three-left-footer {
   display: flex;
@@ -214,7 +219,7 @@
   padding: 15px; }
 
 .card-four-icon-center > i {
-  font-size: 7em; }
+  font-size: 90px; }
 
 .card-four-icon {
   display: flex;
@@ -237,3 +242,21 @@
   overflow-x: hidden;
   height: 50px;
   margin-top: 5px; }
+  .card-four-detail-footer textarea {
+    background: transparent;
+    border: none;
+    width: 100%;
+    resize: none;
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */ }

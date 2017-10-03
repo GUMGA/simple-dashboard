@@ -75,7 +75,7 @@ export class CardThree extends BaseCard {
 
   protected generateTemplate(element: HTMLElement, recordset: RecordSet, configuration: Configuration): void {
     const template = `
-      <div class="board-card" style="background-color: ${this.card.color}">
+      <div class="board-card" style="background-color: ${this.card.color}; border-color: ${this.card.color};">
         <div class="card-three">
           <div class="card-three-right">
             <div class="card-three-right-header">
