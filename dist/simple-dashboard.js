@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 21);
+/******/ 	return __webpack_require__(__webpack_require__.s = 25);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,7 +71,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_provider__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_provider__ = __webpack_require__(17);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__common_provider__["a"]; });
 
 
@@ -82,13 +82,13 @@
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseHighChart; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__configuration__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(3);
 
 var BaseHighChart = /** @class */ (function () {
     function BaseHighChart(element, recordset, configuration) {
         this.element = element;
         this.recordset = recordset;
-        this.configuration = Object.assign({}, new __WEBPACK_IMPORTED_MODULE_0__configuration__["a" /* Configuration */](), configuration);
+        this.configuration = Object.assign({}, new __WEBPACK_IMPORTED_MODULE_0__common_configuration__["a" /* Configuration */](), configuration);
         this.render();
     }
     BaseHighChart.prototype.render = function () {
@@ -122,11 +122,38 @@ var BaseHighChart = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Configuration; });
-var Configuration = /** @class */ (function () {
-    function Configuration() {
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseCard; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(3);
+
+var BaseCard = /** @class */ (function () {
+    function BaseCard(element, recordset, configuration) {
+        this.element = element;
+        this.recordset = recordset;
+        this.configuration = Object.assign({}, new __WEBPACK_IMPORTED_MODULE_0__common_configuration__["a" /* Configuration */](), configuration);
+        this.render();
     }
-    return Configuration;
+    BaseCard.prototype.render = function () {
+        this.onInit();
+        this.processRecordSet(this.recordset, this.configuration);
+        this.generateTemplate(this.element, this.recordset, this.configuration);
+    };
+    ;
+    BaseCard.prototype.getPosition = function (column) {
+        return this.recordset.columns.indexOf(column);
+    };
+    BaseCard.prototype.getFontSize = function () {
+        switch (this.configuration.boardFontSize) {
+            case 'SMALL':
+                return 11;
+            case 'MEDIUM':
+                return 18;
+            case 'LARGE':
+                return 25;
+            default:
+                return 11;
+        }
+    };
+    return BaseCard;
 }());
 
 
@@ -144,6 +171,10 @@ var Configuration = /** @class */ (function () {
         this.axisY = [];
         this.dataSeries = {};
         this.labelField = {};
+        this.field = {};
+        this.fieldOne = {};
+        this.fieldTwo = {};
+        this.fieldThree = {};
         this.conditionalsFormatting = [];
         this.title = {
             text: ''
@@ -163,79 +194,6 @@ var Configuration = /** @class */ (function () {
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports) {
-
-/*
- Highcharts JS v5.0.14 (2017-07-28)
-
- (c) 2009-2016 Torstein Honsi
-
- License: www.highcharts.com/license
-*/
-(function(x){"object"===typeof module&&module.exports?module.exports=x:x(Highcharts)})(function(x){(function(b){function r(b,a){this.init(b,a)}var v=b.CenteredSeriesMixin,w=b.each,n=b.extend,h=b.merge,g=b.splat;n(r.prototype,{coll:"pane",init:function(b,a){this.chart=a;this.background=[];a.pane.push(this);this.setOptions(b)},setOptions:function(b){this.options=h(this.defaultOptions,this.chart.angular?{background:{}}:void 0,b)},render:function(){var b=this.options,a=this.options.background,c=this.chart.renderer;
-this.group||(this.group=c.g("pane-group").attr({zIndex:b.zIndex||0}).add());this.updateCenter();if(a)for(a=g(a),b=Math.max(a.length,this.background.length||0),c=0;c<b;c++)a[c]&&this.axis?this.renderBackground(h(this.defaultBackgroundOptions,a[c]),c):this.background[c]&&(this.background[c]=this.background[c].destroy(),this.background.splice(c,1))},renderBackground:function(b,a){var c="animate";this.background[a]||(this.background[a]=this.chart.renderer.path().add(this.group),c="attr");this.background[a][c]({d:this.axis.getPlotBandPath(b.from,
-b.to,b)}).attr({fill:b.backgroundColor,stroke:b.borderColor,"stroke-width":b.borderWidth,"class":"highcharts-pane "+(b.className||"")})},defaultOptions:{center:["50%","50%"],size:"85%",startAngle:0},defaultBackgroundOptions:{shape:"circle",borderWidth:1,borderColor:"#cccccc",backgroundColor:{linearGradient:{x1:0,y1:0,x2:0,y2:1},stops:[[0,"#ffffff"],[1,"#e6e6e6"]]},from:-Number.MAX_VALUE,innerRadius:0,to:Number.MAX_VALUE,outerRadius:"105%"},updateCenter:function(b){this.center=(b||this.axis||{}).center=
-v.getCenter.call(this)},update:function(b,a){h(!0,this.options,b);this.setOptions(this.options);this.render();w(this.chart.axes,function(c){c.pane===this&&(c.pane=null,c.update({},a))},this)}});b.Pane=r})(x);(function(b){var r=b.each,v=b.extend,w=b.map,n=b.merge,h=b.noop,g=b.pick,m=b.pInt,a=b.wrap,c,k,f=b.Axis.prototype;b=b.Tick.prototype;c={getOffset:h,redraw:function(){this.isDirty=!1},render:function(){this.isDirty=!1},setScale:h,setCategories:h,setTitle:h};k={defaultRadialGaugeOptions:{labels:{align:"center",
-x:0,y:null},minorGridLineWidth:0,minorTickInterval:"auto",minorTickLength:10,minorTickPosition:"inside",minorTickWidth:1,tickLength:10,tickPosition:"inside",tickWidth:2,title:{rotation:0},zIndex:2},defaultRadialXOptions:{gridLineWidth:1,labels:{align:null,distance:15,x:0,y:null},maxPadding:0,minPadding:0,showLastLabel:!1,tickLength:0},defaultRadialYOptions:{gridLineInterpolation:"circle",labels:{align:"right",x:-3,y:-2},showLastLabel:!1,title:{x:4,text:null,rotation:90}},setOptions:function(a){a=
-this.options=n(this.defaultOptions,this.defaultRadialOptions,a);a.plotBands||(a.plotBands=[])},getOffset:function(){f.getOffset.call(this);this.chart.axisOffset[this.side]=0},getLinePath:function(a,c){a=this.center;var e=this.chart,d=g(c,a[2]/2-this.offset);this.isCircular||void 0!==c?c=this.chart.renderer.symbols.arc(this.left+a[0],this.top+a[1],d,d,{start:this.startAngleRad,end:this.endAngleRad,open:!0,innerR:0}):(c=this.postTranslate(this.angleRad,d),c=["M",a[0]+e.plotLeft,a[1]+e.plotTop,"L",c.x,
-c.y]);return c},setAxisTranslation:function(){f.setAxisTranslation.call(this);this.center&&(this.transA=this.isCircular?(this.endAngleRad-this.startAngleRad)/(this.max-this.min||1):this.center[2]/2/(this.max-this.min||1),this.minPixelPadding=this.isXAxis?this.transA*this.minPointOffset:0)},beforeSetTickPositions:function(){if(this.autoConnect=this.isCircular&&void 0===g(this.userMax,this.options.max)&&this.endAngleRad-this.startAngleRad===2*Math.PI)this.max+=this.categories&&1||this.pointRange||this.closestPointRange||
-0},setAxisSize:function(){f.setAxisSize.call(this);this.isRadial&&(this.pane.updateCenter(this),this.isCircular&&(this.sector=this.endAngleRad-this.startAngleRad),this.len=this.width=this.height=this.center[2]*g(this.sector,1)/2)},getPosition:function(a,c){return this.postTranslate(this.isCircular?this.translate(a):this.angleRad,g(this.isCircular?c:this.translate(a),this.center[2]/2)-this.offset)},postTranslate:function(a,c){var e=this.chart,d=this.center;a=this.startAngleRad+a;return{x:e.plotLeft+
-d[0]+Math.cos(a)*c,y:e.plotTop+d[1]+Math.sin(a)*c}},getPlotBandPath:function(a,c,p){var e=this.center,d=this.startAngleRad,k=e[2]/2,b=[g(p.outerRadius,"100%"),p.innerRadius,g(p.thickness,10)],f=Math.min(this.offset,0),t=/%$/,h,n=this.isCircular;"polygon"===this.options.gridLineInterpolation?e=this.getPlotLinePath(a).concat(this.getPlotLinePath(c,!0)):(a=Math.max(a,this.min),c=Math.min(c,this.max),n||(b[0]=this.translate(a),b[1]=this.translate(c)),b=w(b,function(a){t.test(a)&&(a=m(a,10)*k/100);return a}),
-"circle"!==p.shape&&n?(a=d+this.translate(a),c=d+this.translate(c)):(a=-Math.PI/2,c=1.5*Math.PI,h=!0),b[0]-=f,b[2]-=f,e=this.chart.renderer.symbols.arc(this.left+e[0],this.top+e[1],b[0],b[0],{start:Math.min(a,c),end:Math.max(a,c),innerR:g(b[1],b[0]-b[2]),open:h}));return e},getPlotLinePath:function(a,c){var e=this,d=e.center,b=e.chart,k=e.getPosition(a),f,g,t;e.isCircular?t=["M",d[0]+b.plotLeft,d[1]+b.plotTop,"L",k.x,k.y]:"circle"===e.options.gridLineInterpolation?(a=e.translate(a))&&(t=e.getLinePath(0,
-a)):(r(b.xAxis,function(a){a.pane===e.pane&&(f=a)}),t=[],a=e.translate(a),d=f.tickPositions,f.autoConnect&&(d=d.concat([d[0]])),c&&(d=[].concat(d).reverse()),r(d,function(c,e){g=f.getPosition(c,a);t.push(e?"L":"M",g.x,g.y)}));return t},getTitlePosition:function(){var a=this.center,c=this.chart,b=this.options.title;return{x:c.plotLeft+a[0]+(b.x||0),y:c.plotTop+a[1]-{high:.5,middle:.25,low:0}[b.align]*a[2]+(b.y||0)}}};a(f,"init",function(a,d,b){var e=d.angular,p=d.polar,f=b.isX,y=e&&f,h,t=d.options,
-m=this.pane=d.pane[b.pane||0],r=m.options;if(e){if(v(this,y?c:k),h=!f)this.defaultRadialOptions=this.defaultRadialGaugeOptions}else p&&(v(this,k),this.defaultRadialOptions=(h=f)?this.defaultRadialXOptions:n(this.defaultYAxisOptions,this.defaultRadialYOptions));e||p?(this.isRadial=!0,d.inverted=!1,t.chart.zoomType=null):this.isRadial=!1;h&&(m.axis=this);a.call(this,d,b);y||!e&&!p||(a=this.options,this.angleRad=(a.angle||0)*Math.PI/180,this.startAngleRad=(r.startAngle-90)*Math.PI/180,this.endAngleRad=
-(g(r.endAngle,r.startAngle+360)-90)*Math.PI/180,this.offset=a.offset||0,this.isCircular=h)});a(f,"autoLabelAlign",function(a){if(!this.isRadial)return a.apply(this,[].slice.call(arguments,1))});a(b,"getPosition",function(a,c,b,k,f){var e=this.axis;return e.getPosition?e.getPosition(b):a.call(this,c,b,k,f)});a(b,"getLabelPosition",function(a,c,b,k,f,q,y,h,t){var d=this.axis,e=q.y,p=20,l=q.align,u=(d.translate(this.pos)+d.startAngleRad+Math.PI/2)/Math.PI*180%360;d.isRadial?(a=d.getPosition(this.pos,
-d.center[2]/2+g(q.distance,-25)),"auto"===q.rotation?k.attr({rotation:u}):null===e&&(e=d.chart.renderer.fontMetrics(k.styles.fontSize).b-k.getBBox().height/2),null===l&&(d.isCircular?(this.label.getBBox().width>d.len*d.tickInterval/(d.max-d.min)&&(p=0),l=u>p&&u<180-p?"left":u>180+p&&u<360-p?"right":"center"):l="center",k.attr({align:l})),a.x+=q.x,a.y+=e):a=a.call(this,c,b,k,f,q,y,h,t);return a});a(b,"getMarkPath",function(a,c,b,k,f,q,y){var d=this.axis;d.isRadial?(a=d.getPosition(this.pos,d.center[2]/
-2+k),c=["M",c,b,"L",a.x,a.y]):c=a.call(this,c,b,k,f,q,y);return c})})(x);(function(b){var r=b.each,v=b.pick,w=b.defined,n=b.seriesType,h=b.seriesTypes,g=b.Series.prototype,m=b.Point.prototype;n("arearange","area",{lineWidth:1,threshold:null,tooltip:{pointFormat:'\x3cspan style\x3d"color:{series.color}"\x3e\u25cf\x3c/span\x3e {series.name}: \x3cb\x3e{point.low}\x3c/b\x3e - \x3cb\x3e{point.high}\x3c/b\x3e\x3cbr/\x3e'},trackByArea:!0,dataLabels:{align:null,verticalAlign:null,xLow:0,xHigh:0,yLow:0,yHigh:0}},
-{pointArrayMap:["low","high"],dataLabelCollections:["dataLabel","dataLabelUpper"],toYData:function(a){return[a.low,a.high]},pointValKey:"low",deferTranslatePolar:!0,highToXY:function(a){var c=this.chart,b=this.xAxis.postTranslate(a.rectPlotX,this.yAxis.len-a.plotHigh);a.plotHighX=b.x-c.plotLeft;a.plotHigh=b.y-c.plotTop;a.plotLowX=a.plotX},translate:function(){var a=this,c=a.yAxis,b=!!a.modifyValue;h.area.prototype.translate.apply(a);r(a.points,function(k){var e=k.low,d=k.high,p=k.plotY;null===d||
-null===e?(k.isNull=!0,k.plotY=null):(k.plotLow=p,k.plotHigh=c.translate(b?a.modifyValue(d,k):d,0,1,0,1),b&&(k.yBottom=k.plotHigh))});this.chart.polar&&r(this.points,function(c){a.highToXY(c);c.tooltipPos=[(c.plotHighX+c.plotLowX)/2,(c.plotHigh+c.plotLow)/2]})},getGraphPath:function(a){var c=[],b=[],f,e=h.area.prototype.getGraphPath,d,p,u;u=this.options;var l=this.chart.polar&&!1!==u.connectEnds,q=u.connectNulls,y=u.step;a=a||this.points;for(f=a.length;f--;)d=a[f],d.isNull||l||q||a[f+1]&&!a[f+1].isNull||
-b.push({plotX:d.plotX,plotY:d.plotY,doCurve:!1}),p={polarPlotY:d.polarPlotY,rectPlotX:d.rectPlotX,yBottom:d.yBottom,plotX:v(d.plotHighX,d.plotX),plotY:d.plotHigh,isNull:d.isNull},b.push(p),c.push(p),d.isNull||l||q||a[f-1]&&!a[f-1].isNull||b.push({plotX:d.plotX,plotY:d.plotY,doCurve:!1});a=e.call(this,a);y&&(!0===y&&(y="left"),u.step={left:"right",center:"center",right:"left"}[y]);c=e.call(this,c);b=e.call(this,b);u.step=y;u=[].concat(a,c);this.chart.polar||"M"!==b[0]||(b[0]="L");this.graphPath=u;
-this.areaPath=this.areaPath.concat(a,b);u.isArea=!0;u.xMap=a.xMap;this.areaPath.xMap=a.xMap;return u},drawDataLabels:function(){var a=this.data,c=a.length,b,f=[],e=this.options.dataLabels,d=e.align,p=e.verticalAlign,u=e.inside,l,q,y=this.chart.inverted;if(e.enabled||this._hasPointLabels){for(b=c;b--;)if(l=a[b])q=u?l.plotHigh<l.plotLow:l.plotHigh>l.plotLow,l.y=l.high,l._plotY=l.plotY,l.plotY=l.plotHigh,f[b]=l.dataLabel,l.dataLabel=l.dataLabelUpper,l.below=q,y?d||(e.align=q?"right":"left"):p||(e.verticalAlign=
-q?"top":"bottom"),e.x=e.xHigh,e.y=e.yHigh;g.drawDataLabels&&g.drawDataLabels.apply(this,arguments);for(b=c;b--;)if(l=a[b])q=u?l.plotHigh<l.plotLow:l.plotHigh>l.plotLow,l.dataLabelUpper=l.dataLabel,l.dataLabel=f[b],l.y=l.low,l.plotY=l._plotY,l.below=!q,y?d||(e.align=q?"left":"right"):p||(e.verticalAlign=q?"bottom":"top"),e.x=e.xLow,e.y=e.yLow;g.drawDataLabels&&g.drawDataLabels.apply(this,arguments)}e.align=d;e.verticalAlign=p},alignDataLabel:function(){h.column.prototype.alignDataLabel.apply(this,
-arguments)},drawPoints:function(){var a=this.points.length,c,b;g.drawPoints.apply(this,arguments);for(b=0;b<a;)c=this.points[b],c.lowerGraphic=c.graphic,c.graphic=c.upperGraphic,c._plotY=c.plotY,c._plotX=c.plotX,c.plotY=c.plotHigh,w(c.plotHighX)&&(c.plotX=c.plotHighX),b++;g.drawPoints.apply(this,arguments);for(b=0;b<a;)c=this.points[b],c.upperGraphic=c.graphic,c.graphic=c.lowerGraphic,c.plotY=c._plotY,c.plotX=c._plotX,b++},setStackedPoints:b.noop},{setState:function(){var a=this.state,c=this.series,
-b=c.chart.polar;w(this.plotHigh)||(this.plotHigh=c.yAxis.toPixels(this.high,!0));w(this.plotLow)||(this.plotLow=this.plotY=c.yAxis.toPixels(this.low,!0));m.setState.apply(this,arguments);this.graphic=this.upperGraphic;this.plotY=this.plotHigh;b&&(this.plotX=this.plotHighX);this.state=a;c.stateMarkerGraphic&&(c.lowerStateMarkerGraphic=c.stateMarkerGraphic,c.stateMarkerGraphic=c.upperStateMarkerGraphic);m.setState.apply(this,arguments);this.plotY=this.plotLow;this.graphic=this.lowerGraphic;b&&(this.plotX=
-this.plotLowX);c.stateMarkerGraphic&&(c.upperStateMarkerGraphic=c.stateMarkerGraphic,c.stateMarkerGraphic=c.lowerStateMarkerGraphic)},haloPath:function(){var a=this.series.chart.polar,c;this.plotY=this.plotLow;a&&(this.plotX=this.plotLowX);c=m.haloPath.apply(this,arguments);this.plotY=this.plotHigh;a&&(this.plotX=this.plotHighX);return c=c.concat(m.haloPath.apply(this,arguments))},destroy:function(){this.upperGraphic&&(this.upperGraphic=this.upperGraphic.destroy());return m.destroy.apply(this,arguments)}})})(x);
-(function(b){var r=b.seriesType;r("areasplinerange","arearange",null,{getPointSpline:b.seriesTypes.spline.prototype.getPointSpline})})(x);(function(b){var r=b.defaultPlotOptions,v=b.each,w=b.merge,n=b.noop,h=b.pick,g=b.seriesType,m=b.seriesTypes.column.prototype;g("columnrange","arearange",w(r.column,r.arearange,{lineWidth:1,pointRange:null,marker:null,states:{hover:{halo:!1}}}),{translate:function(){var a=this,c=a.yAxis,b=a.xAxis,f=b.startAngleRad,e,d=a.chart,p=a.xAxis.isRadial,u=Math.max(d.chartWidth,
-d.chartHeight)+999,l;m.translate.apply(a);v(a.points,function(k){var q=k.shapeArgs,g=a.options.minPointLength,t,m;k.plotHigh=l=Math.min(Math.max(-u,c.translate(k.high,0,1,0,1)),u);k.plotLow=Math.min(Math.max(-u,k.plotY),u);m=l;t=h(k.rectPlotY,k.plotY)-l;Math.abs(t)<g?(g-=t,t+=g,m-=g/2):0>t&&(t*=-1,m-=t);p?(e=k.barX+f,k.shapeType="path",k.shapeArgs={d:a.polarArc(m+t,m,e,e+k.pointWidth)}):(q.height=t,q.y=m,k.tooltipPos=d.inverted?[c.len+c.pos-d.plotLeft-m-t/2,b.len+b.pos-d.plotTop-q.x-q.width/2,t]:
-[b.left-d.plotLeft+q.x+q.width/2,c.pos-d.plotTop+m+t/2,t])})},directTouch:!0,trackerGroups:["group","dataLabelsGroup"],drawGraph:n,getSymbol:n,crispCol:m.crispCol,drawPoints:m.drawPoints,drawTracker:m.drawTracker,getColumnMetrics:m.getColumnMetrics,animate:function(){return m.animate.apply(this,arguments)},polarArc:function(){return m.polarArc.apply(this,arguments)},pointAttribs:m.pointAttribs},{setState:m.pointClass.prototype.setState})})(x);(function(b){var r=b.each,v=b.isNumber,w=b.merge,n=b.pick,
-h=b.pInt,g=b.Series,m=b.seriesType,a=b.TrackerMixin;m("gauge","line",{dataLabels:{enabled:!0,defer:!1,y:15,borderRadius:3,crop:!1,verticalAlign:"top",zIndex:2,borderWidth:1,borderColor:"#cccccc"},dial:{},pivot:{},tooltip:{headerFormat:""},showInLegend:!1},{angular:!0,directTouch:!0,drawGraph:b.noop,fixedBox:!0,forceDL:!0,noSharedTooltip:!0,trackerGroups:["group","dataLabelsGroup"],translate:function(){var a=this.yAxis,b=this.options,f=a.center;this.generatePoints();r(this.points,function(c){var d=
-w(b.dial,c.dial),e=h(n(d.radius,80))*f[2]/200,k=h(n(d.baseLength,70))*e/100,l=h(n(d.rearLength,10))*e/100,q=d.baseWidth||3,g=d.topWidth||1,m=b.overshoot,t=a.startAngleRad+a.translate(c.y,null,null,null,!0);v(m)?(m=m/180*Math.PI,t=Math.max(a.startAngleRad-m,Math.min(a.endAngleRad+m,t))):!1===b.wrap&&(t=Math.max(a.startAngleRad,Math.min(a.endAngleRad,t)));t=180*t/Math.PI;c.shapeType="path";c.shapeArgs={d:d.path||["M",-l,-q/2,"L",k,-q/2,e,-g/2,e,g/2,k,q/2,-l,q/2,"z"],translateX:f[0],translateY:f[1],
-rotation:t};c.plotX=f[0];c.plotY=f[1]})},drawPoints:function(){var a=this,b=a.yAxis.center,f=a.pivot,e=a.options,d=e.pivot,p=a.chart.renderer;r(a.points,function(c){var b=c.graphic,d=c.shapeArgs,k=d.d,f=w(e.dial,c.dial);b?(b.animate(d),d.d=k):(c.graphic=p[c.shapeType](d).attr({rotation:d.rotation,zIndex:1}).addClass("highcharts-dial").add(a.group),c.graphic.attr({stroke:f.borderColor||"none","stroke-width":f.borderWidth||0,fill:f.backgroundColor||"#000000"}))});f?f.animate({translateX:b[0],translateY:b[1]}):
-(a.pivot=p.circle(0,0,n(d.radius,5)).attr({zIndex:2}).addClass("highcharts-pivot").translate(b[0],b[1]).add(a.group),a.pivot.attr({"stroke-width":d.borderWidth||0,stroke:d.borderColor||"#cccccc",fill:d.backgroundColor||"#000000"}))},animate:function(a){var c=this;a||(r(c.points,function(a){var b=a.graphic;b&&(b.attr({rotation:180*c.yAxis.startAngleRad/Math.PI}),b.animate({rotation:a.shapeArgs.rotation},c.options.animation))}),c.animate=null)},render:function(){this.group=this.plotGroup("group","series",
-this.visible?"visible":"hidden",this.options.zIndex,this.chart.seriesGroup);g.prototype.render.call(this);this.group.clip(this.chart.clipRect)},setData:function(a,b){g.prototype.setData.call(this,a,!1);this.processData();this.generatePoints();n(b,!0)&&this.chart.redraw()},drawTracker:a&&a.drawTrackerPoint},{setState:function(a){this.state=a}})})(x);(function(b){var r=b.each,v=b.noop,w=b.pick,n=b.seriesType,h=b.seriesTypes;n("boxplot","column",{threshold:null,tooltip:{pointFormat:'\x3cspan style\x3d"color:{point.color}"\x3e\u25cf\x3c/span\x3e \x3cb\x3e {series.name}\x3c/b\x3e\x3cbr/\x3eMaximum: {point.high}\x3cbr/\x3eUpper quartile: {point.q3}\x3cbr/\x3eMedian: {point.median}\x3cbr/\x3eLower quartile: {point.q1}\x3cbr/\x3eMinimum: {point.low}\x3cbr/\x3e'},
-whiskerLength:"50%",fillColor:"#ffffff",lineWidth:1,medianWidth:2,states:{hover:{brightness:-.3}},whiskerWidth:2},{pointArrayMap:["low","q1","median","q3","high"],toYData:function(b){return[b.low,b.q1,b.median,b.q3,b.high]},pointValKey:"high",pointAttribs:function(b){var h=this.options,a=b&&b.color||this.color;return{fill:b.fillColor||h.fillColor||a,stroke:h.lineColor||a,"stroke-width":h.lineWidth||0}},drawDataLabels:v,translate:function(){var b=this.yAxis,m=this.pointArrayMap;h.column.prototype.translate.apply(this);
-r(this.points,function(a){r(m,function(c){null!==a[c]&&(a[c+"Plot"]=b.translate(a[c],0,1,0,1))})})},drawPoints:function(){var b=this,h=b.options,a=b.chart.renderer,c,k,f,e,d,p,u=0,l,q,y,n,t=!1!==b.doQuartiles,v,A=b.options.whiskerLength;r(b.points,function(g){var m=g.graphic,r=m?"animate":"attr",J=g.shapeArgs,x={},C={},H={},I=g.color||b.color;void 0!==g.plotY&&(l=J.width,q=Math.floor(J.x),y=q+l,n=Math.round(l/2),c=Math.floor(t?g.q1Plot:g.lowPlot),k=Math.floor(t?g.q3Plot:g.lowPlot),f=Math.floor(g.highPlot),
-e=Math.floor(g.lowPlot),m||(g.graphic=m=a.g("point").add(b.group),g.stem=a.path().addClass("highcharts-boxplot-stem").add(m),A&&(g.whiskers=a.path().addClass("highcharts-boxplot-whisker").add(m)),t&&(g.box=a.path(void 0).addClass("highcharts-boxplot-box").add(m)),g.medianShape=a.path(void 0).addClass("highcharts-boxplot-median").add(m)),x.stroke=g.stemColor||h.stemColor||I,x["stroke-width"]=w(g.stemWidth,h.stemWidth,h.lineWidth),x.dashstyle=g.stemDashStyle||h.stemDashStyle,g.stem.attr(x),A&&(C.stroke=
-g.whiskerColor||h.whiskerColor||I,C["stroke-width"]=w(g.whiskerWidth,h.whiskerWidth,h.lineWidth),g.whiskers.attr(C)),t&&(m=b.pointAttribs(g),g.box.attr(m)),H.stroke=g.medianColor||h.medianColor||I,H["stroke-width"]=w(g.medianWidth,h.medianWidth,h.lineWidth),g.medianShape.attr(H),p=g.stem.strokeWidth()%2/2,u=q+n+p,g.stem[r]({d:["M",u,k,"L",u,f,"M",u,c,"L",u,e]}),t&&(p=g.box.strokeWidth()%2/2,c=Math.floor(c)+p,k=Math.floor(k)+p,q+=p,y+=p,g.box[r]({d:["M",q,k,"L",q,c,"L",y,c,"L",y,k,"L",q,k,"z"]})),
-A&&(p=g.whiskers.strokeWidth()%2/2,f+=p,e+=p,v=/%$/.test(A)?n*parseFloat(A)/100:A/2,g.whiskers[r]({d:["M",u-v,f,"L",u+v,f,"M",u-v,e,"L",u+v,e]})),d=Math.round(g.medianPlot),p=g.medianShape.strokeWidth()%2/2,d+=p,g.medianShape[r]({d:["M",q,d,"L",y,d]}))})},setStackedPoints:v})})(x);(function(b){var r=b.each,v=b.noop,w=b.seriesType,n=b.seriesTypes;w("errorbar","boxplot",{color:"#000000",grouping:!1,linkedTo:":previous",tooltip:{pointFormat:'\x3cspan style\x3d"color:{point.color}"\x3e\u25cf\x3c/span\x3e {series.name}: \x3cb\x3e{point.low}\x3c/b\x3e - \x3cb\x3e{point.high}\x3c/b\x3e\x3cbr/\x3e'},
-whiskerWidth:null},{type:"errorbar",pointArrayMap:["low","high"],toYData:function(b){return[b.low,b.high]},pointValKey:"high",doQuartiles:!1,drawDataLabels:n.arearange?function(){var b=this.pointValKey;n.arearange.prototype.drawDataLabels.call(this);r(this.data,function(g){g.y=g[b]})}:v,getColumnMetrics:function(){return this.linkedParent&&this.linkedParent.columnMetrics||n.column.prototype.getColumnMetrics.call(this)}})})(x);(function(b){var r=b.correctFloat,v=b.isNumber,w=b.pick,n=b.Point,h=b.Series,
-g=b.seriesType,m=b.seriesTypes;g("waterfall","column",{dataLabels:{inside:!0},lineWidth:1,lineColor:"#333333",dashStyle:"dot",borderColor:"#333333",states:{hover:{lineWidthPlus:0}}},{pointValKey:"y",translate:function(){var a=this.options,c=this.yAxis,b,f,e,d,p,g,l,q,h,n,t=w(a.minPointLength,5),v=t/2,x=a.threshold,D=a.stacking,z;m.column.prototype.translate.apply(this);q=h=x;f=this.points;b=0;for(a=f.length;b<a;b++)e=f[b],l=this.processedYData[b],d=e.shapeArgs,p=D&&c.stacks[(this.negStacks&&l<x?"-":
-"")+this.stackKey],z=this.getStackIndicator(z,e.x,this.index),n=p?p[e.x].points[z.key]:[0,l],e.isSum?e.y=r(l):e.isIntermediateSum&&(e.y=r(l-h)),g=Math.max(q,q+e.y)+n[0],d.y=c.translate(g,0,1,0,1),e.isSum?(d.y=c.translate(n[1],0,1,0,1),d.height=Math.min(c.translate(n[0],0,1,0,1),c.len)-d.y):e.isIntermediateSum?(d.y=c.translate(n[1],0,1,0,1),d.height=Math.min(c.translate(h,0,1,0,1),c.len)-d.y,h=n[1]):(d.height=0<l?c.translate(q,0,1,0,1)-d.y:c.translate(q,0,1,0,1)-c.translate(q-l,0,1,0,1),q+=p&&p[e.x]?
-p[e.x].total:l),0>d.height&&(d.y+=d.height,d.height*=-1),e.plotY=d.y=Math.round(d.y)-this.borderWidth%2/2,d.height=Math.max(Math.round(d.height),.001),e.yBottom=d.y+d.height,d.height<=t&&!e.isNull?(d.height=t,d.y-=v,e.plotY=d.y,e.minPointLengthOffset=0>e.y?-v:v):e.minPointLengthOffset=0,d=e.plotY+(e.negative?d.height:0),this.chart.inverted?e.tooltipPos[0]=c.len-d:e.tooltipPos[1]=d},processData:function(a){var b=this.yData,k=this.options.data,f,e=b.length,d,p,g,l,q,n;p=d=g=l=this.options.threshold||
-0;for(n=0;n<e;n++)q=b[n],f=k&&k[n]?k[n]:{},"sum"===q||f.isSum?b[n]=r(p):"intermediateSum"===q||f.isIntermediateSum?b[n]=r(d):(p+=q,d+=q),g=Math.min(p,g),l=Math.max(p,l);h.prototype.processData.call(this,a);this.options.stacking||(this.dataMin=g,this.dataMax=l)},toYData:function(a){return a.isSum?0===a.x?null:"sum":a.isIntermediateSum?0===a.x?null:"intermediateSum":a.y},pointAttribs:function(a,b){var c=this.options.upColor;c&&!a.options.color&&(a.color=0<a.y?c:null);a=m.column.prototype.pointAttribs.call(this,
-a,b);delete a.dashstyle;return a},getGraphPath:function(){return["M",0,0]},getCrispPath:function(){var a=this.data,b=a.length,k=this.graph.strokeWidth()+this.borderWidth,k=Math.round(k)%2/2,f=this.yAxis.reversed,e=[],d,p,g;for(g=1;g<b;g++){p=a[g].shapeArgs;d=a[g-1].shapeArgs;p=["M",d.x+d.width,d.y+a[g-1].minPointLengthOffset+k,"L",p.x,d.y+a[g-1].minPointLengthOffset+k];if(0>a[g-1].y&&!f||0<a[g-1].y&&f)p[2]+=d.height,p[5]+=d.height;e=e.concat(p)}return e},drawGraph:function(){h.prototype.drawGraph.call(this);
-this.graph.attr({d:this.getCrispPath()})},setStackedPoints:function(){var a=this.options,b,k;h.prototype.setStackedPoints.apply(this,arguments);b=this.stackedYData?this.stackedYData.length:0;for(k=1;k<b;k++)a.data[k].isSum||a.data[k].isIntermediateSum||(this.stackedYData[k]+=this.stackedYData[k-1])},getExtremes:function(){if(this.options.stacking)return h.prototype.getExtremes.apply(this,arguments)}},{getClassName:function(){var a=n.prototype.getClassName.call(this);this.isSum?a+=" highcharts-sum":
-this.isIntermediateSum&&(a+=" highcharts-intermediate-sum");return a},isValid:function(){return v(this.y,!0)||this.isSum||this.isIntermediateSum}})})(x);(function(b){var r=b.Series,v=b.seriesType,w=b.seriesTypes;v("polygon","scatter",{marker:{enabled:!1,states:{hover:{enabled:!1}}},stickyTracking:!1,tooltip:{followPointer:!0,pointFormat:""},trackByArea:!0},{type:"polygon",getGraphPath:function(){for(var b=r.prototype.getGraphPath.call(this),h=b.length+1;h--;)(h===b.length||"M"===b[h])&&0<h&&b.splice(h,
-0,"z");return this.areaPath=b},drawGraph:function(){this.options.fillColor=this.color;w.area.prototype.drawGraph.call(this)},drawLegendSymbol:b.LegendSymbolMixin.drawRectangle,drawTracker:r.prototype.drawTracker,setStackedPoints:b.noop})})(x);(function(b){var r=b.arrayMax,v=b.arrayMin,w=b.Axis,n=b.color,h=b.each,g=b.isNumber,m=b.noop,a=b.pick,c=b.pInt,k=b.Point,f=b.Series,e=b.seriesType,d=b.seriesTypes;e("bubble","scatter",{dataLabels:{formatter:function(){return this.point.z},inside:!0,verticalAlign:"middle"},
-marker:{lineColor:null,lineWidth:1,radius:null,states:{hover:{radiusPlus:0}},symbol:"circle"},minSize:8,maxSize:"20%",softThreshold:!1,states:{hover:{halo:{size:5}}},tooltip:{pointFormat:"({point.x}, {point.y}), Size: {point.z}"},turboThreshold:0,zThreshold:0,zoneAxis:"z"},{pointArrayMap:["y","z"],parallelArrays:["x","y","z"],trackerGroups:["group","dataLabelsGroup"],specialGroup:"group",bubblePadding:!0,zoneAxis:"z",directTouch:!0,pointAttribs:function(b,c){var d=a(this.options.marker.fillOpacity,
-.5);b=f.prototype.pointAttribs.call(this,b,c);1!==d&&(b.fill=n(b.fill).setOpacity(d).get("rgba"));return b},getRadii:function(a,b,c,d){var e,k,f,g=this.zData,p=[],l=this.options,q="width"!==l.sizeBy,h=l.zThreshold,u=b-a;k=0;for(e=g.length;k<e;k++)f=g[k],l.sizeByAbsoluteValue&&null!==f&&(f=Math.abs(f-h),b=Math.max(b-h,Math.abs(a-h)),a=0),null===f?f=null:f<a?f=c/2-1:(f=0<u?(f-a)/u:.5,q&&0<=f&&(f=Math.sqrt(f)),f=Math.ceil(c+f*(d-c))/2),p.push(f);this.radii=p},animate:function(a){var b=this.options.animation;
-a||(h(this.points,function(a){var c=a.graphic,d;c&&c.width&&(d={x:c.x,y:c.y,width:c.width,height:c.height},c.attr({x:a.plotX,y:a.plotY,width:1,height:1}),c.animate(d,b))}),this.animate=null)},translate:function(){var a,c=this.data,e,f,k=this.radii;d.scatter.prototype.translate.call(this);for(a=c.length;a--;)e=c[a],f=k?k[a]:0,g(f)&&f>=this.minPxSize/2?(e.marker=b.extend(e.marker,{radius:f,width:2*f,height:2*f}),e.dlBox={x:e.plotX-f,y:e.plotY-f,width:2*f,height:2*f}):e.shapeArgs=e.plotY=e.dlBox=void 0},
-alignDataLabel:d.column.prototype.alignDataLabel,buildKDTree:m,applyZones:m},{haloPath:function(a){return k.prototype.haloPath.call(this,0===a?0:(this.marker?this.marker.radius||0:0)+a)},ttBelow:!1});w.prototype.beforePadding=function(){var b=this,d=this.len,e=this.chart,f=0,k=d,n=this.isXAxis,m=n?"xData":"yData",w=this.min,x={},D=Math.min(e.plotWidth,e.plotHeight),z=Number.MAX_VALUE,E=-Number.MAX_VALUE,F=this.max-w,B=d/F,G=[];h(this.series,function(d){var f=d.options;!d.bubblePadding||!d.visible&&
-e.options.chart.ignoreHiddenSeries||(b.allowZoomOutside=!0,G.push(d),n&&(h(["minSize","maxSize"],function(a){var b=f[a],d=/%$/.test(b),b=c(b);x[a]=d?D*b/100:b}),d.minPxSize=x.minSize,d.maxPxSize=Math.max(x.maxSize,x.minSize),d=d.zData,d.length&&(z=a(f.zMin,Math.min(z,Math.max(v(d),!1===f.displayNegative?f.zThreshold:-Number.MAX_VALUE))),E=a(f.zMax,Math.max(E,r(d))))))});h(G,function(a){var c=a[m],d=c.length,e;n&&a.getRadii(z,E,a.minPxSize,a.maxPxSize);if(0<F)for(;d--;)g(c[d])&&b.dataMin<=c[d]&&c[d]<=
-b.dataMax&&(e=a.radii[d],f=Math.min((c[d]-w)*B-e,f),k=Math.max((c[d]-w)*B+e,k))});G.length&&0<F&&!this.isLog&&(k-=d,B*=(d+f-k)/d,h([["min","userMin",f],["max","userMax",k]],function(c){void 0===a(b.options[c[0]],b[c[1]])&&(b[c[0]]+=c[2]/B)}))}})(x);(function(b){function r(a,b){var c=this.chart,f=this.options.animation,e=this.group,d=this.markerGroup,g=this.xAxis.center,h=c.plotLeft,l=c.plotTop;c.polar?c.renderer.isSVG&&(!0===f&&(f={}),b?(a={translateX:g[0]+h,translateY:g[1]+l,scaleX:.001,scaleY:.001},
-e.attr(a),d&&d.attr(a)):(a={translateX:h,translateY:l,scaleX:1,scaleY:1},e.animate(a,f),d&&d.animate(a,f),this.animate=null)):a.call(this,b)}var v=b.each,w=b.pick,n=b.seriesTypes,h=b.wrap,g=b.Series.prototype,m=b.Pointer.prototype;g.searchPointByAngle=function(a){var b=this.chart,k=this.xAxis.pane.center;return this.searchKDTree({clientX:180+-180/Math.PI*Math.atan2(a.chartX-k[0]-b.plotLeft,a.chartY-k[1]-b.plotTop)})};g.getConnectors=function(a,b,k,f){var c,d,g,h,l,n,m,r;d=f?1:0;c=0<=b&&b<=a.length-
-1?b:0>b?a.length-1+b:0;b=0>c-1?a.length-(1+d):c-1;d=c+1>a.length-1?d:c+1;g=a[b];d=a[d];h=g.plotX;g=g.plotY;l=d.plotX;n=d.plotY;d=a[c].plotX;c=a[c].plotY;h=(1.5*d+h)/2.5;g=(1.5*c+g)/2.5;l=(1.5*d+l)/2.5;m=(1.5*c+n)/2.5;n=Math.sqrt(Math.pow(h-d,2)+Math.pow(g-c,2));r=Math.sqrt(Math.pow(l-d,2)+Math.pow(m-c,2));h=Math.atan2(g-c,h-d);m=Math.PI/2+(h+Math.atan2(m-c,l-d))/2;Math.abs(h-m)>Math.PI/2&&(m-=Math.PI);h=d+Math.cos(m)*n;g=c+Math.sin(m)*n;l=d+Math.cos(Math.PI+m)*r;m=c+Math.sin(Math.PI+m)*r;d={rightContX:l,
-rightContY:m,leftContX:h,leftContY:g,plotX:d,plotY:c};k&&(d.prevPointCont=this.getConnectors(a,b,!1,f));return d};h(g,"buildKDTree",function(a){this.chart.polar&&(this.kdByAngle?this.searchPoint=this.searchPointByAngle:this.options.findNearestPointBy="xy");a.apply(this)});g.toXY=function(a){var b,g=this.chart,f=a.plotX;b=a.plotY;a.rectPlotX=f;a.rectPlotY=b;b=this.xAxis.postTranslate(a.plotX,this.yAxis.len-b);a.plotX=a.polarPlotX=b.x-g.plotLeft;a.plotY=a.polarPlotY=b.y-g.plotTop;this.kdByAngle?(g=
-(f/Math.PI*180+this.xAxis.pane.options.startAngle)%360,0>g&&(g+=360),a.clientX=g):a.clientX=a.plotX};n.spline&&(h(n.spline.prototype,"getPointSpline",function(a,b,g,f){this.chart.polar?f?(a=this.getConnectors(b,f,!0,this.connectEnds),a=["C",a.prevPointCont.rightContX,a.prevPointCont.rightContY,a.leftContX,a.leftContY,a.plotX,a.plotY]):a=["M",g.plotX,g.plotY]:a=a.call(this,b,g,f);return a}),n.areasplinerange&&(n.areasplinerange.prototype.getPointSpline=n.spline.prototype.getPointSpline));h(g,"translate",
-function(a){var b=this.chart;a.call(this);if(b.polar&&(this.kdByAngle=b.tooltip&&b.tooltip.shared,!this.preventPostTranslate))for(a=this.points,b=a.length;b--;)this.toXY(a[b])});h(g,"getGraphPath",function(a,b){var c=this,f,e,d;if(this.chart.polar){b=b||this.points;for(f=0;f<b.length;f++)if(!b[f].isNull){e=f;break}!1!==this.options.connectEnds&&void 0!==e&&(this.connectEnds=!0,b.splice(b.length,0,b[e]),d=!0);v(b,function(a){void 0===a.polarPlotY&&c.toXY(a)})}f=a.apply(this,[].slice.call(arguments,
-1));d&&b.pop();return f});h(g,"animate",r);n.column&&(n=n.column.prototype,n.polarArc=function(a,b,g,f){var c=this.xAxis.center,d=this.yAxis.len;return this.chart.renderer.symbols.arc(c[0],c[1],d-b,null,{start:g,end:f,innerR:d-w(a,d)})},h(n,"animate",r),h(n,"translate",function(a){var b=this.xAxis,g=b.startAngleRad,f,e,d;this.preventPostTranslate=!0;a.call(this);if(b.isRadial)for(f=this.points,d=f.length;d--;)e=f[d],a=e.barX+g,e.shapeType="path",e.shapeArgs={d:this.polarArc(e.yBottom,e.plotY,a,a+
-e.pointWidth)},this.toXY(e),e.tooltipPos=[e.plotX,e.plotY],e.ttBelow=e.plotY>b.center[1]}),h(n,"alignDataLabel",function(a,b,k,f,e,d){this.chart.polar?(a=b.rectPlotX/Math.PI*180,null===f.align&&(f.align=20<a&&160>a?"left":200<a&&340>a?"right":"center"),null===f.verticalAlign&&(f.verticalAlign=45>a||315<a?"bottom":135<a&&225>a?"top":"middle"),g.alignDataLabel.call(this,b,k,f,e,d)):a.call(this,b,k,f,e,d)}));h(m,"getCoordinates",function(a,b){var c=this.chart,f={xAxis:[],yAxis:[]};c.polar?v(c.axes,function(a){var d=
-a.isXAxis,e=a.center,g=b.chartX-e[0]-c.plotLeft,e=b.chartY-e[1]-c.plotTop;f[d?"xAxis":"yAxis"].push({axis:a,value:a.translate(d?Math.PI-Math.atan2(g,e):Math.sqrt(Math.pow(g,2)+Math.pow(e,2)),!0)})}):f=a.call(this,b);return f});h(b.Chart.prototype,"getAxes",function(a){this.pane||(this.pane=[]);v(b.splat(this.options.pane),function(a){new b.Pane(a,this)},this);a.call(this)});h(b.Chart.prototype,"drawChartBox",function(a){a.call(this);v(this.pane,function(a){a.render()})});h(b.Chart.prototype,"get",
-function(a,c){return b.find(this.pane,function(a){return a.options.id===c})||a.call(this,c)})})(x)});
-
-
-/***/ }),
-/* 5 */
 /***/ (function(module, exports) {
 
 /*
@@ -643,91 +601,50 @@ l.push(a._id)};C.prototype.currentOptions=function(f){function r(f,d,k,b){var e;
 
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-/*
- Highcharts JS v5.0.14 (2017-07-28)
- Exporting module
-
- (c) 2010-2017 Torstein Honsi
-
- License: www.highcharts.com/license
-*/
-(function(k){"object"===typeof module&&module.exports?module.exports=k:k(Highcharts)})(function(k){(function(f){var k=f.defaultOptions,p=f.doc,B=f.Chart,x=f.addEvent,I=f.removeEvent,F=f.fireEvent,r=f.createElement,C=f.discardElement,v=f.css,n=f.merge,D=f.pick,h=f.each,G=f.objectEach,t=f.extend,J=f.isTouchDevice,E=f.win,H=E.navigator.userAgent,K=f.Renderer.prototype.symbols;/Edge\/|Trident\/|MSIE /.test(H);/firefox/i.test(H);t(k.lang,{printChart:"Print chart",downloadPNG:"Download PNG image",downloadJPEG:"Download JPEG image",
-downloadPDF:"Download PDF document",downloadSVG:"Download SVG vector image",contextButtonTitle:"Chart context menu"});k.navigation={buttonOptions:{theme:{},symbolSize:14,symbolX:12.5,symbolY:10.5,align:"right",buttonSpacing:3,height:22,verticalAlign:"top",width:24}};n(!0,k.navigation,{menuStyle:{border:"1px solid #999999",background:"#ffffff",padding:"5px 0"},menuItemStyle:{padding:"0.5em 1em",background:"none",color:"#333333",fontSize:J?"14px":"11px",transition:"background 250ms, color 250ms"},menuItemHoverStyle:{background:"#335cad",
-color:"#ffffff"},buttonOptions:{symbolFill:"#666666",symbolStroke:"#666666",symbolStrokeWidth:3,theme:{fill:"#ffffff",stroke:"none",padding:5}}});k.exporting={type:"image/png",url:"https://export.highcharts.com/",printMaxWidth:780,scale:2,buttons:{contextButton:{className:"highcharts-contextbutton",menuClassName:"highcharts-contextmenu",symbol:"menu",_titleKey:"contextButtonTitle",menuItems:"printChart separator downloadPNG downloadJPEG downloadPDF downloadSVG".split(" ")}},menuItemDefinitions:{printChart:{textKey:"printChart",
-onclick:function(){this.print()}},separator:{separator:!0},downloadPNG:{textKey:"downloadPNG",onclick:function(){this.exportChart()}},downloadJPEG:{textKey:"downloadJPEG",onclick:function(){this.exportChart({type:"image/jpeg"})}},downloadPDF:{textKey:"downloadPDF",onclick:function(){this.exportChart({type:"application/pdf"})}},downloadSVG:{textKey:"downloadSVG",onclick:function(){this.exportChart({type:"image/svg+xml"})}}}};f.post=function(a,b,e){var c=r("form",n({method:"post",action:a,enctype:"multipart/form-data"},
-e),{display:"none"},p.body);G(b,function(a,b){r("input",{type:"hidden",name:b,value:a},null,c)});c.submit();C(c)};t(B.prototype,{sanitizeSVG:function(a,b){if(b&&b.exporting&&b.exporting.allowHTML){var e=a.match(/<\/svg>(.*?$)/);e&&e[1]&&(e='\x3cforeignObject x\x3d"0" y\x3d"0" width\x3d"'+b.chart.width+'" height\x3d"'+b.chart.height+'"\x3e\x3cbody xmlns\x3d"http://www.w3.org/1999/xhtml"\x3e'+e[1]+"\x3c/body\x3e\x3c/foreignObject\x3e",a=a.replace("\x3c/svg\x3e",e+"\x3c/svg\x3e"))}a=a.replace(/zIndex="[^"]+"/g,
-"").replace(/isShadow="[^"]+"/g,"").replace(/symbolName="[^"]+"/g,"").replace(/jQuery[0-9]+="[^"]+"/g,"").replace(/url\(("|&quot;)(\S+)("|&quot;)\)/g,"url($2)").replace(/url\([^#]+#/g,"url(#").replace(/<svg /,'\x3csvg xmlns:xlink\x3d"http://www.w3.org/1999/xlink" ').replace(/ (NS[0-9]+\:)?href=/g," xlink:href\x3d").replace(/\n/," ").replace(/<\/svg>.*?$/,"\x3c/svg\x3e").replace(/(fill|stroke)="rgba\(([ 0-9]+,[ 0-9]+,[ 0-9]+),([ 0-9\.]+)\)"/g,'$1\x3d"rgb($2)" $1-opacity\x3d"$3"').replace(/&nbsp;/g,
-"\u00a0").replace(/&shy;/g,"\u00ad");return a=a.replace(/<IMG /g,"\x3cimage ").replace(/<(\/?)TITLE>/g,"\x3c$1title\x3e").replace(/height=([^" ]+)/g,'height\x3d"$1"').replace(/width=([^" ]+)/g,'width\x3d"$1"').replace(/hc-svg-href="([^"]+)">/g,'xlink:href\x3d"$1"/\x3e').replace(/ id=([^" >]+)/g,' id\x3d"$1"').replace(/class=([^" >]+)/g,'class\x3d"$1"').replace(/ transform /g," ").replace(/:(path|rect)/g,"$1").replace(/style="([^"]+)"/g,function(a){return a.toLowerCase()})},getChartHTML:function(){return this.container.innerHTML},
-getSVG:function(a){var b,e,c,w,m,g=n(this.options,a);p.createElementNS||(p.createElementNS=function(a,b){return p.createElement(b)});e=r("div",null,{position:"absolute",top:"-9999em",width:this.chartWidth+"px",height:this.chartHeight+"px"},p.body);c=this.renderTo.style.width;m=this.renderTo.style.height;c=g.exporting.sourceWidth||g.chart.width||/px$/.test(c)&&parseInt(c,10)||600;m=g.exporting.sourceHeight||g.chart.height||/px$/.test(m)&&parseInt(m,10)||400;t(g.chart,{animation:!1,renderTo:e,forExport:!0,
-renderer:"SVGRenderer",width:c,height:m});g.exporting.enabled=!1;delete g.data;g.series=[];h(this.series,function(a){w=n(a.userOptions,{animation:!1,enableMouseTracking:!1,showCheckbox:!1,visible:a.visible});w.isInternal||g.series.push(w)});h(this.axes,function(a){a.userOptions.internalKey||(a.userOptions.internalKey=f.uniqueKey())});b=new f.Chart(g,this.callback);a&&h(["xAxis","yAxis","series"],function(c){var d={};a[c]&&(d[c]=a[c],b.update(d))});h(this.axes,function(a){var c=f.find(b.axes,function(b){return b.options.internalKey===
-a.userOptions.internalKey}),d=a.getExtremes(),e=d.userMin,d=d.userMax;!c||void 0===e&&void 0===d||c.setExtremes(e,d,!0,!1)});c=b.getChartHTML();c=this.sanitizeSVG(c,g);g=null;b.destroy();C(e);return c},getSVGForExport:function(a,b){var e=this.options.exporting;return this.getSVG(n({chart:{borderRadius:0}},e.chartOptions,b,{exporting:{sourceWidth:a&&a.sourceWidth||e.sourceWidth,sourceHeight:a&&a.sourceHeight||e.sourceHeight}}))},exportChart:function(a,b){b=this.getSVGForExport(a,b);a=n(this.options.exporting,
-a);f.post(a.url,{filename:a.filename||"chart",type:a.type,width:a.width||0,scale:a.scale,svg:b},a.formAttributes)},print:function(){var a=this,b=a.container,e=[],c=b.parentNode,f=p.body,m=f.childNodes,g=a.options.exporting.printMaxWidth,d,u;if(!a.isPrinting){a.isPrinting=!0;a.pointer.reset(null,0);F(a,"beforePrint");if(u=g&&a.chartWidth>g)d=[a.options.chart.width,void 0,!1],a.setSize(g,void 0,!1);h(m,function(a,b){1===a.nodeType&&(e[b]=a.style.display,a.style.display="none")});f.appendChild(b);E.focus();
-E.print();setTimeout(function(){c.appendChild(b);h(m,function(a,b){1===a.nodeType&&(a.style.display=e[b])});a.isPrinting=!1;u&&a.setSize.apply(a,d);F(a,"afterPrint")},1E3)}},contextMenu:function(a,b,e,c,w,m,g){var d=this,u=d.options.navigation,k=d.chartWidth,q=d.chartHeight,n="cache-"+a,l=d[n],y=Math.max(w,m),z,A;l||(d[n]=l=r("div",{className:a},{position:"absolute",zIndex:1E3,padding:y+"px"},d.container),z=r("div",{className:"highcharts-menu"},null,l),v(z,t({MozBoxShadow:"3px 3px 10px #888",WebkitBoxShadow:"3px 3px 10px #888",
-boxShadow:"3px 3px 10px #888"},u.menuStyle)),A=function(){v(l,{display:"none"});g&&g.setState(0);d.openMenu=!1},d.exportEvents.push(x(l,"mouseleave",function(){l.hideTimer=setTimeout(A,500)}),x(l,"mouseenter",function(){clearTimeout(l.hideTimer)}),x(p,"mouseup",function(b){d.pointer.inClass(b.target,a)||A()})),h(b,function(a){"string"===typeof a&&(a=d.options.exporting.menuItemDefinitions[a]);if(f.isObject(a,!0)){var b;a.separator?b=r("hr",null,null,z):(b=r("div",{className:"highcharts-menu-item",
-onclick:function(b){b&&b.stopPropagation();A();a.onclick&&a.onclick.apply(d,arguments)},innerHTML:a.text||d.options.lang[a.textKey]},null,z),b.onmouseover=function(){v(this,u.menuItemHoverStyle)},b.onmouseout=function(){v(this,u.menuItemStyle)},v(b,t({cursor:"pointer"},u.menuItemStyle)));d.exportDivElements.push(b)}}),d.exportDivElements.push(z,l),d.exportMenuWidth=l.offsetWidth,d.exportMenuHeight=l.offsetHeight);b={display:"block"};e+d.exportMenuWidth>k?b.right=k-e-w-y+"px":b.left=e-y+"px";c+m+d.exportMenuHeight>
-q&&"top"!==g.alignOptions.verticalAlign?b.bottom=q-c-y+"px":b.top=c+m-y+"px";v(l,b);d.openMenu=!0},addButton:function(a){var b=this,e=b.renderer,c=n(b.options.navigation.buttonOptions,a),f=c.onclick,m=c.menuItems,g,d,k=c.symbolSize||12;b.btnCount||(b.btnCount=0);b.exportDivElements||(b.exportDivElements=[],b.exportSVGElements=[]);if(!1!==c.enabled){var h=c.theme,q=h.states,p=q&&q.hover,q=q&&q.select,l;delete h.states;f?l=function(a){a.stopPropagation();f.call(b,a)}:m&&(l=function(){b.contextMenu(d.menuClassName,
-m,d.translateX,d.translateY,d.width,d.height,d);d.setState(2)});c.text&&c.symbol?h.paddingLeft=D(h.paddingLeft,25):c.text||t(h,{width:c.width,height:c.height,padding:0});d=e.button(c.text,0,0,l,h,p,q).addClass(a.className).attr({"stroke-linecap":"round",title:b.options.lang[c._titleKey],zIndex:3});d.menuClassName=a.menuClassName||"highcharts-menu-"+b.btnCount++;c.symbol&&(g=e.symbol(c.symbol,c.symbolX-k/2,c.symbolY-k/2,k,k).addClass("highcharts-button-symbol").attr({zIndex:1}).add(d),g.attr({stroke:c.symbolStroke,
-fill:c.symbolFill,"stroke-width":c.symbolStrokeWidth||1}));d.add().align(t(c,{width:d.width,x:D(c.x,b.buttonOffset)}),!0,"spacingBox");b.buttonOffset+=(d.width+c.buttonSpacing)*("right"===c.align?-1:1);b.exportSVGElements.push(d,g)}},destroyExport:function(a){var b=a?a.target:this;a=b.exportSVGElements;var e=b.exportDivElements,c=b.exportEvents,f;a&&(h(a,function(a,c){a&&(a.onclick=a.ontouchstart=null,f="cache-"+a.menuClassName,b[f]&&delete b[f],b.exportSVGElements[c]=a.destroy())}),a.length=0);e&&
-(h(e,function(a,c){clearTimeout(a.hideTimer);I(a,"mouseleave");b.exportDivElements[c]=a.onmouseout=a.onmouseover=a.ontouchstart=a.onclick=null;C(a)}),e.length=0);c&&(h(c,function(a){a()}),c.length=0)}});K.menu=function(a,b,e,c){return["M",a,b+2.5,"L",a+e,b+2.5,"M",a,b+c/2+.5,"L",a+e,b+c/2+.5,"M",a,b+c-1.5,"L",a+e,b+c-1.5]};B.prototype.renderExporting=function(){var a=this,b=a.options.exporting,e=b.buttons,c=a.isDirtyExporting||!a.exportSVGElements;a.buttonOffset=0;a.isDirtyExporting&&a.destroyExport();
-c&&!1!==b.enabled&&(a.exportEvents=[],G(e,function(b){a.addButton(b)}),a.isDirtyExporting=!1);x(a,"destroy",a.destroyExport)};B.prototype.callbacks.push(function(a){a.renderExporting();x(a,"redraw",a.renderExporting);h(["exporting","navigation"],function(b){a[b]={update:function(e,c){a.isDirtyExporting=!0;n(!0,a.options[b],e);D(c,!0)&&a.redraw()}}})})})(k)});
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-/*
-  Highcharts JS v5.0.14 (2017-07-28)
- Solid angular gauge module
-
- (c) 2010-2017 Torstein Honsi
-
- License: www.highcharts.com/license
-*/
-(function(l){"object"===typeof module&&module.exports?module.exports=l:l(Highcharts)})(function(l){(function(e){var l=e.pInt,u=e.pick,m=e.each,r=e.isNumber,w=e.wrap,v;w(e.Renderer.prototype.symbols,"arc",function(a,f,d,c,e,b){a=a(f,d,c,e,b);b.rounded&&(c=((b.r||c)-b.innerR)/2,b=["A",c,c,0,1,1,a[12],a[13]],a.splice.apply(a,[a.length-1,0].concat(["A",c,c,0,1,1,a[1],a[2]])),a.splice.apply(a,[11,3].concat(b)));return a});v={initDataClasses:function(a){var f=this.chart,d,c=0,t=this.options;this.dataClasses=
-d=[];m(a.dataClasses,function(b,h){b=e.merge(b);d.push(b);b.color||("category"===t.dataClassColor?(h=f.options.colors,b.color=h[c++],c===h.length&&(c=0)):b.color=e.color(t.minColor).tweenTo(e.color(t.maxColor),h/(a.dataClasses.length-1)))})},initStops:function(a){this.stops=a.stops||[[0,this.options.minColor],[1,this.options.maxColor]];m(this.stops,function(a){a.color=e.color(a[1])})},toColor:function(a,f){var d=this.stops,c,e,b=this.dataClasses,h,g;if(b)for(g=b.length;g--;){if(h=b[g],c=h.from,d=
-h.to,(void 0===c||a>=c)&&(void 0===d||a<=d)){e=h.color;f&&(f.dataClass=g);break}}else{this.isLog&&(a=this.val2lin(a));a=1-(this.max-a)/(this.max-this.min);for(g=d.length;g--&&!(a>d[g][0]););c=d[g]||d[g+1];d=d[g+1]||c;a=1-(d[0]-a)/(d[0]-c[0]||1);e=c.color.tweenTo(d.color,a)}return e}};e.seriesType("solidgauge","gauge",{colorByPoint:!0},{translate:function(){var a=this.yAxis;e.extend(a,v);!a.dataClasses&&a.options.dataClasses&&a.initDataClasses(a.options);a.initStops(a.options);e.seriesTypes.gauge.prototype.translate.call(this)},
-drawPoints:function(){var a=this,f=a.yAxis,d=f.center,c=a.options,t=a.chart.renderer,b=c.overshoot,h=r(b)?b/180*Math.PI:0,g;r(c.threshold)&&(g=f.startAngleRad+f.translate(c.threshold,null,null,null,!0));this.thresholdAngleRad=u(g,f.startAngleRad);m(a.points,function(b){var g=b.graphic,k=f.startAngleRad+f.translate(b.y,null,null,null,!0),m=l(u(b.options.radius,c.radius,100))*d[2]/200,n=l(u(b.options.innerRadius,c.innerRadius,60))*d[2]/200,p=f.toColor(b.y,b),q=Math.min(f.startAngleRad,f.endAngleRad),
-r=Math.max(f.startAngleRad,f.endAngleRad);"none"===p&&(p=b.color||a.color||"none");"none"!==p&&(b.color=p);k=Math.max(q-h,Math.min(r+h,k));!1===c.wrap&&(k=Math.max(q,Math.min(r,k)));q=Math.min(k,a.thresholdAngleRad);k=Math.max(k,a.thresholdAngleRad);k-q>2*Math.PI&&(k=q+2*Math.PI);b.shapeArgs=n={x:d[0],y:d[1],r:m,innerR:n,start:q,end:k,rounded:c.rounded};b.startR=m;g?(b=n.d,g.animate(e.extend({fill:p},n)),b&&(n.d=b)):(b.graphic=t.arc(n).addClass(b.getClassName(),!0).attr({fill:p,"sweep-flag":0}).add(a.group),
-"square"!==c.linecap&&b.graphic.attr({"stroke-linecap":"round","stroke-linejoin":"round"}),b.graphic.attr({stroke:c.borderColor||"none","stroke-width":c.borderWidth||0}))})},animate:function(a){a||(this.startAngleRad=this.thresholdAngleRad,e.seriesTypes.pie.prototype.animate.call(this,a))}})})(l)});
-
-
-/***/ }),
-/* 8 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__configuration__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(3);
 /* unused harmony reexport Configuration */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__one_card_component__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__one_card_component__ = __webpack_require__(14);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__one_card_component__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__two_card_component__ = __webpack_require__(16);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__two_card_component__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__three_card_component__ = __webpack_require__(15);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_3__three_card_component__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__five_card_component__ = __webpack_require__(12);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_4__five_card_component__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__four_card_component__ = __webpack_require__(13);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_5__four_card_component__["a"]; });
+
+
+
+
 
 
 
 
 /***/ }),
-/* 9 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__configuration__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(3);
 /* unused harmony reexport Configuration */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bar_chart_component__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bar_chart_component__ = __webpack_require__(20);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__bar_chart_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__line_chart_component__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__line_chart_component__ = __webpack_require__(23);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__line_chart_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pie_chart_component__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pie_chart_component__ = __webpack_require__(24);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_3__pie_chart_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gaugev1_chart_component__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gaugev1_chart_component__ = __webpack_require__(21);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_4__gaugev1_chart_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gaugev2_chart_component__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gaugev2_chart_component__ = __webpack_require__(22);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_5__gaugev2_chart_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__bar_line_chart_component__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__bar_line_chart_component__ = __webpack_require__(19);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_6__bar_line_chart_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__bar_line_pie_chart_component__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__bar_line_pie_chart_component__ = __webpack_require__(18);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_7__bar_line_pie_chart_component__["a"]; });
 
 
@@ -740,6 +657,24 @@ r=Math.max(f.startAngleRad,f.endAngleRad);"none"===p&&(p=b.color||a.color||"none
 
 
 /***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
@@ -747,53 +682,20 @@ r=Math.max(f.startAngleRad,f.endAngleRad);"none"===p&&(p=b.color||a.color||"none
 
 /***/ }),
 /* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseCard; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__configuration__ = __webpack_require__(2);
-
-var BaseCard = /** @class */ (function () {
-    function BaseCard(element, recordset, configuration) {
-        this.element = element;
-        this.recordset = recordset;
-        this.configuration = Object.assign({}, new __WEBPACK_IMPORTED_MODULE_0__configuration__["a" /* Configuration */](), configuration);
-        this.render();
-    }
-    BaseCard.prototype.render = function () {
-        this.onInit();
-        this.processRecordSet(this.recordset, this.configuration);
-    };
-    ;
-    BaseCard.prototype.getPosition = function (column) {
-        return this.recordset.columns.indexOf(column);
-    };
-    BaseCard.prototype.getFontSize = function () {
-        switch (this.configuration.boardFontSize) {
-            case 'SMALL':
-                return 11;
-            case 'MEDIUM':
-                return 18;
-            case 'LARGE':
-                return 25;
-            default:
-                return 11;
-        }
-    };
-    return BaseCard;
-}());
-
-
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardOne; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(10);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardFive; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__card_style_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -806,16 +708,170 @@ var __extends = (this && this.__extends) || (function () {
 })();
 
 
+
+var CardFive = /** @class */ (function (_super) {
+    __extends(CardFive, _super);
+    function CardFive() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    CardFive.prototype.onInit = function () {
+        this.card = {};
+    };
+    CardFive.prototype.processRecordSet = function (recordset, configuration) {
+        this.card = Object.assign({}, configuration.field);
+        if (configuration.field && configuration.field.name) {
+            var index = this.getPosition(configuration.field.name);
+            this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(recordset.rows[0][index], configuration.field.format, configuration.field.formatPrecision);
+        }
+        if (configuration.field && configuration.field.icon && configuration.field.icon.value) {
+            this.card.icon = configuration.field.icon.value;
+        }
+        if (configuration.field && configuration.field.color && configuration.field.color.value) {
+            this.card.color = configuration.field.color.value;
+        }
+        if (configuration.field && configuration.field.fontColor && configuration.field.fontColor.value) {
+            this.card.fontColor = configuration.field.fontColor.value;
+        }
+        if (configuration.field && configuration.field.iconColor && configuration.field.iconColor.value) {
+            this.card.iconColor = configuration.field.iconColor.value;
+        }
+    };
+    CardFive.prototype.generateTemplate = function (element, recordset, configuration) {
+        var template = "\n      <div class=\"board-card\" style=\"background-color: " + this.card.color + "\">\n        <div class=\"board-five\">\n          <div class=\"board-five-header\">\n            <span style=\"color: " + this.card.fontColor + "\">" + (this.card.title || '') + "</span>\n          </div>\n          <div class=\"board-five-body\">\n            <i style=\"color: " + this.card.iconColor + "\" class=\"" + (this.card.icon || '') + "\"></i>\n          </div>\n          <div class=\"board-five-footer\">\n             <span class=\"board-five-footer-value\" style=\"color: " + this.card.fontColor + "\">" + (this.card.value || '') + "</span>\n             <span style=\"color: " + this.card.fontColor + "\">" + (this.card.label || '') + "</span>\n          </div>\n        </div>\n      </div>    \n    ";
+        element.innerHTML = template;
+    };
+    return CardFive;
+}(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseCard */]));
+
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardFour; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__card_style_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+
+var CardFour = /** @class */ (function (_super) {
+    __extends(CardFour, _super);
+    function CardFour() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    CardFour.prototype.onInit = function () {
+        this.card = {};
+    };
+    CardFour.prototype.processRecordSet = function (recordset, configuration) {
+        this.card = Object.assign({}, configuration.field);
+        if (configuration.field && configuration.field.name) {
+            var index = this.getPosition(configuration.field.name);
+            this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(recordset.rows[0][index], configuration.field.format, configuration.field.formatPrecision);
+        }
+        if (configuration.field && configuration.field.icon && configuration.field.icon.value) {
+            this.card.icon = configuration.field.icon.value;
+        }
+        if (configuration.field && configuration.field.color && configuration.field.color.value) {
+            this.card.color = configuration.field.color.value;
+        }
+        if (configuration.field && configuration.field.fontColor && configuration.field.fontColor.value) {
+            this.card.fontColor = configuration.field.fontColor.value;
+        }
+        if (configuration.field && configuration.field.iconColor && configuration.field.iconColor.value) {
+            this.card.iconColor = configuration.field.iconColor.value;
+        }
+        if (configuration.field && configuration.field.description) {
+            this.card.description = configuration.field.description;
+        }
+    };
+    CardFour.prototype.generateTemplate = function (element, recordset, configuration) {
+        var template = "\n      <div class=\"board-card\">\n        <div class=\"card-four\" style=\"background-color: " + this.card.color + "\">\n          <div class=\"card-four-icon\">\n            <div class=\"card-four-icon-center\" style=\"background-color: " + this.card.color + "\">\n                <i style=\"color: " + this.card.iconColor + "\" class=\"" + (this.card.icon || '') + "\"></i>\n            </div>\n          </div>\n          <div class=\"card-four-detail\">\n            <div class=\"card-four-detail-header\">\n              <span style=\"color: " + this.card.fontColor + "\">" + (this.card.value || '') + "</span>      \n            </div>\n            <div class=\"card-four-detail-body\">\n              <span style=\"color: " + this.card.fontColor + "\">" + (this.card.label || '') + "</span>\n            </div>\n            <div class=\"card-four-detail-footer\">\n              <span style=\"color: " + this.card.fontColor + "\">" + (this.card.description || '') + "</span>\n            </div>\n          </div>\n        </div>\n      </div>    \n    ";
+        element.innerHTML = template;
+    };
+    return CardFour;
+}(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseCard */]));
+
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardOne; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__card_style_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+
 var CardOne = /** @class */ (function (_super) {
     __extends(CardOne, _super);
     function CardOne() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     CardOne.prototype.onInit = function () {
-        throw new Error("Method not implemented.");
+        this.card = {};
     };
     CardOne.prototype.processRecordSet = function (recordset, configuration) {
-        throw new Error("Method not implemented.");
+        var _this = this;
+        this.card = Object.assign({}, configuration.field);
+        if (configuration.field && configuration.field.icon && configuration.field.icon.value) {
+            this.card.icon = configuration.field.icon.value;
+        }
+        if (configuration.field && configuration.field.color && configuration.field.color.value) {
+            this.card.color = configuration.field.color.value;
+        }
+        if (configuration.field && configuration.field.fontColor && configuration.field.fontColor.value) {
+            this.card.fontColor = configuration.field.fontColor.value;
+        }
+        if (configuration.field && configuration.field.iconColor && configuration.field.iconColor.value) {
+            this.card.iconColor = configuration.field.iconColor.value;
+        }
+        if (configuration.field && configuration.field.name) {
+            var index = this.getPosition(configuration.field.name);
+            var cardValue_1 = recordset.rows[0][index];
+            this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(cardValue_1, configuration.field.format, configuration.field.formatPrecision);
+            configuration.conditionalsFormatting.forEach(function (condition) {
+                if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(condition.condition, cardValue_1, condition.value)) {
+                    if (condition.icon && condition.icon.value) {
+                        _this.card.icon = condition.icon.value;
+                    }
+                    if (condition.color && condition.color.value) {
+                        _this.card.color = condition.color.value;
+                    }
+                }
+            });
+        }
+    };
+    CardOne.prototype.generateTemplate = function (element, recordset, configuration) {
+        var template = "\n      <div class=\"board-card\">\n        <div class=\"card-one\">\n          <div class=\"card-one-icon\" style=\"background-color: " + this.card.color + "\">\n            <i style=\"color: " + this.card.iconColor + "\" class=\"" + (this.card.icon || '') + "\"></i>\n          </div>\n          <div class=\"card-one-detail\">\n            <div class=\"card-one-detail-header\">\n              <span style=\"color: " + this.card.fontColor + "\">" + (this.card.title || '') + "</span>\n            </div>\n            <div class=\"card-one-detail-body\">\n              <div style=\"color: " + this.card.fontColor + "\">" + (this.card.value || '') + "</div>\n            </div>\n            <div class=\"card-one-detail-footer\">\n              <span style=\"color: " + this.card.fontColor + "\">" + (this.card.label || '') + "</span>\n            </div>\n          </div>\n        </div>\n      </div>\n    ";
+        element.innerHTML = template;
     };
     return CardOne;
 }(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseCard */]));
@@ -823,7 +879,171 @@ var CardOne = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 13 */
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardThree; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__card_style_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+
+var CardThree = /** @class */ (function (_super) {
+    __extends(CardThree, _super);
+    function CardThree() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    CardThree.prototype.onInit = function () {
+        this.card = {};
+    };
+    CardThree.prototype.processRecordSet = function (recordset, configuration) {
+        var _this = this;
+        this.card = Object.assign({}, configuration.field);
+        if (configuration.color && configuration.color.value) {
+            this.card.color = configuration.color.value;
+        }
+        if (configuration && configuration.icon && configuration.icon.value) {
+            this.card.icon = configuration.icon.value;
+        }
+        if (configuration && configuration.fontColor && configuration.fontColor.value) {
+            this.card.fontColor = configuration.fontColor.value;
+        }
+        if (configuration && configuration.iconColor && configuration.iconColor.value) {
+            this.card.iconColor = configuration.iconColor.value;
+        }
+        if (configuration.fieldOne && configuration.fieldOne.name) {
+            var valueOne_1 = recordset.rows[0][this.getPosition(configuration.fieldOne.name)];
+            this.card.fieldOne = Object.assign(configuration.fieldOne, { value: __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(valueOne_1, configuration.fieldOne.format, configuration.fieldOne.formatPrecision) });
+            this.getConditionalsFormatting(configuration, configuration.fieldOne.name).forEach(function (data) {
+                _this.applyConditionalsFormatting(data.condition, valueOne_1, data.value, data);
+            });
+        }
+        if (configuration.fieldTwo && configuration.fieldTwo.name) {
+            var valueTwo_1 = recordset.rows[0][this.getPosition(configuration.fieldTwo.name)];
+            this.card.fieldTwo = Object.assign(configuration.fieldTwo, { value: __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(valueTwo_1, configuration.fieldTwo.format, configuration.fieldTwo.formatPrecision) });
+            this.getConditionalsFormatting(configuration, configuration.fieldTwo.name).forEach(function (data) {
+                _this.applyConditionalsFormatting(data.condition, valueTwo_1, data.value, data);
+            });
+        }
+        if (configuration.fieldThree && configuration.fieldThree.name) {
+            var valueThree_1 = recordset.rows[0][this.getPosition(configuration.fieldThree.name)];
+            this.card.fieldThree = Object.assign(configuration.fieldThree, { value: __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(valueThree_1, configuration.fieldThree.format, configuration.fieldThree.formatPrecision) });
+            this.getConditionalsFormatting(configuration, configuration.fieldThree.name).forEach(function (data) {
+                _this.applyConditionalsFormatting(data.condition, valueThree_1, data.value, data);
+            });
+        }
+    };
+    CardThree.prototype.getConditionalsFormatting = function (configuration, field) {
+        if (configuration.conditionalsFormatting) {
+            return configuration.conditionalsFormatting.filter(function (data) { return data.field == field; });
+        }
+        return [];
+    };
+    CardThree.prototype.applyConditionalsFormatting = function (condition, value, conditionValue, data) {
+        if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(condition, value, conditionValue)) {
+            if (data.icon && data.icon.value) {
+                this.card.icon = data.icon.value;
+            }
+            if (data.color && data.color.value) {
+                this.card.color = data.color.value;
+            }
+        }
+    };
+    CardThree.prototype.generateTemplate = function (element, recordset, configuration) {
+        var template = "\n      <div class=\"board-card\" style=\"background-color: " + this.card.color + "\">\n        <div class=\"card-three\">\n          <div class=\"card-three-right\">\n            <div class=\"card-three-right-header\">\n              <span style=\"color: " + this.card.fontColor + "\">" + (this.card.fieldOne.label || '') + "</span>\n              <span class=\"value\" style=\"color: " + this.card.fontColor + "\">" + (this.card.fieldOne.value || '') + "</span>\n            </div>\n            <div class=\"card-three-right-footer\">\n              <span style=\"color: " + this.card.fontColor + "\">" + (this.card.fieldTwo.label || '') + "</span>\n              <span class=\"value\" style=\"color: " + this.card.fontColor + "\">" + (this.card.fieldTwo.value || '') + "</span>\n            </div>\n          </div>\n          <div class=\"card-three-left\">\n            <div class=\"card-three-left-header\">\n              <i style=\"color: " + this.card.iconColor + "\" class=\"" + (this.card.icon || '') + "\"></i>\n            </div>\n            <div class=\"card-three-left-footer\">\n                <span style=\"color: " + this.card.fontColor + "\">" + (this.card.fieldThree.label || '') + "</span>\n                <span class=\"value\" style=\"color: " + this.card.fontColor + "\">" + (this.card.fieldThree.value || '') + "</span>\n            </div>\n          </div>\n        </div>\n      </div>\n    ";
+        element.innerHTML = template;
+    };
+    return CardThree;
+}(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseCard */]));
+
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardTwo; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__card_style_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+
+var CardTwo = /** @class */ (function (_super) {
+    __extends(CardTwo, _super);
+    function CardTwo() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    CardTwo.prototype.onInit = function () {
+        this.card = {};
+    };
+    CardTwo.prototype.processRecordSet = function (recordset, configuration) {
+        var _this = this;
+        this.card = Object.assign({}, configuration.field);
+        if (configuration.field && configuration.field.icon && configuration.field.icon.value) {
+            this.card.icon = configuration.field.icon.value;
+        }
+        if (configuration.field && configuration.field.color && configuration.field.color.value) {
+            this.card.color = configuration.field.color.value;
+        }
+        if (configuration.field && configuration.field.fontColor && configuration.field.fontColor.value) {
+            this.card.fontColor = configuration.field.fontColor.value;
+        }
+        if (configuration.field && configuration.field.iconColor && configuration.field.iconColor.value) {
+            this.card.iconColor = configuration.field.iconColor.value;
+        }
+        if (configuration.field && configuration.field.name) {
+            var index = this.getPosition(configuration.field.name);
+            var cardValue_1 = recordset.rows[0][index];
+            this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(cardValue_1, configuration.field.format, configuration.field.formatPrecision);
+            configuration.conditionalsFormatting.forEach(function (condition) {
+                if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(condition.condition, cardValue_1, condition.value)) {
+                    if (condition.icon && condition.icon.value) {
+                        _this.card.icon = condition.icon.value;
+                    }
+                    if (condition.color && condition.color.value) {
+                        _this.card.color = condition.color.value;
+                    }
+                }
+            });
+        }
+    };
+    CardTwo.prototype.generateTemplate = function (element, recordset, configuration) {
+        var template = "\n    <div class=\"board-card\" style=\"background-color: " + this.card.color + "\">\n      <div class=\"card-two\">\n        <div class=\"card-two-detail\">\n          <div class=\"card-two-detail-header\">\n            <span style=\"color: " + this.card.fontColor + "\">" + (this.card.title || '') + "</span>\n          </div>\n          <div class=\"card-two-detail-body\">\n            <span style=\"color: " + this.card.fontColor + "\">" + (this.card.value || '') + "</span>\n          </div>\n          <div class=\"card-two-detail-footer\">\n            <span style=\"color: " + this.card.fontColor + "\">" + (this.card.label || '') + "</span>\n          </div>\n        </div>\n        <div class=\"card-two-icon\">\n          <i style=\"color: " + this.card.iconColor + "\" class=\"" + (this.card.icon || '') + "\"></i>\n        </div>\n      </div>\n    </div>\n    ";
+        element.innerHTML = template;
+    };
+    return CardTwo;
+}(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseCard */]));
+
+
+
+/***/ }),
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -914,7 +1134,7 @@ var CommonProvider;
 
 
 /***/ }),
-/* 14 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1145,7 +1365,7 @@ var BarLinePie = /** @class */ (function (_super) {
                 noData: "Sem dados para apresentar"
             },
             title: {
-                text: configuration ? configuration.title.text : 'Título do Grafico',
+                text: configuration && configuration.title ? configuration.title.text : 'Título do Grafico',
                 style: {
                     fontSize: (this.getFontSize() + 7) + "px"
                 }
@@ -1232,7 +1452,7 @@ var BarLinePie = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 15 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1332,7 +1552,7 @@ var BarLine = /** @class */ (function (_super) {
                 className: 'responsive-chart'
             },
             title: {
-                text: configuration ? configuration.title.text : 'Título do Grafico',
+                text: configuration && configuration.title ? configuration.title.text : '',
                 style: {
                     fontSize: (this.getFontSize() + 7) + "px"
                 }
@@ -1424,7 +1644,7 @@ var BarLine = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 16 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1503,7 +1723,7 @@ var Bar = /** @class */ (function (_super) {
                 noData: "Sem dados para apresentar"
             },
             title: {
-                text: configuration.title.text,
+                text: configuration.title && configuration.title.text ? configuration.title.text : '',
                 style: {
                     fontSize: (this.getFontSize() + 7) + "px"
                 }
@@ -1589,7 +1809,7 @@ var Bar = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 17 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1659,7 +1879,7 @@ var GaugeV1 = /** @class */ (function (_super) {
                 noData: "Sem dados para apresentar"
             },
             title: {
-                text: configuration ? configuration.title.text : 'Titulo do grafico',
+                text: configuration && configuration.title ? configuration.title.text : 'Titulo do grafico',
                 style: {
                     fontSize: (this.getFontSize() + 7) + "px"
                 }
@@ -1730,7 +1950,7 @@ var GaugeV1 = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 18 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1808,7 +2028,7 @@ var GaugeV2 = /** @class */ (function (_super) {
                 noData: "Sem dados para apresentar"
             },
             title: {
-                text: configuration ? configuration.title.text : 'Titulo do grafico',
+                text: configuration && configuration.title ? configuration.title.text : 'Titulo do grafico',
                 style: {
                     fontSize: (this.getFontSize() + 7) + "px"
                 }
@@ -1862,7 +2082,7 @@ var GaugeV2 = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 19 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1928,7 +2148,7 @@ var Line = /** @class */ (function (_super) {
     Line.prototype.getHighChartConfiguration = function (configuration) {
         return {
             title: {
-                text: configuration.title.text,
+                text: configuration && configuration.title ? configuration.title.text : '',
                 style: {
                     fontSize: (this.getFontSize() + 7) + "px"
                 }
@@ -2016,7 +2236,7 @@ var Line = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 20 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2071,7 +2291,7 @@ var Pie = /** @class */ (function (_super) {
                 noData: "Sem dados para apresentar"
             },
             title: {
-                text: configuration.title.text,
+                text: configuration && configuration.title ? configuration.title.text : '',
                 style: {
                     fontSize: this.getFontSize() + 'px'
                 }
@@ -2134,44 +2354,43 @@ var Pie = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 21 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_highcharts__ = __webpack_require__(5);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SimpleDashboard", function() { return SimpleDashboard; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_highcharts__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_highcharts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_highcharts__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_highcharts_highcharts_more__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_highcharts_highcharts_more___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_highcharts_highcharts_more__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_highcharts_modules_exporting__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_highcharts_modules_exporting___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_highcharts_modules_exporting__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_highcharts_modules_solid_gauge__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_highcharts_modules_solid_gauge___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_highcharts_modules_solid_gauge__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__highcharts__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__cards__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__highcharts__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cards__ = __webpack_require__(5);
 
 
 
-
-
-
-__WEBPACK_IMPORTED_MODULE_1_highcharts_highcharts_more__(__WEBPACK_IMPORTED_MODULE_0_highcharts__);
-__WEBPACK_IMPORTED_MODULE_2_highcharts_modules_exporting__(__WEBPACK_IMPORTED_MODULE_0_highcharts__);
-__WEBPACK_IMPORTED_MODULE_3_highcharts_modules_solid_gauge__(__WEBPACK_IMPORTED_MODULE_0_highcharts__);
 window.Highcharts = window.Highcharts || __WEBPACK_IMPORTED_MODULE_0_highcharts__;
 window.mf = window.mf || {
     Chart: {
-        Bar: __WEBPACK_IMPORTED_MODULE_4__highcharts__["a" /* Bar */],
-        Line: __WEBPACK_IMPORTED_MODULE_4__highcharts__["b" /* Line */],
-        Pie: __WEBPACK_IMPORTED_MODULE_4__highcharts__["c" /* Pie */],
-        GaugeV1: __WEBPACK_IMPORTED_MODULE_4__highcharts__["d" /* GaugeV1 */],
-        GaugeV2: __WEBPACK_IMPORTED_MODULE_4__highcharts__["e" /* GaugeV2 */],
-        BarLine: __WEBPACK_IMPORTED_MODULE_4__highcharts__["f" /* BarLine */],
-        BarLinePie: __WEBPACK_IMPORTED_MODULE_4__highcharts__["g" /* BarLinePie */],
-        CardOne: __WEBPACK_IMPORTED_MODULE_5__cards__["a" /* CardOne */]
+        Bar: __WEBPACK_IMPORTED_MODULE_1__highcharts__["a" /* Bar */],
+        Line: __WEBPACK_IMPORTED_MODULE_1__highcharts__["b" /* Line */],
+        Pie: __WEBPACK_IMPORTED_MODULE_1__highcharts__["c" /* Pie */],
+        GaugeV1: __WEBPACK_IMPORTED_MODULE_1__highcharts__["d" /* GaugeV1 */],
+        GaugeV2: __WEBPACK_IMPORTED_MODULE_1__highcharts__["e" /* GaugeV2 */],
+        BarLine: __WEBPACK_IMPORTED_MODULE_1__highcharts__["f" /* BarLine */],
+        BarLinePie: __WEBPACK_IMPORTED_MODULE_1__highcharts__["g" /* BarLinePie */],
+        CardOne: __WEBPACK_IMPORTED_MODULE_2__cards__["a" /* CardOne */],
+        CardTwo: __WEBPACK_IMPORTED_MODULE_2__cards__["b" /* CardTwo */],
+        CardThree: __WEBPACK_IMPORTED_MODULE_2__cards__["c" /* CardThree */],
+        CardFive: __WEBPACK_IMPORTED_MODULE_2__cards__["d" /* CardFive */],
+        CardFour: __WEBPACK_IMPORTED_MODULE_2__cards__["e" /* CardFour */]
     }
 };
-/* harmony default export */ __webpack_exports__["default"] = (window.mf);
+var SimpleDashboard;
+(function (SimpleDashboard) {
+    function create() {
+        return window.mf;
+    }
+    SimpleDashboard.create = create;
+})(SimpleDashboard || (SimpleDashboard = {}));
 
 
 /***/ })

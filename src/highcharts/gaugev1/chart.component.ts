@@ -55,7 +55,7 @@ export class GaugeV1 extends BaseHighChart {
             noData: "Sem dados para apresentar"
         },
         title: {
-            text: configuration ? configuration.title.text : 'Titulo do grafico',
+            text: configuration && configuration.title ? configuration.title.text : 'Titulo do grafico',
             style: {
               fontSize: (this.getFontSize() + 7) + "px"
             }

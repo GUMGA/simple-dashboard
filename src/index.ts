@@ -6,10 +6,6 @@ import * as SolidGauge  from 'highcharts/modules/solid-gauge';
 import { Bar, Line, Pie, GaugeV1, GaugeV2, BarLine, BarLinePie } from './highcharts';
 import { CardOne, CardTwo, CardThree, CardFive, CardFour } from './cards';
 
-HighchartsMore(Highcharts);
-HighchartsExporting(Highcharts);
-SolidGauge(Highcharts);
-
 declare let window;
 
 window.Highcharts = window.Highcharts || Highcharts;
@@ -31,4 +27,10 @@ window.mf = window.mf || {
   }
 }
 
-export default window.mf;
+export namespace SimpleDashboard {
+
+  export function create(){
+    return window.mf;
+  }
+
+}

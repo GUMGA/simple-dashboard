@@ -41,7 +41,7 @@ export class Pie extends BaseHighChart {
               noData: "Sem dados para apresentar"
           },
           title: {
-            text  : configuration.title.text,
+            text  : configuration && configuration.title ? configuration.title.text : '',
             style : {
               fontSize: this.getFontSize() + 'px'
             }

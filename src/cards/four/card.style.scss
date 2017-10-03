@@ -30,12 +30,10 @@
 }
 
 .card-four-icon-center > i {
-  font-size: 7em;
+  font-size: 90px;
 }
 
-
 .card-four-icon {
-  flex:1 4%;
   display:flex;
   align-items: center;
   justify-content: center;
@@ -44,7 +42,7 @@
 }
 
 .card-four-detail {
-  flex:2 auto;
+  flex:1;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -53,7 +51,7 @@
 }
 
 .card-four-detail-header {
-  font-size: 2.5em;
+  font-size: 30px;
 }
 
 .card-four-detail-body {}

@@ -29,7 +29,7 @@
       angular.module('app', [])
         .controller('ctrl', function($http){
 
-                                                                            
+
           function getBoard(id){
             $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=eterno')
               .then(function(resp){
@@ -37,7 +37,7 @@
               });
           }
 
-          getBoard(2383);
+          getBoard(2657);
 
 
         })
