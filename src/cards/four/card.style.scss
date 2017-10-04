@@ -54,9 +54,27 @@
   font-size: 30px;
 }
 
-.card-four-detail-body {}
+.card-four-detail-body {
+
+}
+
 .card-four-detail-footer {
   overflow-x: hidden;
   height: 50px;
   margin-top: 5px;
+
+  textarea{
+    background: transparent;
+    border: none;
+    width: 100%;
+    resize: none;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+  }
+
 }

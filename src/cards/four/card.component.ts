@@ -40,23 +40,23 @@ export class CardFour extends BaseCard {
       <div class="board-card">
         <div class="card-four" style="background-color: ${this.card.color}">
           <div class="card-four-icon">
-            <div class="card-four-icon-center" style="background-color: ${this.card.color}">
+            <div class="card-four-icon-center" style="background-color: ${this.card.color}; border-color: ${this.card.color};">
                 <i style="color: ${this.card.iconColor}" class="${this.card.icon || ''}"></i>
             </div>
           </div>
           <div class="card-four-detail">
             <div class="card-four-detail-header">
-              <span style="color: ${this.card.fontColor}">${this.card.value || ''}</span>      
+              <span style="color: ${this.card.fontColor}">${this.card.value || ''}</span>
             </div>
             <div class="card-four-detail-body">
               <span style="color: ${this.card.fontColor}">${this.card.label || ''}</span>
             </div>
             <div class="card-four-detail-footer">
-              <span style="color: ${this.card.fontColor}">${this.card.description || ''}</span>
+              <textarea disabled style="color: ${this.card.fontColor}">${this.card.description || ''}</textarea>
             </div>
           </div>
         </div>
-      </div>    
+      </div>
     `;
     element.innerHTML = template;
   }

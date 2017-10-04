@@ -43,12 +43,16 @@
 .card-two-detail-header {
   font-size: 18px;
   text-transform: none;
+  text-align: left;
   font-weight: bold;
 }
 
 .card-two-detail-body {
+  text-align: left;
   font-size: 2em;
   font-weight: 700;
 }
 
-.card-two-detail-footer {}
+.card-two-detail-footer {
+  text-align: left;
+}
