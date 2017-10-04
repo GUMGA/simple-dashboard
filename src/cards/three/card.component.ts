@@ -26,6 +26,14 @@ export class CardThree extends BaseCard {
     if(configuration && configuration.iconColor && configuration.iconColor.value){
       this.card.iconColor = configuration.iconColor.value;
     }
+
+    this.applyFieldOne(configuration, recordset);
+    this.applyFieldTwo(configuration, recordset);
+    this.applyFieldThree(configuration, recordset);
+
+  }
+
+  protected applyFieldOne(configuration, recordset){
     if(configuration.fieldOne && configuration.fieldOne.name){
       let valueOne = recordset.rows[0][this.getPosition(configuration.fieldOne.name)];
       this.card.fieldOne = Object.assign(configuration.fieldOne ,
@@ -34,7 +42,12 @@ export class CardThree extends BaseCard {
       this.getConditionalsFormatting(configuration, configuration.fieldOne.name).forEach(data => {
         this.applyConditionalsFormatting(data.condition, valueOne, data.value, data);
       });
+    }else{
+      this.card.fieldOne = Object.assign({}, configuration.fieldOne);
     }
+  }
+
+  protected applyFieldTwo(configuration, recordset){
     if(configuration.fieldTwo && configuration.fieldTwo.name){
       let valueTwo = recordset.rows[0][this.getPosition(configuration.fieldTwo.name)];
       this.card.fieldTwo = Object.assign(configuration.fieldTwo ,
@@ -43,7 +56,12 @@ export class CardThree extends BaseCard {
       this.getConditionalsFormatting(configuration, configuration.fieldTwo.name).forEach(data => {
         this.applyConditionalsFormatting(data.condition, valueTwo, data.value, data);
       });
+    }else{
+      this.card.fieldTwo = Object.assign({}, configuration.fieldTwo);
     }
+  }
+
+  protected applyFieldThree(configuration, recordset){
     if(configuration.fieldThree && configuration.fieldThree.name){
       let valueThree = recordset.rows[0][this.getPosition(configuration.fieldThree.name)];
       this.card.fieldThree = Object.assign(configuration.fieldThree ,
@@ -52,6 +70,8 @@ export class CardThree extends BaseCard {
       this.getConditionalsFormatting(configuration, configuration.fieldThree.name).forEach(data => {
         this.applyConditionalsFormatting(data.condition, valueThree, data.value, data);
       });
+    }else{
+      this.card.fieldThree = Object.assign({}, configuration.fieldThree);
     }
   }
 

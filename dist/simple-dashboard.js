@@ -88,6 +88,8 @@ var BaseHighChart = /** @class */ (function () {
     function BaseHighChart(element, recordset, configuration) {
         this.element = element;
         this.recordset = recordset;
+        this.recordset.columns = this.recordset.columns || [];
+        this.recordset.rows = this.recordset.rows || [];
         this.configuration = Object.assign({}, new __WEBPACK_IMPORTED_MODULE_0__common_configuration__["a" /* Configuration */](), configuration);
         this.render();
     }
@@ -129,6 +131,8 @@ var BaseCard = /** @class */ (function () {
     function BaseCard(element, recordset, configuration) {
         this.element = element;
         this.recordset = recordset;
+        this.recordset.columns = this.recordset.columns || [];
+        this.recordset.rows = this.recordset.rows || [];
         this.configuration = Object.assign({}, new __WEBPACK_IMPORTED_MODULE_0__common_configuration__["a" /* Configuration */](), configuration);
         this.render();
     }
@@ -910,7 +914,6 @@ var CardThree = /** @class */ (function (_super) {
         this.card = {};
     };
     CardThree.prototype.processRecordSet = function (recordset, configuration) {
-        var _this = this;
         this.card = Object.assign({}, configuration.field);
         if (configuration.color && configuration.color.value) {
             this.card.color = configuration.color.value;
@@ -924,6 +927,12 @@ var CardThree = /** @class */ (function (_super) {
         if (configuration && configuration.iconColor && configuration.iconColor.value) {
             this.card.iconColor = configuration.iconColor.value;
         }
+        this.applyFieldOne(configuration, recordset);
+        this.applyFieldTwo(configuration, recordset);
+        this.applyFieldThree(configuration, recordset);
+    };
+    CardThree.prototype.applyFieldOne = function (configuration, recordset) {
+        var _this = this;
         if (configuration.fieldOne && configuration.fieldOne.name) {
             var valueOne_1 = recordset.rows[0][this.getPosition(configuration.fieldOne.name)];
             this.card.fieldOne = Object.assign(configuration.fieldOne, { value: __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(valueOne_1, configuration.fieldOne.format, configuration.fieldOne.formatPrecision) });
@@ -931,6 +940,12 @@ var CardThree = /** @class */ (function (_super) {
                 _this.applyConditionalsFormatting(data.condition, valueOne_1, data.value, data);
             });
         }
+        else {
+            this.card.fieldOne = Object.assign({}, configuration.fieldOne);
+        }
+    };
+    CardThree.prototype.applyFieldTwo = function (configuration, recordset) {
+        var _this = this;
         if (configuration.fieldTwo && configuration.fieldTwo.name) {
             var valueTwo_1 = recordset.rows[0][this.getPosition(configuration.fieldTwo.name)];
             this.card.fieldTwo = Object.assign(configuration.fieldTwo, { value: __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(valueTwo_1, configuration.fieldTwo.format, configuration.fieldTwo.formatPrecision) });
@@ -938,12 +953,21 @@ var CardThree = /** @class */ (function (_super) {
                 _this.applyConditionalsFormatting(data.condition, valueTwo_1, data.value, data);
             });
         }
+        else {
+            this.card.fieldTwo = Object.assign({}, configuration.fieldTwo);
+        }
+    };
+    CardThree.prototype.applyFieldThree = function (configuration, recordset) {
+        var _this = this;
         if (configuration.fieldThree && configuration.fieldThree.name) {
             var valueThree_1 = recordset.rows[0][this.getPosition(configuration.fieldThree.name)];
             this.card.fieldThree = Object.assign(configuration.fieldThree, { value: __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(valueThree_1, configuration.fieldThree.format, configuration.fieldThree.formatPrecision) });
             this.getConditionalsFormatting(configuration, configuration.fieldThree.name).forEach(function (data) {
                 _this.applyConditionalsFormatting(data.condition, valueThree_1, data.value, data);
             });
+        }
+        else {
+            this.card.fieldThree = Object.assign({}, configuration.fieldThree);
         }
     };
     CardThree.prototype.getConditionalsFormatting = function (configuration, field) {

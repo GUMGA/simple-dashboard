@@ -13,6 +13,8 @@ export abstract class BaseHighChart {
   constructor(element: HTMLElement, recordset: RecordSet, configuration: Configuration) {
     this.element = element;
     this.recordset = recordset;
+    this.recordset.columns = this.recordset.columns || [];
+    this.recordset.rows = this.recordset.rows || [];
     this.configuration  = Object.assign({}, new Configuration(), configuration);
     this.render();
   }
