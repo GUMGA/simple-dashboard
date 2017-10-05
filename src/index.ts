@@ -7,8 +7,11 @@ import { Bar, Line, Pie, GaugeV1, GaugeV2, BarLine, BarLinePie } from './highcha
 import { CardOne, CardTwo, CardThree, CardFive, CardFour } from './cards';
 import { FeedOne } from './feed'
 
-declare let window;
+HighchartsMore(Highcharts);
+HighchartsExporting(Highcharts);
+SolidGauge(Highcharts);
 
+declare let window;
 window.Highcharts = window.Highcharts || Highcharts;
 
 window.mf = window.mf || {
