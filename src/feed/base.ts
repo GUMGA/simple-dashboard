@@ -11,6 +11,10 @@ export abstract class BaseFeed {
     constructor(element: HTMLElement, recordset: RecordSet, configuration: Configuration) {
         this.element = element;
         this.recordset = recordset;
+        if(this.recordset){
+          this.recordset.columns = this.recordset.columns || [];
+          this.recordset.rows = this.recordset.rows || [];
+        }
         this.configuration  = Object.assign({}, new Configuration(), configuration);
         this.render();
     }

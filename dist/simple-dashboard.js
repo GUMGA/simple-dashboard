@@ -88,8 +88,10 @@ var BaseHighChart = /** @class */ (function () {
     function BaseHighChart(element, recordset, configuration) {
         this.element = element;
         this.recordset = recordset;
-        this.recordset.columns = this.recordset.columns || [];
-        this.recordset.rows = this.recordset.rows || [];
+        if (this.recordset) {
+            this.recordset.columns = this.recordset.columns || [];
+            this.recordset.rows = this.recordset.rows || [];
+        }
         this.configuration = Object.assign({}, new __WEBPACK_IMPORTED_MODULE_0__common_configuration__["a" /* Configuration */](), configuration);
         this.render();
     }
@@ -131,8 +133,10 @@ var BaseCard = /** @class */ (function () {
     function BaseCard(element, recordset, configuration) {
         this.element = element;
         this.recordset = recordset;
-        this.recordset.columns = this.recordset.columns || [];
-        this.recordset.rows = this.recordset.rows || [];
+        if (this.recordset) {
+            this.recordset.columns = this.recordset.columns || [];
+            this.recordset.rows = this.recordset.rows || [];
+        }
         this.configuration = Object.assign({}, new __WEBPACK_IMPORTED_MODULE_0__common_configuration__["a" /* Configuration */](), configuration);
         this.render();
     }
@@ -1311,6 +1315,10 @@ var BaseFeed = /** @class */ (function () {
     function BaseFeed(element, recordset, configuration) {
         this.element = element;
         this.recordset = recordset;
+        if (this.recordset) {
+            this.recordset.columns = this.recordset.columns || [];
+            this.recordset.rows = this.recordset.rows || [];
+        }
         this.configuration = Object.assign({}, new __WEBPACK_IMPORTED_MODULE_0__common_configuration__["a" /* Configuration */](), configuration);
         this.render();
     }
