@@ -34,7 +34,7 @@ export class CardThree extends BaseCard {
   }
 
   protected applyFieldOne(configuration, recordset){
-    if(configuration.fieldOne && configuration.fieldOne.name){
+    if(configuration.fieldOne && configuration.fieldOne.name && recordset.rows && recordset.rows[0]){
       let valueOne = recordset.rows[0][this.getPosition(configuration.fieldOne.name)];
       this.card.fieldOne = Object.assign(configuration.fieldOne ,
         { value: CommonProvider.formatValue(valueOne, configuration.fieldOne.format, configuration.fieldOne.formatPrecision)}
@@ -48,7 +48,7 @@ export class CardThree extends BaseCard {
   }
 
   protected applyFieldTwo(configuration, recordset){
-    if(configuration.fieldTwo && configuration.fieldTwo.name){
+    if(configuration.fieldTwo && configuration.fieldTwo.name && recordset.rows && recordset.rows[0]){
       let valueTwo = recordset.rows[0][this.getPosition(configuration.fieldTwo.name)];
       this.card.fieldTwo = Object.assign(configuration.fieldTwo ,
         { value: CommonProvider.formatValue(valueTwo, configuration.fieldTwo.format, configuration.fieldTwo.formatPrecision)}
@@ -62,7 +62,7 @@ export class CardThree extends BaseCard {
   }
 
   protected applyFieldThree(configuration, recordset){
-    if(configuration.fieldThree && configuration.fieldThree.name){
+    if(configuration.fieldThree && configuration.fieldThree.name && recordset.rows && recordset.rows[0]){
       let valueThree = recordset.rows[0][this.getPosition(configuration.fieldThree.name)];
       this.card.fieldThree = Object.assign(configuration.fieldThree ,
         { value: CommonProvider.formatValue(valueThree, configuration.fieldThree.format, configuration.fieldThree.formatPrecision)}

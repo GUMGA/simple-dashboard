@@ -33,20 +33,20 @@ export class CardTwo extends BaseCard {
 
     if(configuration.field && configuration.field.name){
       let index = this.getPosition(configuration.field.name);
-      let cardValue = recordset.rows[0][index];
-      this.card.value = CommonProvider.formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
-
-      configuration.conditionalsFormatting.forEach(condition => {
-        if (CommonProvider.isConditionalFormatting(condition.condition, cardValue, condition.value)) {
-            if (condition.icon && condition.icon.value) {
-                this.card.icon = condition.icon.value;
-            }
-            if (condition.color && condition.color.value) {
-                this.card.color = condition.color.value;
-            }
-        }
-      })
-
+      if(recordset.rows && recordset.rows[0]){
+        let cardValue = recordset.rows[0][index];
+        this.card.value = CommonProvider.formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
+        configuration.conditionalsFormatting.forEach(condition => {
+          if (CommonProvider.isConditionalFormatting(condition.condition, cardValue, condition.value)) {
+              if (condition.icon && condition.icon.value) {
+                  this.card.icon = condition.icon.value;
+              }
+              if (condition.color && condition.color.value) {
+                  this.card.color = condition.color.value;
+              }
+          }
+        })  
+      }
     }
 
 
