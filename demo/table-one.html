@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="ctrl">
+  <head>
+    <meta charset="utf-8">
+    <title>Simple Dashboard</title>
+    <link rel="stylesheet" href="../dist/simple-dashboard.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic&subset=latin,cyrillic">
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <style>
+      body{
+        background-color: #f5f5f5;
+      }
+      #chart{
+        width: 960px;
+        height: 500px;
+      }
+    </style>
+
+    <div id="chart" style="margin: 50px;"></div>
+
+    <script type="text/javascript" src="../dist/simple-dashboard.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+    <script src="../node_modules/moment/min/moment.min.js"></script>
+
+    <script type="text/javascript">
+
+        
+
+        angular.module('app', [])
+        .controller('ctrl', function($http){
+
+
+          function getBoard(id){
+            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=6L7E1507747576389C150774577638900O7.I')
+              .then(function(resp){
+                var card = new mf.Table.TableOne(document.getElementById('chart'), resp.data.data, resp.data);
+              });
+          }
+  
+          getBoard(305);
+
+
+        })
+
+    </script>
+
+  </body>
+</html>

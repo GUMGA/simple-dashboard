@@ -39,6 +39,8 @@ export class Configuration {
     iconColor: StringValue;
     icon: StringValue;
     name: string;
+    columns: Array<any>;
+    dynamicColumns: Boolean;
 
     constructor() {
       this.title = {

@@ -13,8 +13,6 @@ export class FeedOne extends BaseFeed {
     }
 
     protected processRecordSet(recordset: RecordSet, configuration: Configuration): void {
-        console.log('recordset: ',recordset)
-        console.log('configuration: ',configuration)
         this.feed = Object.assign({}, configuration);
 
         recordset.rows.forEach(row => {
