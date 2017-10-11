@@ -1,39 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app" ng-controller="ctrl">
   <head>
     <meta charset="utf-8">
     <title>Simple Dashboard</title>
   </head>
   <body>
 
-    <div id="chart">
+    <div id="chart" > 
 
     </div>
 
     <script type="text/javascript" src="../dist/simple-dashboard.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+    <script src="../node_modules/moment/min/moment.min.js"></script>
+
     <script type="text/javascript">
 
-      var data = {"columns":["id","name"],"labels":[],"positions":[],"icons":[],"colors":[],"fontColors":[],"rows":[[1,"Apresentação legal"],[8,"wilson"],[10,"cesar"],[11,"wilson 2"],[12,"sadfasdf"]],"columnFormats":[],"fontFamily":[],"message":"OK","identifier":null,"types":null};
+        
 
-      var Pie = new mf.Chart.Pie(document.getElementById('chart'), data, {
-        dataSeries: {
-          name: "id"
-        },
-        labelField: {
-          name: "name"
-        },
-        boardFontSize: 'MEDIUM',
-        conditionalsFormatting: [
-          {
-            condition: 'EQ',
-            value: 'cesar',
-            color: {
-              value: '#00fff6'
-            }
+        angular.module('app', [])
+        .controller('ctrl', function($http){
+
+
+          function getBoard(id){
+            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=eterno')
+              .then(function(resp){
+                var card = new mf.Chart.Pie(document.getElementById('chart'), resp.data.data, resp.data);
+              });
           }
-        ]
-      });
+  
+          getBoard(343);
+
+
+        })
 
     </script>
 

@@ -65,7 +65,7 @@ export class Bar extends BaseHighChart {
             noData: "Sem dados para apresentar"
         },
         title: {
-          text: configuration.title && configuration.title.text ? configuration.title.text : '',
+          text: configuration.title && configuration.title ? configuration.title : '',
           style: {
             fontSize: (this.getFontSize() + 7) +"px"
           }

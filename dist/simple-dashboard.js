@@ -1625,7 +1625,7 @@ var BarLinePie = /** @class */ (function (_super) {
                 noData: "Sem dados para apresentar"
             },
             title: {
-                text: configuration && configuration.title ? configuration.title.text : 'Título do Grafico',
+                text: configuration && configuration.title ? configuration.title : 'Título do Grafico',
                 style: {
                     fontSize: (this.getFontSize() + 7) + "px"
                 }
@@ -1812,7 +1812,7 @@ var BarLine = /** @class */ (function (_super) {
                 className: 'responsive-chart'
             },
             title: {
-                text: configuration && configuration.title ? configuration.title.text : '',
+                text: configuration && configuration.title ? configuration.title : '',
                 style: {
                     fontSize: (this.getFontSize() + 7) + "px"
                 }
@@ -1983,7 +1983,7 @@ var Bar = /** @class */ (function (_super) {
                 noData: "Sem dados para apresentar"
             },
             title: {
-                text: configuration.title && configuration.title.text ? configuration.title.text : '',
+                text: configuration.title && configuration.title ? configuration.title : '',
                 style: {
                     fontSize: (this.getFontSize() + 7) + "px"
                 }
@@ -2124,7 +2124,7 @@ var GaugeV1 = /** @class */ (function (_super) {
                     fontSize: this.getFontSize() + "px"
                 },
                 formatter: function () {
-                    return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.precision);
+                    return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.currentValue.format, configuration.precision);
                 }
             }
         });
@@ -2139,7 +2139,7 @@ var GaugeV1 = /** @class */ (function (_super) {
                 noData: "Sem dados para apresentar"
             },
             title: {
-                text: configuration && configuration.title ? configuration.title.text : 'Titulo do grafico',
+                text: configuration && configuration.title ? configuration.title : '',
                 style: {
                     fontSize: (this.getFontSize() + 7) + "px"
                 }
@@ -2177,7 +2177,7 @@ var GaugeV1 = /** @class */ (function (_super) {
                         fontSize: this.getFontSize() + "px"
                     },
                     formatter: function () {
-                        return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, configuration.format, configuration.precision);
+                        return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, configuration.currentValue.format, configuration.precision);
                     }
                 },
                 min: this.minimumValue,
@@ -2265,7 +2265,7 @@ var GaugeV2 = /** @class */ (function (_super) {
                     fontSize: this.getFontSize() + "px"
                 },
                 formatter: function () {
-                    return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.precision);
+                    return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.currentValue.format, configuration.precision);
                 }
             }
         });
@@ -2288,7 +2288,7 @@ var GaugeV2 = /** @class */ (function (_super) {
                 noData: "Sem dados para apresentar"
             },
             title: {
-                text: configuration && configuration.title ? configuration.title.text : 'Titulo do grafico',
+                text: configuration && configuration.title ? configuration.title : '',
                 style: {
                     fontSize: (this.getFontSize() + 7) + "px"
                 }
@@ -2319,6 +2319,9 @@ var GaugeV2 = /** @class */ (function (_super) {
                     step: 2,
                     style: {
                         fontSize: this.getFontSize() + "px"
+                    },
+                    formatter: function () {
+                        return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, configuration.currentValue.format, configuration.precision);
                     },
                     rotation: 'auto'
                 },
@@ -2408,7 +2411,7 @@ var Line = /** @class */ (function (_super) {
     Line.prototype.getHighChartConfiguration = function (configuration) {
         return {
             title: {
-                text: configuration && configuration.title ? configuration.title.text : '',
+                text: configuration && configuration.title ? configuration.title : '',
                 style: {
                     fontSize: (this.getFontSize() + 7) + "px"
                 }
@@ -2551,9 +2554,9 @@ var Pie = /** @class */ (function (_super) {
                 noData: "Sem dados para apresentar"
             },
             title: {
-                text: configuration && configuration.title ? configuration.title.text : '',
+                text: configuration && configuration.title ? configuration.title : '',
                 style: {
-                    fontSize: this.getFontSize() + 'px'
+                    fontSize: (this.getFontSize() + 7) + 'px'
                 }
             },
             legend: {

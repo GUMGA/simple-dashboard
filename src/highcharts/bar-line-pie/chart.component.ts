@@ -231,7 +231,7 @@ export class BarLinePie extends BaseHighChart {
             noData: "Sem dados para apresentar"
         },
         title: {
-            text: configuration && configuration.title ? configuration.title.text : 'Título do Grafico',
+            text: configuration && configuration.title ? configuration.title : 'Título do Grafico',
             style: {
                 fontSize: (this.getFontSize() + 7) + "px"
             }

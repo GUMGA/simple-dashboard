@@ -44,7 +44,7 @@
   text-align: left; }
 
 .card-one-detail-body {
-  font-size: 1.5em;
+  font-size: 28px;
   font-weight: 700;
   text-align: left; }
 
@@ -80,7 +80,7 @@
   font-size: 5em; }
 
 .card-two-detail {
-  flex: 2 auto;
+  flex: 2;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -88,14 +88,14 @@
   padding: 10px; }
 
 .card-two-detail-header {
-  font-size: 18px;
+  font-size: 14px;
   text-transform: none;
   text-align: left;
   font-weight: bold; }
 
 .card-two-detail-body {
   text-align: left;
-  font-size: 2em;
+  font-size: 28px;
   font-weight: 700; }
 
 .card-two-detail-footer {

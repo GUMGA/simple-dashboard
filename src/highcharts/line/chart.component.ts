@@ -53,7 +53,7 @@ export class Line extends BaseHighChart {
   protected getHighChartConfiguration(configuration: Configuration) {
     return {
           title: {
-            text: configuration && configuration.title ? configuration.title.text : '',
+            text: configuration && configuration.title ? configuration.title : '',
             style: {
               fontSize: (this.getFontSize() + 7) +"px"
             }

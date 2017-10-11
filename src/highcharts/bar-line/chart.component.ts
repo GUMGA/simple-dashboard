@@ -91,7 +91,7 @@ export class BarLine extends BaseHighChart {
             className: 'responsive-chart'
         },
         title: {
-            text: configuration && configuration.title ? configuration.title.text : '',
+            text: configuration && configuration.title ? configuration.title : '',
             style: {
               fontSize: (this.getFontSize() + 7) +"px"
             }
