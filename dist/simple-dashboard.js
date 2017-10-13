@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 32);
+/******/ 	return __webpack_require__(__webpack_require__.s = 35);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,7 +71,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_provider__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_provider__ = __webpack_require__(25);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__common_provider__["a"]; });
 
 
@@ -82,7 +82,7 @@
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseHighChart; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(2);
 
 var BaseHighChart = /** @class */ (function () {
     function BaseHighChart(element, recordset, configuration) {
@@ -126,8 +126,42 @@ var BaseHighChart = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Configuration; });
+var Configuration = /** @class */ (function () {
+    function Configuration() {
+        this.title = {};
+        this.axisX = {};
+        this.axisY = [];
+        this.dataSeries = {};
+        this.labelField = {};
+        this.field = {};
+        this.fieldOne = {};
+        this.fieldTwo = {};
+        this.fieldThree = {};
+        this.conditionalsFormatting = [];
+        this.title = {
+            text: ''
+        };
+        this.boardFontSize = 'SMALL';
+        this.labelField.format = 'no_format';
+        this.showValues = false;
+        this.showLegend = true;
+        this.showGridLineWidthAxisY = true;
+        this.bands = new Array();
+        this.pies = new Array();
+    }
+    return Configuration;
+}());
+
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseCard; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(2);
 
 var BaseCard = /** @class */ (function () {
     function BaseCard(element, recordset, configuration) {
@@ -162,40 +196,6 @@ var BaseCard = /** @class */ (function () {
         }
     };
     return BaseCard;
-}());
-
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Configuration; });
-var Configuration = /** @class */ (function () {
-    function Configuration() {
-        this.title = {};
-        this.axisX = {};
-        this.axisY = [];
-        this.dataSeries = {};
-        this.labelField = {};
-        this.field = {};
-        this.fieldOne = {};
-        this.fieldTwo = {};
-        this.fieldThree = {};
-        this.conditionalsFormatting = [];
-        this.title = {
-            text: ''
-        };
-        this.boardFontSize = 'SMALL';
-        this.labelField.format = 'no_format';
-        this.showValues = false;
-        this.showLegend = true;
-        this.showGridLineWidthAxisY = true;
-        this.bands = new Array();
-        this.pies = new Array();
-    }
-    return Configuration;
 }());
 
 
@@ -739,17 +739,17 @@ r=Math.max(f.startAngleRad,f.endAngleRad);"none"===p&&(p=b.color||a.color||"none
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(2);
 /* unused harmony reexport Configuration */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__one_card_component__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__one_card_component__ = __webpack_require__(22);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__one_card_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__two_card_component__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__two_card_component__ = __webpack_require__(24);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__two_card_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__three_card_component__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__three_card_component__ = __webpack_require__(23);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_3__three_card_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__five_card_component__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__five_card_component__ = __webpack_require__(20);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_4__five_card_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__four_card_component__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__four_card_component__ = __webpack_require__(21);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_5__four_card_component__["a"]; });
 
 
@@ -764,7 +764,7 @@ r=Math.max(f.startAngleRad,f.endAngleRad);"none"===p&&(p=b.color||a.color||"none
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__one_feed_component__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__one_feed_component__ = __webpack_require__(27);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__one_feed_component__["a"]; });
 
 
@@ -774,21 +774,21 @@ r=Math.max(f.startAngleRad,f.endAngleRad);"none"===p&&(p=b.color||a.color||"none
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(2);
 /* unused harmony reexport Configuration */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bar_chart_component__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bar_chart_component__ = __webpack_require__(30);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__bar_chart_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__line_chart_component__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__line_chart_component__ = __webpack_require__(33);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__line_chart_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pie_chart_component__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pie_chart_component__ = __webpack_require__(34);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_3__pie_chart_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gaugev1_chart_component__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gaugev1_chart_component__ = __webpack_require__(31);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_4__gaugev1_chart_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gaugev2_chart_component__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gaugev2_chart_component__ = __webpack_require__(32);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_5__gaugev2_chart_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__bar_line_chart_component__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__bar_line_chart_component__ = __webpack_require__(29);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_6__bar_line_chart_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__bar_line_pie_chart_component__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__bar_line_pie_chart_component__ = __webpack_require__(28);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_7__bar_line_pie_chart_component__["a"]; });
 
 
@@ -802,15 +802,336 @@ r=Math.max(f.startAngleRad,f.endAngleRad);"none"===p&&(p=b.color||a.color||"none
 
 /***/ }),
 /* 11 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__grid__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__grid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__grid__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__one_table_component__ = __webpack_require__(37);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__one_table_component__["a"]; });
+
+
+
 
 /***/ }),
 /* 12 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+"use strict";
+
+
+(function () {
+
+    function scanTable($table) {
+        var m = [];
+        $table.children("tr").each(function (y, row) {
+            $(row).children("td, th").each(function (x, cell) {
+                var $cell = $(cell),
+                    cspan = $cell.attr("colspan") | 0,
+                    rspan = $cell.attr("rowspan") | 0,
+                    tx,
+                    ty;
+                cspan = cspan ? cspan : 1;
+                rspan = rspan ? rspan : 1;
+                for (; m[y] && m[y][x]; ++x) {} //skip already occupied cells in current row
+                for (tx = x; tx < x + cspan; ++tx) {
+                    //mark matrix elements occupied by current cell with true
+                    for (ty = y; ty < y + rspan; ++ty) {
+                        if (!m[ty]) {
+                            //fill missing rows
+                            m[ty] = [];
+                        }
+                        m[ty][tx] = true;
+                    }
+                }
+                var pos = { top: y, left: x };
+                $cell.data("cellPos", pos);
+            });
+        });
+    };
+
+    $.fn.cellPos = function (rescan) {
+        var $cell = this.first(),
+            pos = $cell.data("cellPos");
+        if (!pos || rescan) {
+            var $table = $cell.closest("table, thead, tbody, tfoot");
+            scanTable($table);
+        }
+        pos = $cell.data("cellPos");
+        return pos;
+    };
+
+    $.fn.smartGrid = function (param) {
+        return this.each(function () {
+            SmartGrid.call(this);
+        });
+
+        function SmartGrid() {
+
+            {
+                var setCorner = function setCorner() {
+                    var table = $(settings.table);
+
+                    if (settings.head) {
+                        if (settings.left > 0) {
+                            var tr = table.find("thead tr");
+
+                            tr.each(function (k, row) {
+                                solverLeftColspan(row, function (cell) {
+                                    $(cell).css("z-index", settings['z-index'] + 1);
+                                });
+                            });
+                        }
+
+                        if (settings.right > 0) {
+                            var tr = table.find("thead tr");
+
+                            tr.each(function (k, row) {
+                                solveRightColspan(row, function (cell) {
+                                    $(cell).css("z-index", settings['z-index'] + 1);
+                                });
+                            });
+                        }
+                    }
+
+                    if (settings.foot) {
+                        if (settings.left > 0) {
+                            var tr = table.find("tfoot tr");
+
+                            tr.each(function (k, row) {
+                                solverLeftColspan(row, function (cell) {
+                                    $(cell).css("z-index", settings['z-index']);
+                                });
+                            });
+                        }
+
+                        if (settings.right > 0) {
+                            var tr = table.find("tfoot tr");
+
+                            tr.each(function (k, row) {
+                                solveRightColspan(row, function (cell) {
+                                    $(cell).css("z-index", settings['z-index']);
+                                });
+                            });
+                        }
+                    }
+                };
+
+                var handlingFixed = function handlingFixed(parent, e) {
+                    var scrollWidth = parent[0].scrollWidth;
+                    var clientWidth = parent[0].clientWidth;
+                    var scrollHeight = parent[0].scrollHeight;
+                    var clientHeight = parent[0].clientHeight;
+                    var top = parent.scrollTop();
+                    var left = parent.scrollLeft();
+
+                    if (settings.head) parent.find("thead tr > *").css("top", top);
+
+                    if (settings.foot) parent.find("tfoot tr > *").css("bottom", scrollHeight - clientHeight - top);
+
+                    if (settings.left > 0) {
+                        settings.leftColumns.css("left", left);
+                        if (settings.class) settings.leftColumns.addClass(settings.class);
+                    }
+
+                    if (settings.right > 0) {
+                        settings.rightColumns.css("right", scrollWidth - clientWidth - left);
+                        if (settings.class) settings.rightColumns.addClass(settings.class);
+                    }
+                };
+
+                var setParent = function setParent() {
+                    var parent = $(settings.parent);
+                    var table = $(settings.table);
+                    parent.css({
+                        'overflow-x': 'auto',
+                        'overflow-y': 'auto'
+                    });
+
+                    var lastMoment = 0;
+
+                    $(parent).bind('touchmove', function (ev) {
+                        handlingFixed(parent, ev);
+                    });
+
+                    parent.scroll(function (ev) {
+                        ev.stopPropagation();ev.preventDefault();
+                        handlingFixed(parent, ev);
+                    });
+                };
+
+                // Set table head fixed
+
+
+                var fixHead = function fixHead() {
+                    var thead = $(settings.table).find("thead");
+                    var tr = thead.find("tr");
+                    var cells = thead.find("tr > *");
+                    setBackground(cells);
+                    cells.css({
+                        'position': 'relative'
+                    });
+                };
+
+                // Set table foot fixed
+
+
+                var fixFoot = function fixFoot() {
+                    var tfoot = $(settings.table).find("tfoot");
+                    var tr = tfoot.find("tr");
+                    var cells = tfoot.find("tr > *");
+
+                    setBackground(cells);
+                    cells.css({
+                        'position': 'relative'
+                    });
+                };
+
+                // Set table left column fixed
+
+
+                var fixLeft = function fixLeft() {
+                    var table = $(settings.table);
+                    settings.leftColumns = $();
+                    var tr = table.find("tr"),
+                        count = 0;
+                    tr.each(function (k, row) {
+                        solverLeftColspan(row, function (cell) {
+                            if (settings.top == undefined || count < settings.top * settings.left) settings.leftColumns = settings.leftColumns.add(cell);
+                            if (cell[0] && cell[0].nodeName == 'TD') count++;
+                        });
+                    });
+                    var column = settings.leftColumns;
+                    column.each(function (k, cell) {
+                        var cell = $(cell);
+                        setBackground(cell);
+                        cell.css({
+                            'position': 'relative'
+                        });
+                    });
+                };
+
+                // Set table right column fixed
+
+
+                var fixRight = function fixRight() {
+                    var table = $(settings.table);
+
+                    var fixColumn = settings.right;
+
+                    settings.rightColumns = $();
+
+                    var tr = table.find("tr");
+                    tr.each(function (k, row) {
+                        solveRightColspan(row, function (cell) {
+                            settings.rightColumns = settings.rightColumns.add(cell);
+                        });
+                    });
+
+                    var column = settings.rightColumns;
+
+                    column.each(function (k, cell) {
+                        var cell = $(cell);
+
+                        setBackground(cell);
+                        cell.css({
+                            'position': 'relative'
+                        });
+                    });
+                };
+
+                // Set fixed cells backgrounds
+
+
+                var setBackground = function setBackground(elements) {
+                    elements.each(function (k, element) {
+                        var element = $(element);
+                        var parent = $(element).parent();
+                        if (element[0].style.backgroundColor) return;
+
+                        var elementBackground = element.css("background-color");
+                        elementBackground = elementBackground == "transparent" || elementBackground == "rgba(0, 0, 0, 0)" ? null : elementBackground;
+
+                        var parentBackground = parent.css("background-color");
+                        parentBackground = parentBackground == "transparent" || parentBackground == "rgba(0, 0, 0, 0)" ? null : parentBackground;
+
+                        var background = parentBackground ? parentBackground : "white";
+                        background = elementBackground ? elementBackground : background;
+                        // element.css("background-color", background);
+                        element.css("touch-action", "manipulation");
+                        // element.css("border-top", "1px solid rgba(168, 159, 159, 0.12)");
+                        element.css("background-clip", "padding-box");
+                    });
+                };
+
+                var solverLeftColspan = function solverLeftColspan(row, action) {
+                    var fixColumn = settings.left;
+                    var inc = 1;
+
+                    for (var i = 1; i <= fixColumn; i = i + inc) {
+                        var nth = inc > 1 ? i - 1 : i;
+
+                        var cell = $(row).find("> *:nth-child(" + nth + ")");
+                        var colspan = cell.prop("colspan");
+
+                        if (cell.cellPos().left < fixColumn) {
+                            action(cell);
+                        }
+
+                        inc = colspan;
+                    }
+                };
+
+                var solveRightColspan = function solveRightColspan(row, action) {
+                    var fixColumn = settings.right;
+                    var inc = 1;
+
+                    for (var i = 1; i <= fixColumn; i = i + inc) {
+                        var nth = inc > 1 ? i - 1 : i;
+
+                        var cell = $(row).find("> *:nth-last-child(" + nth + ")");
+                        var colspan = cell.prop("colspan");
+
+                        action(cell);
+
+                        inc = colspan;
+                    }
+                };
+
+                var defaults = {
+                    head: true,
+                    foot: false,
+                    left: 0,
+                    right: 0,
+                    class: 'smart-grid-fixed',
+                    'z-index': 0
+                };
+
+                var settings = $.extend({}, defaults, param);
+
+                settings.table = this;
+                settings.parent = $(settings.table).parent();
+                setParent();
+
+                if (settings.head == true) fixHead();
+
+                if (settings.foot == true) fixFoot();
+
+                if (settings.left > 0) fixLeft();
+
+                if (settings.right > 0) fixRight();
+
+                setCorner();
+
+                $(settings.parent).trigger("scroll");
+
+                window.onresize = function () {
+                    return $(settings.parent).trigger("scroll");
+                };
+            }
+        }
+    };
+})();
 
 /***/ }),
 /* 13 */
@@ -838,13 +1159,31 @@ r=Math.max(f.startAngleRad,f.endAngleRad);"none"===p&&(p=b.color||a.color||"none
 
 /***/ }),
 /* 17 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardFive; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__card_style_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -896,14 +1235,14 @@ var CardFive = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardFour; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__card_style_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -958,14 +1297,14 @@ var CardFour = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 19 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardOne; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__card_style_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1031,14 +1370,14 @@ var CardOne = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 20 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardThree; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__card_style_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1144,14 +1483,14 @@ var CardThree = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 21 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardTwo; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__card_style_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1217,7 +1556,7 @@ var CardTwo = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 22 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1308,12 +1647,12 @@ var CommonProvider;
 
 
 /***/ }),
-/* 23 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseFeed; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(2);
 
 var BaseFeed = /** @class */ (function () {
     function BaseFeed(element, recordset, configuration) {
@@ -1338,14 +1677,14 @@ var BaseFeed = /** @class */ (function () {
 
 
 /***/ }),
-/* 24 */
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FeedOne; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__feed_style_scss__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__feed_style_scss__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__feed_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__feed_style_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(26);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1369,8 +1708,6 @@ var FeedOne = /** @class */ (function (_super) {
     };
     FeedOne.prototype.processRecordSet = function (recordset, configuration) {
         var _this = this;
-        console.log('recordset: ', recordset);
-        console.log('configuration: ', configuration);
         this.feed = Object.assign({}, configuration);
         recordset.rows.forEach(function (row) {
             var content = "";
@@ -1394,7 +1731,7 @@ var FeedOne = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 25 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1712,7 +2049,7 @@ var BarLinePie = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 26 */
+/* 29 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1904,7 +2241,7 @@ var BarLine = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 27 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2069,7 +2406,7 @@ var Bar = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 28 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2210,7 +2547,7 @@ var GaugeV1 = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 29 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2345,7 +2682,7 @@ var GaugeV2 = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 30 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2499,7 +2836,7 @@ var Line = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 31 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2617,7 +2954,7 @@ var Pie = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 32 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2634,6 +2971,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__highcharts__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__cards__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__feed__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__table__ = __webpack_require__(11);
+
 
 
 
@@ -2662,6 +3001,9 @@ window.mf = window.mf || {
     },
     Feed: {
         FeedOne: __WEBPACK_IMPORTED_MODULE_6__feed__["a" /* FeedOne */]
+    },
+    Table: {
+        TableOne: __WEBPACK_IMPORTED_MODULE_7__table__["a" /* TableOne */]
     }
 };
 var SimpleDashboard;
@@ -2671,6 +3013,163 @@ var SimpleDashboard;
     }
     SimpleDashboard.create = create;
 })(SimpleDashboard || (SimpleDashboard = {}));
+
+
+/***/ }),
+/* 36 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseTable; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(2);
+
+var BaseTable = /** @class */ (function () {
+    function BaseTable(element, recordset, configuration) {
+        this.element = element;
+        this.recordset = recordset;
+        if (this.recordset) {
+            this.recordset.columns = this.recordset.columns || [];
+            this.recordset.rows = this.recordset.rows || [];
+        }
+        this.configuration = Object.assign({}, new __WEBPACK_IMPORTED_MODULE_0__common_configuration__["a" /* Configuration */](), configuration);
+        this.render();
+    }
+    BaseTable.prototype.render = function () {
+        this.onInit();
+        this.processRecordSet(this.recordset, this.configuration);
+        this.generateTemplate(this.element, this.recordset, this.configuration);
+    };
+    ;
+    return BaseTable;
+}());
+
+
+
+/***/ }),
+/* 37 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TableOne; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__table_style_scss__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__table_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__table_style_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+
+var TableOne = /** @class */ (function (_super) {
+    __extends(TableOne, _super);
+    function TableOne() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.STRIPED_COLOR = '#F5F5F5';
+        return _this;
+    }
+    TableOne.prototype.onInit = function () {
+        this.rows = [];
+        this.columns = [];
+    };
+    TableOne.prototype.setStripedColor = function (color) {
+        this.STRIPED_COLOR = color;
+        _super.prototype.render.call(this);
+    };
+    TableOne.prototype.processRecordSet = function (recordset, configuration) {
+        var _this = this;
+        if (configuration.dynamicColumns && recordset && recordset.columns) {
+            this.columns = recordset.columns.map(function (column) {
+                return { name: column, label: column, operation: '' };
+            });
+        }
+        else {
+            configuration
+                .columns
+                .forEach(function (column, index) { return _this.columns[index] = column; });
+        }
+        this.rows = configuration.data ? configuration.data.rows : [];
+    };
+    TableOne.prototype.getTableHeader = function () {
+        return this.columns.reduce(function (prev, next, index) {
+            return prev += "\n                <th>\n                    <strong>\n                        " + (next.label || next.name) + "\n                    </strong>\n                </th>\n            ";
+        }, ' ');
+    };
+    TableOne.prototype.getColumnIndex = function (column, recordset) {
+        var indexColumn = -1;
+        recordset.columns.forEach(function (columnData, index) {
+            if (column && columnData == column.name)
+                indexColumn = index;
+        });
+        return indexColumn;
+    };
+    TableOne.prototype.getColumnConditionalsFormatting = function (nextRow, nextColumn, recordset, configuration) {
+        var _this = this;
+        var toReturn = '';
+        configuration.conditionalsFormatting = configuration.conditionalsFormatting || [];
+        configuration.conditionalsFormatting.filter(function (data) {
+            return data && nextColumn && data.field == nextColumn.name && data.typeColor == 'COLUMN';
+        }).forEach(function (data) {
+            var value = nextRow[_this.getColumnIndex(nextColumn, recordset)];
+            if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(data.condition, value, data.value)) {
+                toReturn += 'background-color: ' + data.color.value + ';';
+            }
+        });
+        return toReturn;
+    };
+    TableOne.prototype.getRowConditionalsFormatting = function (nextRow, indexRow, recordset, configuration) {
+        var _this = this;
+        var toReturn = '';
+        configuration.conditionalsFormatting = configuration.conditionalsFormatting || [];
+        configuration.conditionalsFormatting.filter(function (data) {
+            return data && data.typeColor == 'LINE';
+        }).forEach(function (data) {
+            var value = nextRow[_this.getColumnIndex({ name: data.field }, recordset)];
+            if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(data.condition, value, data.value)) {
+                toReturn += 'background-color: ' + data.color.value + ';';
+            }
+        });
+        if (toReturn == '' && (indexRow % 2) == 0) {
+            toReturn = 'background: ' + this.STRIPED_COLOR;
+        }
+        return toReturn;
+    };
+    TableOne.prototype.getTableBody = function (recordset, configuration) {
+        var _this = this;
+        return this.rows.reduce(function (prevRow, nextRow, indexRow) {
+            return prevRow += "\n                <tr>\n                    " + _this.columns.reduce(function (prevColumn, nextColumn, indexColumn) {
+                return prevColumn += "\n                            <td style=\"" + _this.getRowConditionalsFormatting(nextRow, indexRow, recordset, configuration) + _this.getColumnConditionalsFormatting(nextRow, nextColumn, recordset, configuration) + "\">\n                                " + _this.formatValue(indexColumn, nextRow[_this.getColumnIndex(nextColumn, recordset)]) + "\n                            </td>\n                        ";
+            }, ' ') + "\n                </tr>\n            ";
+        }, ' ');
+    };
+    TableOne.prototype.formatValue = function (index, value) {
+        if (value || value == 0) {
+            this.columns[index].format = this.columns[index].format || '';
+            this.columns[index].formatPrecision = this.columns[index].formatPrecision || 2;
+            return __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(value, this.columns[index].format, this.columns[index].formatPrecision);
+        }
+    };
+    TableOne.prototype.handlingSmartGrid = function (element) {
+        window.$(element.getElementsByTagName('table')[0]).smartGrid({
+            head: true,
+            left: 1
+        });
+    };
+    TableOne.prototype.generateTemplate = function (element, recordset, configuration) {
+        var template = "\n        <div class=\"table-responsive simple-dashboard-table\">\n          <table class=\"table\">\n            <thead>\n              <tr>\n                " + this.getTableHeader() + "\n              </tr>\n            </thead>\n            <tbody>\n                " + this.getTableBody(recordset, configuration) + "\n            </tbody>\n          </table>\n        </div>\n        ";
+        element.innerHTML = template;
+        this.handlingSmartGrid(element);
+    };
+    return TableOne;
+}(__WEBPACK_IMPORTED_MODULE_1__base__["a" /* BaseTable */]));
+
 
 
 /***/ })

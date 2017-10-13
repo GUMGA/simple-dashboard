@@ -23,14 +23,13 @@
 
     <div id="chart" style="margin: 50px;"></div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="../dist/simple-dashboard.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
     <script src="../node_modules/moment/min/moment.min.js"></script>
 
     <script type="text/javascript">
-
-        
 
         angular.module('app', [])
         .controller('ctrl', function($http){
@@ -39,12 +38,11 @@
           function getBoard(id){
             $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=6L7E1507747576389C150774577638900O7.I')
               .then(function(resp){
-                var card = new mf.Table.TableOne(document.getElementById('chart'), resp.data.data, resp.data);
+                var table = new mf.Table.TableOne(document.getElementById('chart'), resp.data.data, resp.data);
               });
           }
   
           getBoard(305);
-
 
         })
 
