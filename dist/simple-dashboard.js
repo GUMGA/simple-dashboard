@@ -3071,13 +3071,12 @@ var __extends = (this && this.__extends) || (function () {
 var TableOne = /** @class */ (function (_super) {
     __extends(TableOne, _super);
     function TableOne() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.STRIPED_COLOR = '#F5F5F5';
-        return _this;
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     TableOne.prototype.onInit = function () {
         this.rows = [];
         this.columns = [];
+        this.STRIPED_COLOR = '#F5F5F5';
     };
     TableOne.prototype.setStripedColor = function (color) {
         this.STRIPED_COLOR = color;
@@ -3095,6 +3094,7 @@ var TableOne = /** @class */ (function (_super) {
                 .columns
                 .forEach(function (column, index) { return _this.columns[index] = column; });
         }
+        this.columns = this.columns.sort(function (a, b) { return a.sequence - b.sequence; });
         this.rows = configuration.data ? configuration.data.rows : [];
     };
     TableOne.prototype.getTableHeader = function () {
@@ -3118,10 +3118,14 @@ var TableOne = /** @class */ (function (_super) {
             return data && nextColumn && data.field == nextColumn.name && data.typeColor == 'COLUMN';
         }).forEach(function (data) {
             var value = nextRow[_this.getColumnIndex(nextColumn, recordset)];
-            if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(data.condition, value, data.value)) {
+            if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(data.condition, value, data.value) && data.color && data.color.value) {
                 toReturn += 'background-color: ' + data.color.value + ';';
             }
         });
+        var columnType = configuration.data.types[this.getColumnIndex(nextColumn, recordset)] || 'String';
+        if (columnType == 'Number') {
+            toReturn += 'text-align: right;';
+        }
         return toReturn;
     };
     TableOne.prototype.getRowConditionalsFormatting = function (nextRow, indexRow, recordset, configuration) {
@@ -3132,12 +3136,12 @@ var TableOne = /** @class */ (function (_super) {
             return data && data.typeColor == 'LINE';
         }).forEach(function (data) {
             var value = nextRow[_this.getColumnIndex({ name: data.field }, recordset)];
-            if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(data.condition, value, data.value)) {
+            if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(data.condition, value, data.value) && data.color && data.color.value) {
                 toReturn += 'background-color: ' + data.color.value + ';';
             }
         });
         if (toReturn == '' && (indexRow % 2) == 0) {
-            toReturn = 'background: ' + this.STRIPED_COLOR;
+            toReturn = 'background: ' + this.STRIPED_COLOR + ';';
         }
         return toReturn;
     };
@@ -3163,7 +3167,7 @@ var TableOne = /** @class */ (function (_super) {
         });
     };
     TableOne.prototype.generateTemplate = function (element, recordset, configuration) {
-        var template = "\n        <div class=\"table-responsive simple-dashboard-table\">\n          <table class=\"table\">\n            <thead>\n              <tr>\n                " + this.getTableHeader() + "\n              </tr>\n            </thead>\n            <tbody>\n                " + this.getTableBody(recordset, configuration) + "\n            </tbody>\n          </table>\n        </div>\n        ";
+        var template = "\n        " + (configuration.title ? "\n            <h6 class=\"table-title\">" + configuration.title + "</h6>  \n        " : "") + "\n        <div class=\"table-responsive simple-dashboard-table\">\n            <table class=\"table\">\n                <thead>\n                    <tr>\n                    " + this.getTableHeader() + "\n                    </tr>\n                </thead>\n                <tbody>\n                    " + this.getTableBody(recordset, configuration) + "\n                </tbody>\n            </table>\n        </div>\n        ";
         element.innerHTML = template;
         this.handlingSmartGrid(element);
     };

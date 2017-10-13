@@ -10,11 +10,12 @@ export class TableOne extends BaseTable {
 
     private rows: Array<any>;
     private columns: Array<any>;
-    private STRIPED_COLOR = '#F5F5F5';
+    private STRIPED_COLOR: string;
 
     protected onInit(): void {
         this.rows = [];
         this.columns = [];
+        this.STRIPED_COLOR = '#F5F5F5';
     }
 
     public setStripedColor(color: string){
@@ -32,6 +33,7 @@ export class TableOne extends BaseTable {
                 .columns
                 .forEach((column, index) => this.columns[index] = column);
         }
+        this.columns = this.columns.sort((a, b) => a.sequence - b.sequence);
         this.rows = configuration.data ? configuration.data.rows : [];
     }
 
@@ -62,10 +64,16 @@ export class TableOne extends BaseTable {
             return data && nextColumn && data.field == nextColumn.name && data.typeColor == 'COLUMN';
         }).forEach(data => {
             let value = nextRow[this.getColumnIndex(nextColumn, recordset)];
-            if(CommonProvider.isConditionalFormatting(data.condition, value, data.value)){
+            if(CommonProvider.isConditionalFormatting(data.condition, value, data.value) && data.color && data.color.value){
                 toReturn += 'background-color: '+data.color.value+';';
             }
         });
+        let columnType = configuration.data.types[this.getColumnIndex(nextColumn, recordset)] || 'String';
+
+        if(columnType == 'Number'){
+            toReturn += 'text-align: right;';
+        }
+
         return toReturn;
     }
 
@@ -76,12 +84,12 @@ export class TableOne extends BaseTable {
             return data && data.typeColor == 'LINE';
         }).forEach(data => {
             let value = nextRow[this.getColumnIndex({name: data.field}, recordset)];
-            if(CommonProvider.isConditionalFormatting(data.condition, value, data.value)){
+            if(CommonProvider.isConditionalFormatting(data.condition, value, data.value) && data.color && data.color.value){
                 toReturn += 'background-color: '+data.color.value+';';
             }
         });
         if(toReturn == '' && (indexRow % 2) == 0){
-            toReturn = 'background: '+this.STRIPED_COLOR;
+            toReturn = 'background: '+ this.STRIPED_COLOR + ';';
         }
         return toReturn;
     }
@@ -121,17 +129,20 @@ export class TableOne extends BaseTable {
 
     protected generateTemplate(element: HTMLElement, recordset: RecordSet, configuration: Configuration): void {
         const template = `
+        ${configuration.title ? `
+            <h6 class="table-title">${configuration.title}</h6>  
+        ` : ``}
         <div class="table-responsive simple-dashboard-table">
-          <table class="table">
-            <thead>
-              <tr>
-                ${this.getTableHeader()}
-              </tr>
-            </thead>
-            <tbody>
-                ${this.getTableBody(recordset, configuration)}
-            </tbody>
-          </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                    ${this.getTableHeader()}
+                    </tr>
+                </thead>
+                <tbody>
+                    ${this.getTableBody(recordset, configuration)}
+                </tbody>
+            </table>
         </div>
         `;
         element.innerHTML = template;
