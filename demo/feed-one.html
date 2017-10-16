@@ -19,8 +19,9 @@
 
     <br><br>
 
-    <div id="feed" style="width: 405px; height: 105px; position: relative;"></div>
+    <div id="feed" style="width: 500px; height: 300px; position: relative;"></div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="../dist/simple-dashboard.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
 
@@ -31,13 +32,13 @@
 
 
           function getBoard(id){
-            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=eterno')
+            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=6L7E1508150919121C150814911912100O7.I')
               .then(function(resp){
                 var card = new mf.Feed.FeedOne(document.getElementById('feed'), resp.data.data, resp.data);
               });
           }
 
-          getBoard(2662);
+          getBoard(2730);
 
 
         })

@@ -20,12 +20,13 @@ export abstract class BaseFeed {
     }
 
     protected abstract onInit():void;
-    protected abstract processRecordSet(recordset: RecordSet, configuration: Configuration):void;
+    protected abstract processRecordSet(recordset: RecordSet, configuration: Configuration);
     protected abstract generateTemplate(element: HTMLElement, recordset: RecordSet, configuration: Configuration):void;
 
     public render() :void {
         this.onInit();
-        this.processRecordSet(this.recordset, this.configuration);
-        this.generateTemplate(this.element, this.recordset, this.configuration);
+        this.processRecordSet(this.recordset, this.configuration).then(() => {
+            this.generateTemplate(this.element, this.recordset, this.configuration);
+        })
     };
 }

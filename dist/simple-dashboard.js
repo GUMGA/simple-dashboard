@@ -3153,21 +3153,54 @@ var TableOne = /** @class */ (function (_super) {
             }, ' ') + "\n                </tr>\n            ";
         }, ' ');
     };
+    TableOne.prototype.getColumnSum = function (column, recordset) {
+        var _this = this;
+        return this.rows.reduce(function (prev, next) { return prev + next[_this.getColumnIndex(column, recordset)]; }, 0);
+    };
+    TableOne.prototype.getColumnFooterByOperation = function (column, recordset) {
+        switch (column.operation) {
+            case 'SUM':
+                return this.getColumnSum(column, recordset);
+            case 'AVG':
+                var value = this.getColumnSum(column, recordset) / this.rows.length;
+                return value.toFixed(2);
+            case 'COUNT':
+                return this.rows.length;
+        }
+    };
+    TableOne.prototype.getTableFooter = function (recordset, configuration) {
+        var _this = this;
+        return this.columns.reduce(function (prev, next, index) {
+            var value = '';
+            if (next.operation) {
+                value = _this.getColumnFooterByOperation(next, recordset);
+                value = _this.formatValue(index, value);
+            }
+            return prev += "\n                <td>\n                    " + value + "\n                </td>\n            ";
+        }, ' ');
+    };
     TableOne.prototype.formatValue = function (index, value) {
         if (value || value == 0) {
             this.columns[index].format = this.columns[index].format || '';
             this.columns[index].formatPrecision = this.columns[index].formatPrecision || 2;
             return __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(value, this.columns[index].format, this.columns[index].formatPrecision);
         }
+        return '';
     };
     TableOne.prototype.handlingSmartGrid = function (element) {
+        if (!window.$)
+            return;
         window.$(element.getElementsByTagName('table')[0]).smartGrid({
             head: true,
+            foot: this.hasColumnsOperation(),
             left: 1
         });
     };
+    TableOne.prototype.hasColumnsOperation = function () {
+        return this.columns.filter(function (column) { return column.operation; }).length > 0;
+    };
     TableOne.prototype.generateTemplate = function (element, recordset, configuration) {
-        var template = "\n        " + (configuration.title ? "\n            <h6 class=\"table-title\">" + configuration.title + "</h6>  \n        " : "") + "\n        <div class=\"table-responsive simple-dashboard-table\">\n            <table class=\"table\">\n                <thead>\n                    <tr>\n                    " + this.getTableHeader() + "\n                    </tr>\n                </thead>\n                <tbody>\n                    " + this.getTableBody(recordset, configuration) + "\n                </tbody>\n            </table>\n        </div>\n        ";
+        var template = "\n        " + (configuration.title ? "\n            <h6 class=\"table-title\">" + configuration.title + "</h6>  \n        " : "") + "\n        <div class=\"table-responsive simple-dashboard-table\">\n            <table class=\"table\">\n                <thead>\n                    <tr>\n                    " + this.getTableHeader() + "\n                    </tr>\n                </thead>\n                <tbody>\n                    " + this.getTableBody(recordset, configuration) + "\n                </tbody>\n                " + (this.hasColumnsOperation() ? "\n                <tfoot>\n                    <tr>\n                    " + this.getTableFooter(recordset, configuration) + "\n                    </tr>\n                </tfoot>\n                " : "") + "\n            </table>\n        </div>\n        ";
         element.innerHTML = template;
         this.handlingSmartGrid(element);
     };

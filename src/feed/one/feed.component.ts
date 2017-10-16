@@ -2,7 +2,7 @@ import './feed.style.scss';
 import {BaseFeed} from '../base'
 import {Configuration}  from '../../common/configuration';
 import {RecordSet} from '../../common/interfaces';
-
+import {Http} from '../../common/providers';
 
 export class FeedOne extends BaseFeed {
     private rows: Array<any>;
@@ -12,22 +12,32 @@ export class FeedOne extends BaseFeed {
         this.rows = []
     }
 
-    protected processRecordSet(recordset: RecordSet, configuration: Configuration): void {
+    protected processRecordSet(recordset: RecordSet, configuration: Configuration) {
         this.feed = Object.assign({}, configuration);
 
-        recordset.rows.forEach(row => {
-            let content = ""
-            let img = ""
-            if(row.content) {
-                let value = new RegExp('<img.*(src="(.*))">').exec(row.content);
-                if(value.length === 3) {
-                    img = value[2]
-                }
-            }
+        return new Promise((resp, rej) => {
+            Http.get('https://api.rss2json.com/v1/api.json?api_key=ujup0b0pmnaopbegaarakuwkszlawudfqgursdzi&rss_url='
+            + encodeURIComponent(this.feed.url))
+                .then((respAPI:any) => {
+                    this.rows = respAPI.items;
+                    resp(this.rows);
+                })
+        });       
 
-            this.rows.push({title: row.title, img: img, content: content})
-        });
+    }
 
+    private getFeedItens(){
+        return this.rows.reduce((prev, next) => {
+            return prev += `
+                <div class="item">
+                    <label class="text text-muted">${next.title}</label>
+                    <div class="dashboard-feed-item">
+                        ${next.content}
+                        <span class="clearfix"></span>
+                    </div>
+                </div>
+            `;
+        }, '');
     }
 
     protected generateTemplate(element: HTMLElement, recordset: RecordSet, configuration: Configuration): void {
@@ -37,22 +47,10 @@ export class FeedOne extends BaseFeed {
                     <h3>${this.feed.title}</h3>
                 </div>
                 <div class="feed-body">
-                    <div class="item">
-                        <div class="photo">
-                            <img src="">
-                        </div>
-                        <div class="content">
-                            <div class="title">
-                                <div>
-
-                                </div>
-                            </div>
-                            <div class="description">
-
-                            </div>
-                        </div>
-                    </div>
+                    ${this.getFeedItens()}
+                    <span class="clearfix"></span>
                 </div>
+                <span class="clearfix"></span>
             </div>  
         `;
         element.innerHTML = template;

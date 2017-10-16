@@ -112,19 +112,57 @@ export class TableOne extends BaseTable {
         }, ' ');
     }
 
+    private getColumnSum(column, recordset: RecordSet){
+        return this.rows.reduce((prev, next) => prev + next[this.getColumnIndex(column, recordset)], 0);
+    }
+
+    private getColumnFooterByOperation(column, recordset: RecordSet){
+        switch (column.operation) {
+            case 'SUM':
+                return this.getColumnSum(column, recordset);
+            case 'AVG':
+                let value = this.getColumnSum(column, recordset) / this.rows.length;
+                return value.toFixed(2);
+            case 'COUNT':
+                return this.rows.length;
+        }
+    }
+
+    private getTableFooter(recordset: RecordSet, configuration: Configuration){
+        return this.columns.reduce((prev, next, index) => {
+            let value = '';
+            if(next.operation){
+                value = this.getColumnFooterByOperation(next, recordset);
+                value = this.formatValue(index, value);
+            }
+            return prev += `
+                <td>
+                    ${value}
+                </td>
+            `;
+        }, ' ');
+    }
+
     private formatValue(index, value){
         if (value || value == 0) {
             this.columns[index].format = this.columns[index].format || '';
             this.columns[index].formatPrecision = this.columns[index].formatPrecision || 2;
             return CommonProvider.formatValue(value, this.columns[index].format, this.columns[index].formatPrecision);
         }
+        return '';
     }
 
     private handlingSmartGrid(element: HTMLElement){
+        if(!window.$) return;
         window.$(element.getElementsByTagName('table')[0]).smartGrid({
             head: true,
+            foot: this.hasColumnsOperation(),
             left: 1
         });
+    }
+
+    private hasColumnsOperation(){
+        return this.columns.filter(column => column.operation).length > 0;
     }
 
     protected generateTemplate(element: HTMLElement, recordset: RecordSet, configuration: Configuration): void {
@@ -142,6 +180,13 @@ export class TableOne extends BaseTable {
                 <tbody>
                     ${this.getTableBody(recordset, configuration)}
                 </tbody>
+                ${this.hasColumnsOperation() ? `
+                <tfoot>
+                    <tr>
+                    ${this.getTableFooter(recordset, configuration)}
+                    </tr>
+                </tfoot>
+                ` : ``}
             </table>
         </div>
         `;
