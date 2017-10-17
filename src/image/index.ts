@@ -1,0 +1,1 @@
+export { ImageOne } from './one/image.component'

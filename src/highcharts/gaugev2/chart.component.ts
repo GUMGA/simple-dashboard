@@ -55,10 +55,10 @@ export class GaugeV2 extends BaseHighChart {
           plotBorderWidth: 0,
           backgroundColor: 'transparent',
           plotShadow: false,
-          spacingTop: 0,
           spacingLeft: 0,
           spacingRight: 0,
-          spacingBottom: 0
+          spacingBottom: 50,
+          spacingTop: 20
       },
       lang: {
           noData: "Sem dados para apresentar"

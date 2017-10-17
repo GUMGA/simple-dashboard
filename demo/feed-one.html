@@ -32,7 +32,7 @@
 
 
           function getBoard(id){
-            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=6L7E1508150919121C150814911912100O7.I')
+            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=6L7E1508239299474C150823749947400O7.I')
               .then(function(resp){
                 var card = new mf.Feed.FeedOne(document.getElementById('feed'), resp.data.data, resp.data);
               });

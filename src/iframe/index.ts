@@ -1,0 +1,1 @@
+export { IframeOne } from './one/iframe.component'

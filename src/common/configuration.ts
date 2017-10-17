@@ -41,6 +41,12 @@ export class Configuration {
     name: string;
     columns: Array<any>;
     dynamicColumns: Boolean;
+    startAutomatically: Boolean;
+    url: string;
+    code: string;
+    text: string;
+    lastUpdate: any;
+    showlastUpdate: Boolean;
 
     constructor() {
       this.title = {

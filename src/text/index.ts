@@ -1,0 +1,1 @@
+export { TextOne } from './one/text.component'

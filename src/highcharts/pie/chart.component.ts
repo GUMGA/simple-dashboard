@@ -12,7 +12,7 @@ export class Pie extends BaseHighChart {
       data: []
     };
   }
-
+  
   protected processRecordSet(recordset: RecordSet, configuration: Configuration) {
     if(configuration.dataSeries && configuration.dataSeries.name && configuration.labelField && configuration.labelField.name) {
       let indexDataSeries = this.getPosition(configuration.dataSeries.name);
@@ -35,7 +35,9 @@ export class Pie extends BaseHighChart {
               plotBorderWidth: null,
               plotShadow: false,
               type: 'pie',
-              zoomType: false
+              zoomType: false,
+              spacingBottom: 50,
+              spacingTop: 20
           },
           lang: {
               noData: "Sem dados para apresentar"

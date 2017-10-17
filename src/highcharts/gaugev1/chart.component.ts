@@ -49,7 +49,9 @@ export class GaugeV1 extends BaseHighChart {
   protected getHighChartConfiguration(configuration: Configuration) {
     return {
         chart: {
-            type: 'solidgauge'
+            type: 'solidgauge',
+            spacingBottom: 50,
+            spacingTop: 20
         },
         lang: {
             noData: "Sem dados para apresentar"

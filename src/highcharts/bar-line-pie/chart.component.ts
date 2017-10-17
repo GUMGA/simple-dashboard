@@ -60,8 +60,8 @@ export class BarLinePie extends BaseHighChart {
                       .rows
                       .forEach((row) => {
                           seriesLineAxisY.push(Number(row[indexLineAxisY]));
-                          this.addSerieSpline(objAxisY.name, seriesLineAxisY, this.getConditionFormatColor(objAxisY.name, recordset.rows[recordset.rows.length-1][indexLineAxisY], configuration) || color);
-                      });
+                        });
+                  this.addSerieSpline(objAxisY.name, seriesLineAxisY, this.getConditionFormatColor(objAxisY.name, recordset.rows[recordset.rows.length-1][indexLineAxisY], configuration) || color);
               } else if (objAxisY.type === 'column') {
                   this.addSerieColumn(objAxisY.label, seriesColumnAxisY, color);
               } else if (objAxisY.type === 'pie') {
@@ -225,7 +225,9 @@ export class BarLinePie extends BaseHighChart {
     return {
         chart: {
             zoomType: false,
-            className: 'responsive-chart'
+            className: 'responsive-chart',
+            spacingBottom: 50,
+            spacingTop: 20
         },
         lang: {
             noData: "Sem dados para apresentar"

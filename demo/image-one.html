@@ -16,18 +16,18 @@
         background-color: #f5f5f5;
       }
       #chart{
-        width: 960px;
-        height: 500px;
+        width: 400px;
+        height: 300px;
       }
     </style>
 
     <div id="chart" style="margin: 50px;"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="../node_modules/moment/min/moment.min.js"></script>
     <script type="text/javascript" src="../dist/simple-dashboard.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+    <script src="../node_modules/moment/min/moment.min.js"></script>
 
     <script type="text/javascript">
 
@@ -36,13 +36,13 @@
 
 
           function getBoard(id){
-            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=6L7E1508267543145C150826574314500O7.I')
+            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=6L7E1507747576389C150774577638900O7.I')
               .then(function(resp){
-                var table = new mf.Chart.Bar(document.getElementById('chart'), resp.data.data, resp.data);
+                var table = new mf.Image.ImageOne(document.getElementById('chart'), resp.data.data, resp.data);
               });
           }
   
-          getBoard(298);
+          getBoard(2734);
 
         })
 

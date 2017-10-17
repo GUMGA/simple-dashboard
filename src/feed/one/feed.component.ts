@@ -30,7 +30,6 @@ export class FeedOne extends BaseFeed {
         return this.rows.reduce((prev, next) => {
             return prev += `
                 <div class="item">
-                    <label class="text text-muted">${next.title}</label>
                     <div class="dashboard-feed-item">
                         ${next.content}
                         <span class="clearfix"></span>
@@ -44,7 +43,7 @@ export class FeedOne extends BaseFeed {
         const template = `
             <div class="feed-container">
                 <div class="feed-header">
-                    <h3>${this.feed.title}</h3>
+                    <h3>${this.feed.title || ''}</h3>
                 </div>
                 <div class="feed-body">
                     ${this.getFeedItens()}

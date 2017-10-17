@@ -3,12 +3,15 @@
   <head>
     <meta charset="utf-8">
     <title>Simple Dashboard</title>
+    <link rel="stylesheet" href="../dist/simple-dashboard.css">
   </head>
   <body>
 
     <div id="chart"></div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+    <script src="../node_modules/moment/min/moment.min.js"></script>
     <script type="text/javascript" src="../dist/simple-dashboard.js"></script>
 
     <script type="text/javascript">
@@ -17,7 +20,7 @@
         .controller('ctrl', function($http){
 
 
-          $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/690?gumgaToken=1L1E1505256447681C150525464768100O1.I')
+          $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/2735?gumgaToken=6L7E1508271873992C150827007399200O7.I')
             .then(function(resp){
               var bar = new mf.Chart.BarLinePie(document.getElementById('chart'), resp.data.data, resp.data);
               console.log(bar);

@@ -46,7 +46,7 @@ export class BarLine extends BaseHighChart {
         this.addSerieSpline(axisY.name, seriesLineAxisY, color);
     });
   }
-
+  
   protected getConditionFormatColor(column, value, configuration: Configuration){
     var result = undefined;
     configuration
@@ -88,7 +88,9 @@ export class BarLine extends BaseHighChart {
     return {
         chart: {
             zoomType: false,
-            className: 'responsive-chart'
+            className: 'responsive-chart',
+            spacingBottom: 50,
+            spacingTop: 20
         },
         title: {
             text: configuration && configuration.title ? configuration.title : '',

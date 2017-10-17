@@ -30,7 +30,7 @@ export abstract class BaseCard {
   };
 
   protected getPosition(column: string): number {
-    return this.recordset.columns.indexOf(column);
+    return this.recordset.columns.filter(column => column != null).indexOf(column);
   }
 
   protected getFontSize(){

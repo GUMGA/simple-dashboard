@@ -14,7 +14,7 @@ export namespace CommonProvider {
     }
   }
 
-  export function formatValue(value, format, precision) {
+  export function formatValue(value, format, precision?) {
       var formattedValue = value;
       if((!precision || precision ) && precision == null) {
           precision = 2;
@@ -46,8 +46,11 @@ export namespace CommonProvider {
           case 'datahora#dd/MM/yyyy HH:mm':
               formattedValue = window.moment(value).format("DD/MM/YYYY HH:mm");
               break;
+          case 'hora#HH:mm':
+              formattedValue = window.moment(value).format("HH:mm");
+              break;
       }
-
+      
       return formattedValue;
   }
 

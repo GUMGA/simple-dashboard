@@ -1,5 +1,7 @@
+import './base.style.scss';
 import { Configuration }  from '../common/configuration';
 import { RecordSet } from '../common/interfaces';
+import { CommonProvider} from '../common/providers';
 
 declare let window;
 
@@ -24,15 +26,32 @@ export abstract class BaseHighChart {
   protected abstract onInit():void;
   protected abstract processRecordSet(recordset: RecordSet, configuration: Configuration):void;
   protected abstract getHighChartConfiguration(configuration: Configuration) : any;
-
+  
   public render() :void {
     this.onInit();
     this.processRecordSet(this.recordset, this.configuration);
     window.Highcharts.chart(this.element, this.getHighChartConfiguration(this.configuration));
+    this.handlingLastUpdate(this.element, this.configuration);
   };
+  
+  protected handlingLastUpdate(element: HTMLElement, configuration: Configuration){
+    if(!configuration.showlastUpdate || !configuration.lastUpdate) return;
+    let container = element.getElementsByClassName('highcharts-container');
+    if(container && container[0]){
+        let template = `
+            <div class="board-last-update">
+              Atualizado ${CommonProvider.formatValue(configuration.lastUpdate, 'data#dd/MM/yyyy')} ás ${CommonProvider.formatValue(configuration.lastUpdate, 'hora#HH:mm')}
+            </div>
+        `;
+        let child = document.createElement('div');
+        child.className = 'last-update-container';
+        child.innerHTML = template;
+        container[0].appendChild(child);
+    }
+  }
 
   protected getPosition(column: string): number {
-    return this.recordset.columns.indexOf(column);
+    return this.recordset.columns.filter(column => column != null).indexOf(column);
   }
 
   protected getFontSize(){

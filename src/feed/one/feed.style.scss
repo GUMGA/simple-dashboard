@@ -2,9 +2,10 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  overflow: auto;
+  font-family: Roboto,"Helvetica Neue",sans-serif;
   padding: 0;
   margin: 0;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
 
   .feed-header {
     display: -webkit-box;
@@ -32,14 +33,23 @@
     display: flex;
     width: 100%;
     height: 90%;
+    overflow: auto;
     flex-direction: column;
     background: #FFF;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
   }
   
   .item{
     width: 100%;
     border-bottom: 1px dashed;
     background: #FFF;
+    padding-top: 10px;
+
+    label.text{
+      width: 100%;
+      padding: 15px;
+    }
+
   }
 
   .dashboard-feed-item{

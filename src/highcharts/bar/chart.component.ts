@@ -4,6 +4,7 @@ import { Configuration }  from '../../common/configuration';
 import { CommonProvider} from '../../common/providers';
 
 export class Bar extends BaseHighChart {
+    
 
   private categories: Array<string>;
   private series: Array<any>;
@@ -36,7 +37,7 @@ export class Bar extends BaseHighChart {
         }
       })
   }
-
+  
   private getConditionFormatColor(column, value, configuration: Configuration) {
     let result = undefined;
     configuration.conditionalsFormatting = configuration.conditionalsFormatting || [];
@@ -59,7 +60,9 @@ export class Bar extends BaseHighChart {
     return {
         chart: {
             type: 'column',
-            zoomType: false
+            zoomType: false,
+            spacingBottom: 50,
+            spacingTop: 20
         },
         lang: {
             noData: "Sem dados para apresentar"

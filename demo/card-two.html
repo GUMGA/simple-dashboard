@@ -33,7 +33,7 @@
           function getBoard(id){
             $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=eterno')
               .then(function(resp){
-                var card = new mf.Chart.CardTwo(document.getElementById('chart'), resp.data.data, resp.data);
+                var card = new mf.Card.CardTwo(document.getElementById('chart'), resp.data.data, resp.data);
               });
           }
 

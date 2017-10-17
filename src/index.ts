@@ -7,6 +7,10 @@ import { Bar, Line, Pie, GaugeV1, GaugeV2, BarLine, BarLinePie } from './highcha
 import { CardOne, CardTwo, CardThree, CardFive, CardFour } from './cards';
 import { FeedOne } from './feed'
 import { TableOne } from './table'
+import { YoutubeOne } from './youtube'
+import { IframeOne } from './iframe'
+import { TextOne } from './text'
+import { ImageOne } from './image'
 
 HighchartsMore(Highcharts);
 HighchartsExporting(Highcharts);
@@ -23,7 +27,9 @@ window.mf = window.mf || {
     GaugeV1: GaugeV1,
     GaugeV2: GaugeV2,
     BarLine: BarLine,
-    BarLinePie: BarLinePie,
+    BarLinePie: BarLinePie
+  },
+  Card: {
     CardOne: CardOne,
     CardTwo: CardTwo,
     CardThree: CardThree,
@@ -35,6 +41,18 @@ window.mf = window.mf || {
   },
   Table: {
     TableOne
+  },
+  Youtube: {
+    YoutubeOne: YoutubeOne
+  },
+  Iframe:{
+    IframeOne: IframeOne
+  },
+  Text: {
+    TextOne: TextOne
+  },
+  Image: {
+    ImageOne: ImageOne
   }
 }
 
