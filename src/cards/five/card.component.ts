@@ -36,16 +36,19 @@ export class CardFive extends BaseCard {
     const template = `
       <div class="board-card" style="background-color: ${this.card.color}">
         <div class="board-five">
-          <div class="board-five-header">
-            <span style="color: ${this.card.fontColor}">${this.card.title || ''}</span>
+          <div class="content">
+            <div class="board-five-header">
+              <span style="color: ${this.card.fontColor}">${this.card.title || ''}</span>
+            </div>
+            <div class="board-five-body">
+              <i style="color: ${this.card.iconColor}" class="${this.card.icon || ''}"></i>
+            </div>
+            <div class="board-five-footer">
+              <span class="board-five-footer-value" style="color: ${this.card.fontColor}">${this.card.value || ''}</span>
+              <span style="color: ${this.card.fontColor}">${this.card.label || ''}</span>
+            </div>
           </div>
-          <div class="board-five-body">
-            <i style="color: ${this.card.iconColor}" class="${this.card.icon || ''}"></i>
-          </div>
-          <div class="board-five-footer">
-             <span class="board-five-footer-value" style="color: ${this.card.fontColor}">${this.card.value || ''}</span>
-             <span style="color: ${this.card.fontColor}">${this.card.label || ''}</span>
-          </div>
+          ${super.handlingLastUpdate(configuration)}
         </div>
       </div>
     `;

@@ -1,5 +1,7 @@
+import './base.style.scss';
 import { Configuration }  from '../common/configuration';
 import { RecordSet } from '../common/interfaces';
+import { CommonProvider} from '../common/providers';
 
 export abstract class BaseCard {
 
@@ -28,6 +30,15 @@ export abstract class BaseCard {
     this.processRecordSet(this.recordset, this.configuration);
     this.generateTemplate(this.element, this.recordset, this.configuration);
   };
+
+  protected handlingLastUpdate(configuration: Configuration){
+    if(!configuration.showlastUpdate || !configuration.lastUpdate) return '';
+    return `
+      <div class="board-card-last-update">
+        Atualizado ${CommonProvider.formatValue(configuration.lastUpdate, 'datahora#dd/MM/yyyy HH:mm')}
+      </div>
+    `;
+  }
 
   protected getPosition(column: string): number {
     return this.recordset.columns.filter(column => column != null).indexOf(column);

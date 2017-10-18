@@ -5,6 +5,18 @@
 }
 
 .card-two {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .board-card-last-update{
+    padding-bottom: 5px;
+  }
+
+}
+
+.card-two > .content{
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -49,7 +61,7 @@
 
 .card-two-detail-body {
   text-align: left;
-  font-size: 28px;
+  font-size: 25px;
   font-weight: 700;
 }
 

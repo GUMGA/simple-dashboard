@@ -6,6 +6,18 @@
 }
 
 .board-five {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  .board-card-last-update{
+    padding-bottom: 5px;
+  }
+  
+}
+
+.board-five > .content{
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;

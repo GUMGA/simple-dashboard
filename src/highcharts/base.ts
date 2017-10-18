@@ -40,7 +40,7 @@ export abstract class BaseHighChart {
     if(container && container[0]){
         let template = `
             <div class="board-last-update">
-              Atualizado ${CommonProvider.formatValue(configuration.lastUpdate, 'data#dd/MM/yyyy')} ás ${CommonProvider.formatValue(configuration.lastUpdate, 'hora#HH:mm')}
+            Atualizado ${CommonProvider.formatValue(configuration.lastUpdate, 'datahora#dd/MM/yyyy HH:mm')}
             </div>
         `;
         let child = document.createElement('div');

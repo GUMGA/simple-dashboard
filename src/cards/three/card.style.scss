@@ -6,6 +6,18 @@
 }
 
 .card-three {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  
+  .board-card-last-update{
+    padding-bottom: 5px;
+  }
+  
+}
+
+.card-three > .content{
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 48);
+/******/ 	return __webpack_require__(__webpack_require__.s = 50);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,9 +71,9 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_provider__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_provider__ = __webpack_require__(35);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__common_provider__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__http_provider__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__http_provider__ = __webpack_require__(36);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__http_provider__["a"]; });
 
 
@@ -119,7 +119,12 @@ var Configuration = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseHighChart; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base_style_scss__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__base_style_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_configuration__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
+
+
 
 var BaseHighChart = /** @class */ (function () {
     function BaseHighChart(element, recordset, configuration) {
@@ -129,17 +134,30 @@ var BaseHighChart = /** @class */ (function () {
             this.recordset.columns = this.recordset.columns || [];
             this.recordset.rows = this.recordset.rows || [];
         }
-        this.configuration = Object.assign({}, new __WEBPACK_IMPORTED_MODULE_0__common_configuration__["a" /* Configuration */](), configuration);
+        this.configuration = Object.assign({}, new __WEBPACK_IMPORTED_MODULE_1__common_configuration__["a" /* Configuration */](), configuration);
         this.render();
     }
     BaseHighChart.prototype.render = function () {
         this.onInit();
         this.processRecordSet(this.recordset, this.configuration);
         window.Highcharts.chart(this.element, this.getHighChartConfiguration(this.configuration));
+        this.handlingLastUpdate(this.element, this.configuration);
     };
     ;
+    BaseHighChart.prototype.handlingLastUpdate = function (element, configuration) {
+        if (!configuration.showlastUpdate || !configuration.lastUpdate)
+            return;
+        var container = element.getElementsByClassName('highcharts-container');
+        if (container && container[0]) {
+            var template = "\n            <div class=\"board-last-update\">\n            Atualizado " + __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(configuration.lastUpdate, 'datahora#dd/MM/yyyy HH:mm') + "\n            </div>\n        ";
+            var child = document.createElement('div');
+            child.className = 'last-update-container';
+            child.innerHTML = template;
+            container[0].appendChild(child);
+        }
+    };
     BaseHighChart.prototype.getPosition = function (column) {
-        return this.recordset.columns.indexOf(column);
+        return this.recordset.columns.filter(function (column) { return column != null; }).indexOf(column);
     };
     BaseHighChart.prototype.getFontSize = function () {
         switch (this.configuration.boardFontSize) {
@@ -164,7 +182,12 @@ var BaseHighChart = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseCard; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base_style_scss__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__base_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__base_style_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_configuration__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
+
+
 
 var BaseCard = /** @class */ (function () {
     function BaseCard(element, recordset, configuration) {
@@ -174,7 +197,7 @@ var BaseCard = /** @class */ (function () {
             this.recordset.columns = this.recordset.columns || [];
             this.recordset.rows = this.recordset.rows || [];
         }
-        this.configuration = Object.assign({}, new __WEBPACK_IMPORTED_MODULE_0__common_configuration__["a" /* Configuration */](), configuration);
+        this.configuration = Object.assign({}, new __WEBPACK_IMPORTED_MODULE_1__common_configuration__["a" /* Configuration */](), configuration);
         this.render();
     }
     BaseCard.prototype.render = function () {
@@ -183,8 +206,13 @@ var BaseCard = /** @class */ (function () {
         this.generateTemplate(this.element, this.recordset, this.configuration);
     };
     ;
+    BaseCard.prototype.handlingLastUpdate = function (configuration) {
+        if (!configuration.showlastUpdate || !configuration.lastUpdate)
+            return '';
+        return "\n      <div class=\"board-card-last-update\">\n        Atualizado " + __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(configuration.lastUpdate, 'datahora#dd/MM/yyyy HH:mm') + "\n      </div>\n    ";
+    };
     BaseCard.prototype.getPosition = function (column) {
-        return this.recordset.columns.indexOf(column);
+        return this.recordset.columns.filter(function (column) { return column != null; }).indexOf(column);
     };
     BaseCard.prototype.getFontSize = function () {
         switch (this.configuration.boardFontSize) {
@@ -744,15 +772,15 @@ r=Math.max(f.startAngleRad,f.endAngleRad);"none"===p&&(p=b.color||a.color||"none
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(1);
 /* unused harmony reexport Configuration */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__one_card_component__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__one_card_component__ = __webpack_require__(32);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__one_card_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__two_card_component__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__two_card_component__ = __webpack_require__(34);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__two_card_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__three_card_component__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__three_card_component__ = __webpack_require__(33);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_3__three_card_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__five_card_component__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__five_card_component__ = __webpack_require__(30);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_4__five_card_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__four_card_component__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__four_card_component__ = __webpack_require__(31);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_5__four_card_component__["a"]; });
 
 
@@ -767,7 +795,7 @@ r=Math.max(f.startAngleRad,f.endAngleRad);"none"===p&&(p=b.color||a.color||"none
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__one_feed_component__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__one_feed_component__ = __webpack_require__(38);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__one_feed_component__["a"]; });
 
 
@@ -779,19 +807,19 @@ r=Math.max(f.startAngleRad,f.endAngleRad);"none"===p&&(p=b.color||a.color||"none
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(1);
 /* unused harmony reexport Configuration */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bar_chart_component__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bar_chart_component__ = __webpack_require__(41);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__bar_chart_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__line_chart_component__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__line_chart_component__ = __webpack_require__(44);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__line_chart_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pie_chart_component__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pie_chart_component__ = __webpack_require__(45);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_3__pie_chart_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gaugev1_chart_component__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gaugev1_chart_component__ = __webpack_require__(42);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_4__gaugev1_chart_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gaugev2_chart_component__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gaugev2_chart_component__ = __webpack_require__(43);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_5__gaugev2_chart_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__bar_line_chart_component__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__bar_line_chart_component__ = __webpack_require__(40);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_6__bar_line_chart_component__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__bar_line_pie_chart_component__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__bar_line_pie_chart_component__ = __webpack_require__(39);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_7__bar_line_pie_chart_component__["a"]; });
 
 
@@ -808,7 +836,7 @@ r=Math.max(f.startAngleRad,f.endAngleRad);"none"===p&&(p=b.color||a.color||"none
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__one_iframe_component__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__one_iframe_component__ = __webpack_require__(47);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__one_iframe_component__["a"]; });
 
 
@@ -818,7 +846,7 @@ r=Math.max(f.startAngleRad,f.endAngleRad);"none"===p&&(p=b.color||a.color||"none
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__one_image_component__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__one_image_component__ = __webpack_require__(49);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__one_image_component__["a"]; });
 
 
@@ -830,7 +858,7 @@ r=Math.max(f.startAngleRad,f.endAngleRad);"none"===p&&(p=b.color||a.color||"none
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__grid__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__grid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__grid__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__one_table_component__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__one_table_component__ = __webpack_require__(52);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__one_table_component__["a"]; });
 
 
@@ -841,7 +869,7 @@ r=Math.max(f.startAngleRad,f.endAngleRad);"none"===p&&(p=b.color||a.color||"none
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__one_text_component__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__one_text_component__ = __webpack_require__(54);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__one_text_component__["a"]; });
 
 
@@ -851,7 +879,7 @@ r=Math.max(f.startAngleRad,f.endAngleRad);"none"===p&&(p=b.color||a.color||"none
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__one_youtube_component__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__one_youtube_component__ = __webpack_require__(56);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__one_youtube_component__["a"]; });
 
 
@@ -1244,11 +1272,23 @@ r=Math.max(f.startAngleRad,f.endAngleRad);"none"===p&&(p=b.color||a.color||"none
 
 /***/ }),
 /* 28 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardFive; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__card_style_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
@@ -1293,7 +1333,7 @@ var CardFive = /** @class */ (function (_super) {
         }
     };
     CardFive.prototype.generateTemplate = function (element, recordset, configuration) {
-        var template = "\n      <div class=\"board-card\" style=\"background-color: " + this.card.color + "\">\n        <div class=\"board-five\">\n          <div class=\"board-five-header\">\n            <span style=\"color: " + this.card.fontColor + "\">" + (this.card.title || '') + "</span>\n          </div>\n          <div class=\"board-five-body\">\n            <i style=\"color: " + this.card.iconColor + "\" class=\"" + (this.card.icon || '') + "\"></i>\n          </div>\n          <div class=\"board-five-footer\">\n             <span class=\"board-five-footer-value\" style=\"color: " + this.card.fontColor + "\">" + (this.card.value || '') + "</span>\n             <span style=\"color: " + this.card.fontColor + "\">" + (this.card.label || '') + "</span>\n          </div>\n        </div>\n      </div>\n    ";
+        var template = "\n      <div class=\"board-card\" style=\"background-color: " + this.card.color + "\">\n        <div class=\"board-five\">\n          <div class=\"content\">\n            <div class=\"board-five-header\">\n              <span style=\"color: " + this.card.fontColor + "\">" + (this.card.title || '') + "</span>\n            </div>\n            <div class=\"board-five-body\">\n              <i style=\"color: " + this.card.iconColor + "\" class=\"" + (this.card.icon || '') + "\"></i>\n            </div>\n            <div class=\"board-five-footer\">\n              <span class=\"board-five-footer-value\" style=\"color: " + this.card.fontColor + "\">" + (this.card.value || '') + "</span>\n              <span style=\"color: " + this.card.fontColor + "\">" + (this.card.label || '') + "</span>\n            </div>\n          </div>\n          " + _super.prototype.handlingLastUpdate.call(this, configuration) + "\n        </div>\n      </div>\n    ";
         element.innerHTML = template;
     };
     return CardFive;
@@ -1302,12 +1342,12 @@ var CardFive = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardFour; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__card_style_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
@@ -1355,7 +1395,7 @@ var CardFour = /** @class */ (function (_super) {
         }
     };
     CardFour.prototype.generateTemplate = function (element, recordset, configuration) {
-        var template = "\n      <div class=\"board-card\">\n        <div class=\"card-four\" style=\"background-color: " + this.card.color + "\">\n          <div class=\"card-four-icon\">\n            <div class=\"card-four-icon-center\" style=\"background-color: " + this.card.color + "; border-color: " + this.card.color + ";\">\n                <i style=\"color: " + this.card.iconColor + "\" class=\"" + (this.card.icon || '') + "\"></i>\n            </div>\n          </div>\n          <div class=\"card-four-detail\">\n            <div class=\"card-four-detail-header\">\n              <span style=\"color: " + this.card.fontColor + "\">" + (this.card.value || '') + "</span>\n            </div>\n            <div class=\"card-four-detail-body\">\n              <span style=\"color: " + this.card.fontColor + "\">" + (this.card.label || '') + "</span>\n            </div>\n            <div class=\"card-four-detail-footer\">\n              <textarea disabled style=\"color: " + this.card.fontColor + "\">" + (this.card.description || '') + "</textarea>\n            </div>\n          </div>\n        </div>\n      </div>\n    ";
+        var template = "\n      <div class=\"board-card\">\n        <div class=\"card-four\" style=\"background-color: " + this.card.color + "\">\n          <div class=\"content\">\n            <div class=\"card-four-icon\">\n              <div class=\"card-four-icon-center\" style=\"background-color: " + this.card.color + "; border-color: " + this.card.color + ";\">\n                  <i style=\"color: " + this.card.iconColor + "\" class=\"" + (this.card.icon || '') + "\"></i>\n              </div>\n            </div>\n            <div class=\"card-four-detail\">\n              <div class=\"card-four-detail-header\">\n                <span style=\"color: " + this.card.fontColor + "\">" + (this.card.value || '') + "</span>\n              </div>\n              <div class=\"card-four-detail-body\">\n                <span style=\"color: " + this.card.fontColor + "\">" + (this.card.label || '') + "</span>\n              </div>\n              <div class=\"card-four-detail-footer\">\n                <textarea disabled style=\"color: " + this.card.fontColor + "\">" + (this.card.description || '') + "</textarea>\n              </div>\n            </div>\n          </div>\n          " + _super.prototype.handlingLastUpdate.call(this, configuration) + "\n        </div>\n      </div>\n    ";
         element.innerHTML = template;
     };
     return CardFour;
@@ -1364,12 +1404,12 @@ var CardFour = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardOne; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__card_style_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
@@ -1428,7 +1468,7 @@ var CardOne = /** @class */ (function (_super) {
         }
     };
     CardOne.prototype.generateTemplate = function (element, recordset, configuration) {
-        var template = "\n      <div class=\"board-card\">\n        <div class=\"card-one\">\n          <div class=\"card-one-icon\" style=\"background-color: " + this.card.color + "\">\n            <i style=\"color: " + this.card.iconColor + "\" class=\"" + (this.card.icon || '') + "\"></i>\n          </div>\n          <div class=\"card-one-detail\">\n            <div class=\"card-one-detail-header\">\n              <span style=\"color: " + this.card.fontColor + "\">" + (this.card.title || '') + "</span>\n            </div>\n            <div class=\"card-one-detail-body\">\n              <div style=\"color: " + this.card.fontColor + "\">" + (this.card.value || '') + "</div>\n            </div>\n            <div class=\"card-one-detail-footer\">\n              <span style=\"color: " + this.card.fontColor + "\">" + (this.card.label || '') + "</span>\n            </div>\n          </div>\n        </div>\n      </div>\n    ";
+        var template = "\n      <div class=\"board-card\">\n        <div class=\"card-one\">\n          <div class=\"card-one-icon\" style=\"background-color: " + this.card.color + "\">\n            <i style=\"color: " + this.card.iconColor + "\" class=\"" + (this.card.icon || '') + "\"></i>\n          </div>\n          <div class=\"card-one-detail\">\n            <div class=\"card-one-detail-content\">\n              <div class=\"card-one-detail-header\">\n                <span style=\"color: " + this.card.fontColor + "\">" + (this.card.title || '') + "</span>\n              </div>\n              <div class=\"card-one-detail-body\">\n                <div style=\"color: " + this.card.fontColor + "\">" + (this.card.value || '') + "</div>\n              </div>\n              <div class=\"card-one-detail-footer\">\n                <span style=\"color: " + this.card.fontColor + "\">" + (this.card.label || '') + "</span>\n              </div>\n            </div>\n            " + _super.prototype.handlingLastUpdate.call(this, configuration) + "\n          </div>\n        </div>\n      </div>\n    ";
         element.innerHTML = template;
     };
     return CardOne;
@@ -1437,12 +1477,12 @@ var CardOne = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardThree; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__card_style_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
@@ -1541,7 +1581,7 @@ var CardThree = /** @class */ (function (_super) {
         }
     };
     CardThree.prototype.generateTemplate = function (element, recordset, configuration) {
-        var template = "\n      <div class=\"board-card\" style=\"background-color: " + this.card.color + "; border-color: " + this.card.color + ";\">\n        <div class=\"card-three\">\n          <div class=\"card-three-right\">\n            <div class=\"card-three-right-header\">\n              <span style=\"color: " + this.card.fontColor + "\">" + (this.card.fieldOne.label || '') + "</span>\n              <span class=\"value\" style=\"color: " + this.card.fontColor + "\">" + (this.card.fieldOne.value || '') + "</span>\n            </div>\n            <div class=\"card-three-right-footer\">\n              <span style=\"color: " + this.card.fontColor + "\">" + (this.card.fieldTwo.label || '') + "</span>\n              <span class=\"value\" style=\"color: " + this.card.fontColor + "\">" + (this.card.fieldTwo.value || '') + "</span>\n            </div>\n          </div>\n          <div class=\"card-three-left\">\n            <div class=\"card-three-left-header\">\n              <i style=\"color: " + this.card.iconColor + "\" class=\"" + (this.card.icon || '') + "\"></i>\n            </div>\n            <div class=\"card-three-left-footer\">\n                <span style=\"color: " + this.card.fontColor + "\">" + (this.card.fieldThree.label || '') + "</span>\n                <span class=\"value\" style=\"color: " + this.card.fontColor + "\">" + (this.card.fieldThree.value || '') + "</span>\n            </div>\n          </div>\n        </div>\n      </div>\n    ";
+        var template = "\n      <div class=\"board-card\" style=\"background-color: " + this.card.color + "; border-color: " + this.card.color + ";\">\n        <div class=\"card-three\">\n          <div class=\"content\">\n            <div class=\"card-three-right\">\n              <div class=\"card-three-right-header\">\n                <span style=\"color: " + this.card.fontColor + "\">" + (this.card.fieldOne.label || '') + "</span>\n                <span class=\"value\" style=\"color: " + this.card.fontColor + "\">" + (this.card.fieldOne.value || '') + "</span>\n              </div>\n              <div class=\"card-three-right-footer\">\n                <span style=\"color: " + this.card.fontColor + "\">" + (this.card.fieldTwo.label || '') + "</span>\n                <span class=\"value\" style=\"color: " + this.card.fontColor + "\">" + (this.card.fieldTwo.value || '') + "</span>\n              </div>\n            </div>\n            <div class=\"card-three-left\">\n              <div class=\"card-three-left-header\">\n                <i style=\"color: " + this.card.iconColor + "\" class=\"" + (this.card.icon || '') + "\"></i>\n              </div>\n              <div class=\"card-three-left-footer\">\n                  <span style=\"color: " + this.card.fontColor + "\">" + (this.card.fieldThree.label || '') + "</span>\n                  <span class=\"value\" style=\"color: " + this.card.fontColor + "\">" + (this.card.fieldThree.value || '') + "</span>\n              </div>\n            </div>\n          </div>\n          " + _super.prototype.handlingLastUpdate.call(this, configuration) + "\n        </div>\n      </div>\n    ";
         element.innerHTML = template;
     };
     return CardThree;
@@ -1550,12 +1590,12 @@ var CardThree = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardTwo; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__card_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__card_style_scss__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
@@ -1614,7 +1654,7 @@ var CardTwo = /** @class */ (function (_super) {
         }
     };
     CardTwo.prototype.generateTemplate = function (element, recordset, configuration) {
-        var template = "\n    <div class=\"board-card\" style=\"background-color: " + this.card.color + "\">\n      <div class=\"card-two\">\n        <div class=\"card-two-detail\">\n          <div class=\"card-two-detail-header\">\n            <span style=\"color: " + this.card.fontColor + "\">" + (this.card.title || '') + "</span>\n          </div>\n          <div class=\"card-two-detail-body\">\n            <span style=\"color: " + this.card.fontColor + "\">" + (this.card.value || '') + "</span>\n          </div>\n          <div class=\"card-two-detail-footer\">\n            <span style=\"color: " + this.card.fontColor + "\">" + (this.card.label || '') + "</span>\n          </div>\n        </div>\n        <div class=\"card-two-icon\">\n          <i style=\"color: " + this.card.iconColor + "\" class=\"" + (this.card.icon || '') + "\"></i>\n        </div>\n      </div>\n    </div>\n    ";
+        var template = "\n    <div class=\"board-card\" style=\"background-color: " + this.card.color + "\">\n      <div class=\"card-two\">\n        <div class=\"content\">\n          <div class=\"card-two-detail\">\n            <div class=\"card-two-detail-header\">\n              <span style=\"color: " + this.card.fontColor + "\">" + (this.card.title || '') + "</span>\n            </div>\n            <div class=\"card-two-detail-body\">\n              <span style=\"color: " + this.card.fontColor + "\">" + (this.card.value || '') + "</span>\n            </div>\n            <div class=\"card-two-detail-footer\">\n              <span style=\"color: " + this.card.fontColor + "\">" + (this.card.label || '') + "</span>\n              </div>\n            </div>\n          <div class=\"card-two-icon\">\n            <i style=\"color: " + this.card.iconColor + "\" class=\"" + (this.card.icon || '') + "\"></i>\n          </div>\n        </div>\n        " + _super.prototype.handlingLastUpdate.call(this, configuration) + "\n      </div>      \n    </div>\n    ";
         element.innerHTML = template;
     };
     return CardTwo;
@@ -1623,7 +1663,7 @@ var CardTwo = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1668,10 +1708,13 @@ var CommonProvider;
                     formattedValue = formatMoney(Number(formattedValue), precision, ',', '.');
                 break;
             case 'data#dd/MM/yyyy':
-                formattedValue = window.moment(value).format("DD/MM/YYYY");
+                formattedValue = window.moment(value).format("DD/MM/YYYY HH:mm");
                 break;
             case 'datahora#dd/MM/yyyy HH:mm':
-                formattedValue = window.moment(value).format("DD/MM/YYYY HH:mm");
+                formattedValue = window.moment(value).toDate().toLocaleString();
+                break;
+            case 'hora#HH:mm':
+                formattedValue = window.moment(value).format("HH:mm");
                 break;
         }
         return formattedValue;
@@ -1714,7 +1757,7 @@ var CommonProvider;
 
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1746,7 +1789,7 @@ var Http;
 
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1778,14 +1821,14 @@ var BaseFeed = /** @class */ (function () {
 
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FeedOne; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__feed_style_scss__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__feed_style_scss__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__feed_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__feed_style_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1836,7 +1879,7 @@ var FeedOne = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1906,10 +1949,8 @@ var BarLinePie = /** @class */ (function (_super) {
                 var seriesLineAxisY_1 = [];
                 recordset
                     .rows
-                    .forEach(function (row) {
-                    seriesLineAxisY_1.push(Number(row[indexLineAxisY_1]));
-                    _this.addSerieSpline(objAxisY.name, seriesLineAxisY_1, _this.getConditionFormatColor(objAxisY.name, recordset.rows[recordset.rows.length - 1][indexLineAxisY_1], configuration) || color);
-                });
+                    .forEach(function (row) { return seriesLineAxisY_1.push(Number(row[indexLineAxisY_1])); });
+                _this.addSerieSpline(objAxisY.name, seriesLineAxisY_1, _this.getConditionFormatColor(objAxisY.name, recordset.rows[recordset.rows.length - 1][indexLineAxisY_1], configuration) || color);
             }
             else if (objAxisY.type === 'column') {
                 _this.addSerieColumn(objAxisY.label, seriesColumnAxisY, color);
@@ -2044,24 +2085,30 @@ var BarLinePie = /** @class */ (function (_super) {
     };
     BarLinePie.prototype.addSerieColumn = function (name, values, color) {
         this.titleY = name;
-        this.series.push({ name: name, data: values, color: color, type: 'column', yAxis: 1, dataLabels: {
+        this.series.push({
+            name: name, data: values, color: color, type: 'column', yAxis: 1, dataLabels: {
                 style: {
                     fontSize: this.getFontSize() + "px"
                 }
-            } });
+            }
+        });
     };
     BarLinePie.prototype.addSerieSpline = function (name, values, color) {
-        this.series.push({ name: name, data: values, color: color, type: 'spline', yAxis: 1, dataLabels: {
+        this.series.push({
+            name: name, data: values, color: color, type: 'spline', yAxis: 1, dataLabels: {
                 style: {
                     fontSize: this.getFontSize() + "px"
                 }
-            } });
+            }
+        });
     };
     BarLinePie.prototype.getHighChartConfiguration = function (configuration) {
         return {
             chart: {
                 zoomType: false,
-                className: 'responsive-chart'
+                className: 'responsive-chart',
+                spacingBottom: 50,
+                spacingTop: 20
             },
             lang: {
                 noData: "Sem dados para apresentar"
@@ -2154,7 +2201,7 @@ var BarLinePie = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2251,7 +2298,9 @@ var BarLine = /** @class */ (function (_super) {
         return {
             chart: {
                 zoomType: false,
-                className: 'responsive-chart'
+                className: 'responsive-chart',
+                spacingBottom: 50,
+                spacingTop: 20
             },
             title: {
                 text: configuration && configuration.title ? configuration.title : '',
@@ -2346,7 +2395,7 @@ var BarLine = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2419,7 +2468,9 @@ var Bar = /** @class */ (function (_super) {
         return {
             chart: {
                 type: 'column',
-                zoomType: false
+                zoomType: false,
+                spacingBottom: 50,
+                spacingTop: 20
             },
             lang: {
                 noData: "Sem dados para apresentar"
@@ -2511,7 +2562,7 @@ var Bar = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2575,7 +2626,9 @@ var GaugeV1 = /** @class */ (function (_super) {
         var _this = this;
         return {
             chart: {
-                type: 'solidgauge'
+                type: 'solidgauge',
+                spacingBottom: 50,
+                spacingTop: 20
             },
             lang: {
                 noData: "Sem dados para apresentar"
@@ -2652,7 +2705,7 @@ var GaugeV1 = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2721,10 +2774,10 @@ var GaugeV2 = /** @class */ (function (_super) {
                 plotBorderWidth: 0,
                 backgroundColor: 'transparent',
                 plotShadow: false,
-                spacingTop: 0,
                 spacingLeft: 0,
                 spacingRight: 0,
-                spacingBottom: 0
+                spacingBottom: 50,
+                spacingTop: 20
             },
             lang: {
                 noData: "Sem dados para apresentar"
@@ -2787,7 +2840,7 @@ var GaugeV2 = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2852,6 +2905,10 @@ var Line = /** @class */ (function (_super) {
     };
     Line.prototype.getHighChartConfiguration = function (configuration) {
         return {
+            chart: {
+                spacingBottom: 50,
+                spacingTop: 20
+            },
             title: {
                 text: configuration && configuration.title ? configuration.title : '',
                 style: {
@@ -2941,7 +2998,7 @@ var Line = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2990,7 +3047,9 @@ var Pie = /** @class */ (function (_super) {
                 plotBorderWidth: null,
                 plotShadow: false,
                 type: 'pie',
-                zoomType: false
+                zoomType: false,
+                spacingBottom: 50,
+                spacingTop: 20
             },
             lang: {
                 noData: "Sem dados para apresentar"
@@ -3059,7 +3118,7 @@ var Pie = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3089,14 +3148,14 @@ var BaseIframe = /** @class */ (function () {
 
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IframeOne; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__iframe_style_scss__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__iframe_style_scss__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__iframe_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__iframe_style_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(46);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -3130,7 +3189,7 @@ var IframeOne = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3159,14 +3218,14 @@ var BaseImage = /** @class */ (function () {
 
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ImageOne; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__image_style_scss__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__image_style_scss__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__image_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__image_style_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(48);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -3196,7 +3255,7 @@ var ImageOne = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3280,12 +3339,14 @@ var SimpleDashboard;
 
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseTable; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_configuration__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_providers__ = __webpack_require__(0);
+
 
 var BaseTable = /** @class */ (function () {
     function BaseTable(element, recordset, configuration) {
@@ -3298,6 +3359,11 @@ var BaseTable = /** @class */ (function () {
         this.configuration = Object.assign({}, new __WEBPACK_IMPORTED_MODULE_0__common_configuration__["a" /* Configuration */](), configuration);
         this.render();
     }
+    BaseTable.prototype.handlingLastUpdate = function (configuration) {
+        if (!configuration.showlastUpdate || !configuration.lastUpdate)
+            return '';
+        return "\n            <div class=\"board-card-last-update\">\n                Atualizado " + __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(configuration.lastUpdate, 'datahora#dd/MM/yyyy HH:mm') + "\n            </div>\n        ";
+    };
     BaseTable.prototype.render = function () {
         this.onInit();
         this.processRecordSet(this.recordset, this.configuration);
@@ -3310,14 +3376,14 @@ var BaseTable = /** @class */ (function () {
 
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TableOne; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__table_style_scss__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__table_style_scss__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__table_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__table_style_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_providers__ = __webpack_require__(0);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -3464,7 +3530,7 @@ var TableOne = /** @class */ (function (_super) {
         return this.columns.filter(function (column) { return column.operation; }).length > 0;
     };
     TableOne.prototype.generateTemplate = function (element, recordset, configuration) {
-        var template = "\n        " + (configuration.title ? "\n            <h6 class=\"table-title\">" + configuration.title + "</h6>  \n        " : "") + "\n        <div class=\"table-responsive simple-dashboard-table\">\n            <table class=\"table\">\n                <thead>\n                    <tr>\n                    " + this.getTableHeader() + "\n                    </tr>\n                </thead>\n                <tbody>\n                    " + this.getTableBody(recordset, configuration) + "\n                </tbody>\n                " + (this.hasColumnsOperation() ? "\n                <tfoot>\n                    <tr>\n                    " + this.getTableFooter(recordset, configuration) + "\n                    </tr>\n                </tfoot>\n                " : "") + "\n            </table>\n        </div>\n        ";
+        var template = "\n        " + (configuration.title ? "\n            <h6 class=\"table-title\">" + configuration.title + "</h6>  \n        " : "") + "\n        <div class=\"table-responsive simple-dashboard-table\">\n            <div class=\"content\">\n                <table class=\"table\">\n                    <thead>\n                        <tr>\n                        " + this.getTableHeader() + "\n                        </tr>\n                    </thead>\n                    <tbody>\n                        " + this.getTableBody(recordset, configuration) + "\n                    </tbody>\n                    " + (this.hasColumnsOperation() ? "\n                    <tfoot>\n                        <tr>\n                        " + this.getTableFooter(recordset, configuration) + "\n                        </tr>\n                    </tfoot>\n                    " : "") + "\n                </table>\n            </div>\n            " + _super.prototype.handlingLastUpdate.call(this, configuration) + "\n        </div>\n        ";
         element.innerHTML = template;
         this.handlingSmartGrid(element);
     };
@@ -3474,7 +3540,7 @@ var TableOne = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3503,14 +3569,14 @@ var BaseText = /** @class */ (function () {
 
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TextOne; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__text_style_scss__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__text_style_scss__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__text_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__text_style_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(53);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -3540,7 +3606,7 @@ var TextOne = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3570,14 +3636,14 @@ var BaseYoutube = /** @class */ (function () {
 
 
 /***/ }),
-/* 54 */
+/* 56 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return YoutubeOne; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__youtube_style_scss__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__youtube_style_scss__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__youtube_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__youtube_style_scss__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(55);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||

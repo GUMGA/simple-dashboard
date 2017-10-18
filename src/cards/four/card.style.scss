@@ -4,7 +4,20 @@
   height: 100%;
 }
 
-.card-four {
+.card-four{
+  height: 100%;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  height: 100%;
+
+  .board-card-last-update{
+    padding-bottom: 5px;
+  }
+
+}
+
+.card-four > .content{
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -15,7 +28,6 @@
   height: 100%;
   margin:0;
   padding:0;
-  background: white;
   color: black;
 }
 
@@ -26,7 +38,7 @@
   display:flex;
   align-items: center;
   justify-content: center;
-  padding: 15px;
+  padding-left: 15px;
 }
 
 .card-four-icon-center > i {
@@ -62,6 +74,7 @@
   overflow-x: hidden;
   height: 50px;
   margin-top: 5px;
+  padding-right: 5px;
 
   textarea{
     background: transparent;

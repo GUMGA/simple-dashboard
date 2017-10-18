@@ -1,5 +1,6 @@
 import { Configuration }  from '../common/configuration';
 import { RecordSet } from '../common/interfaces';
+import { CommonProvider} from '../common/providers';
 
 export abstract class BaseTable {
 
@@ -21,6 +22,15 @@ export abstract class BaseTable {
     protected abstract onInit():void;
     protected abstract processRecordSet(recordset: RecordSet, configuration: Configuration):void;
     protected abstract generateTemplate(element: HTMLElement, recordset: RecordSet, configuration: Configuration):void;
+
+    protected handlingLastUpdate(configuration: Configuration){
+        if(!configuration.showlastUpdate || !configuration.lastUpdate) return '';
+        return `
+            <div class="board-card-last-update">
+                Atualizado ${CommonProvider.formatValue(configuration.lastUpdate, 'datahora#dd/MM/yyyy HH:mm')}
+            </div>
+        `;
+    }
 
     public render() :void {
         this.onInit();

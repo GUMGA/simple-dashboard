@@ -171,23 +171,26 @@ export class TableOne extends BaseTable {
             <h6 class="table-title">${configuration.title}</h6>  
         ` : ``}
         <div class="table-responsive simple-dashboard-table">
-            <table class="table">
-                <thead>
-                    <tr>
-                    ${this.getTableHeader()}
-                    </tr>
-                </thead>
-                <tbody>
-                    ${this.getTableBody(recordset, configuration)}
-                </tbody>
-                ${this.hasColumnsOperation() ? `
-                <tfoot>
-                    <tr>
-                    ${this.getTableFooter(recordset, configuration)}
-                    </tr>
-                </tfoot>
-                ` : ``}
-            </table>
+            <div class="content">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        ${this.getTableHeader()}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${this.getTableBody(recordset, configuration)}
+                    </tbody>
+                    ${this.hasColumnsOperation() ? `
+                    <tfoot>
+                        <tr>
+                        ${this.getTableFooter(recordset, configuration)}
+                        </tr>
+                    </tfoot>
+                    ` : ``}
+                </table>
+            </div>
+            ${super.handlingLastUpdate(configuration)}
         </div>
         `;
         element.innerHTML = template;

@@ -53,15 +53,18 @@ export class CardOne extends BaseCard {
             <i style="color: ${this.card.iconColor}" class="${this.card.icon || ''}"></i>
           </div>
           <div class="card-one-detail">
-            <div class="card-one-detail-header">
-              <span style="color: ${this.card.fontColor}">${this.card.title || ''}</span>
+            <div class="card-one-detail-content">
+              <div class="card-one-detail-header">
+                <span style="color: ${this.card.fontColor}">${this.card.title || ''}</span>
+              </div>
+              <div class="card-one-detail-body">
+                <div style="color: ${this.card.fontColor}">${this.card.value || ''}</div>
+              </div>
+              <div class="card-one-detail-footer">
+                <span style="color: ${this.card.fontColor}">${this.card.label || ''}</span>
+              </div>
             </div>
-            <div class="card-one-detail-body">
-              <div style="color: ${this.card.fontColor}">${this.card.value || ''}</div>
-            </div>
-            <div class="card-one-detail-footer">
-              <span style="color: ${this.card.fontColor}">${this.card.label || ''}</span>
-            </div>
+            ${super.handlingLastUpdate(configuration)}
           </div>
         </div>
       </div>

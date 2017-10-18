@@ -5,7 +5,15 @@
   font-family: Roboto,sans-serif;
 }
 
-.card-one {
+.card-one-detail-content {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-one{
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -16,6 +24,11 @@
   height: 100%;
   margin:0;
   padding:0;
+
+  .board-card-last-update{
+    padding-right: 0;
+  }
+
 }
 
 .card-one-icon {
@@ -50,7 +63,7 @@
 }
 
 .card-one-detail-body {
-  font-size: 28px;
+  font-size: 25px;
   font-weight: 700;
   text-align: left;
 }

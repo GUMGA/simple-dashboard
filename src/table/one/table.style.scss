@@ -1,7 +1,22 @@
 .simple-dashboard-table{
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+
+  .board-card-last-update{
+    background: #FFF;
+    margin-right: 15px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+  }
+
+}
+
+.simple-dashboard-table > .content{
+  width: 100%;
+  height: 100%;
 }
 
 .simple-dashboard-table table.resize th {

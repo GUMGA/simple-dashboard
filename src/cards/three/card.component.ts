@@ -97,25 +97,28 @@ export class CardThree extends BaseCard {
     const template = `
       <div class="board-card" style="background-color: ${this.card.color}; border-color: ${this.card.color};">
         <div class="card-three">
-          <div class="card-three-right">
-            <div class="card-three-right-header">
-              <span style="color: ${this.card.fontColor}">${this.card.fieldOne.label || ''}</span>
-              <span class="value" style="color: ${this.card.fontColor}">${this.card.fieldOne.value || ''}</span>
+          <div class="content">
+            <div class="card-three-right">
+              <div class="card-three-right-header">
+                <span style="color: ${this.card.fontColor}">${this.card.fieldOne.label || ''}</span>
+                <span class="value" style="color: ${this.card.fontColor}">${this.card.fieldOne.value || ''}</span>
+              </div>
+              <div class="card-three-right-footer">
+                <span style="color: ${this.card.fontColor}">${this.card.fieldTwo.label || ''}</span>
+                <span class="value" style="color: ${this.card.fontColor}">${this.card.fieldTwo.value || ''}</span>
+              </div>
             </div>
-            <div class="card-three-right-footer">
-              <span style="color: ${this.card.fontColor}">${this.card.fieldTwo.label || ''}</span>
-              <span class="value" style="color: ${this.card.fontColor}">${this.card.fieldTwo.value || ''}</span>
+            <div class="card-three-left">
+              <div class="card-three-left-header">
+                <i style="color: ${this.card.iconColor}" class="${this.card.icon || ''}"></i>
+              </div>
+              <div class="card-three-left-footer">
+                  <span style="color: ${this.card.fontColor}">${this.card.fieldThree.label || ''}</span>
+                  <span class="value" style="color: ${this.card.fontColor}">${this.card.fieldThree.value || ''}</span>
+              </div>
             </div>
           </div>
-          <div class="card-three-left">
-            <div class="card-three-left-header">
-              <i style="color: ${this.card.iconColor}" class="${this.card.icon || ''}"></i>
-            </div>
-            <div class="card-three-left-footer">
-                <span style="color: ${this.card.fontColor}">${this.card.fieldThree.label || ''}</span>
-                <span class="value" style="color: ${this.card.fontColor}">${this.card.fieldThree.value || ''}</span>
-            </div>
-          </div>
+          ${super.handlingLastUpdate(configuration)}
         </div>
       </div>
     `;

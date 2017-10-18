@@ -57,21 +57,24 @@ export class CardTwo extends BaseCard {
     const template = `
     <div class="board-card" style="background-color: ${this.card.color}">
       <div class="card-two">
-        <div class="card-two-detail">
-          <div class="card-two-detail-header">
-            <span style="color: ${this.card.fontColor}">${this.card.title || ''}</span>
-          </div>
-          <div class="card-two-detail-body">
-            <span style="color: ${this.card.fontColor}">${this.card.value || ''}</span>
-          </div>
-          <div class="card-two-detail-footer">
-            <span style="color: ${this.card.fontColor}">${this.card.label || ''}</span>
+        <div class="content">
+          <div class="card-two-detail">
+            <div class="card-two-detail-header">
+              <span style="color: ${this.card.fontColor}">${this.card.title || ''}</span>
+            </div>
+            <div class="card-two-detail-body">
+              <span style="color: ${this.card.fontColor}">${this.card.value || ''}</span>
+            </div>
+            <div class="card-two-detail-footer">
+              <span style="color: ${this.card.fontColor}">${this.card.label || ''}</span>
+              </div>
+            </div>
+          <div class="card-two-icon">
+            <i style="color: ${this.card.iconColor}" class="${this.card.icon || ''}"></i>
           </div>
         </div>
-        <div class="card-two-icon">
-          <i style="color: ${this.card.iconColor}" class="${this.card.icon || ''}"></i>
-        </div>
-      </div>
+        ${super.handlingLastUpdate(configuration)}
+      </div>      
     </div>
     `;
     element.innerHTML = template;
