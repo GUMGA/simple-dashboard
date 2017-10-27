@@ -41,10 +41,11 @@ export namespace CommonProvider {
                   formattedValue = formatMoney(Number(formattedValue), precision, ',', '.');
               break;
           case 'data#dd/MM/yyyy':
-              formattedValue = window.moment(value).format("DD/MM/YYYY HH:mm");
+              formattedValue = window.moment(value).format("DD/MM/YYYY");
               break;
           case 'datahora#dd/MM/yyyy HH:mm':
               formattedValue = window.moment(value).toDate().toLocaleString();
+              formattedValue = formattedValue.substring(0, formattedValue.length - 3);
               break;
           case 'hora#HH:mm':
               formattedValue = window.moment(value).format("HH:mm");

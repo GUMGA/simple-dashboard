@@ -2,7 +2,7 @@ import { Title, Field, ConditionalFormatting, GaugeBand, NumberValue, RecordSet,
 
 export class Configuration {
 
-    title = {} as Title;
+    title : any = '';
     axisX = {} as Field;
     axisY = [] as any;
     dataSeries = {} as Field;
@@ -49,9 +49,6 @@ export class Configuration {
     showlastUpdate: Boolean;
 
     constructor() {
-      this.title = {
-        text: ''
-      }
       this.boardFontSize = 'SMALL';
       this.labelField.format = 'no_format';
       this.showValues = false;

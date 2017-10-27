@@ -87,7 +87,7 @@
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Configuration; });
 var Configuration = /** @class */ (function () {
     function Configuration() {
-        this.title = {};
+        this.title = '';
         this.axisX = {};
         this.axisY = [];
         this.dataSeries = {};
@@ -97,9 +97,6 @@ var Configuration = /** @class */ (function () {
         this.fieldTwo = {};
         this.fieldThree = {};
         this.conditionalsFormatting = [];
-        this.title = {
-            text: ''
-        };
         this.boardFontSize = 'SMALL';
         this.labelField.format = 'no_format';
         this.showValues = false;
@@ -1708,10 +1705,11 @@ var CommonProvider;
                     formattedValue = formatMoney(Number(formattedValue), precision, ',', '.');
                 break;
             case 'data#dd/MM/yyyy':
-                formattedValue = window.moment(value).format("DD/MM/YYYY HH:mm");
+                formattedValue = window.moment(value).format("DD/MM/YYYY");
                 break;
             case 'datahora#dd/MM/yyyy HH:mm':
                 formattedValue = window.moment(value).toDate().toLocaleString();
+                formattedValue = formattedValue.substring(0, formattedValue.length - 3);
                 break;
             case 'hora#HH:mm':
                 formattedValue = window.moment(value).format("HH:mm");
@@ -3429,7 +3427,7 @@ var TableOne = /** @class */ (function (_super) {
     };
     TableOne.prototype.getTableHeader = function () {
         return this.columns.reduce(function (prev, next, index) {
-            return prev += "\n                <th>\n                    <strong>\n                        " + (next.label || next.name) + "\n                    </strong>\n                </th>\n            ";
+            return prev += "\n                <th>\n                    <strong>\n                        " + (next.label || next.name || '') + "\n                    </strong>\n                </th>\n            ";
         }, ' ');
     };
     TableOne.prototype.getColumnIndex = function (column, recordset) {
@@ -3452,7 +3450,8 @@ var TableOne = /** @class */ (function (_super) {
                 toReturn += 'background-color: ' + data.color.value + ';';
             }
         });
-        var columnType = configuration.data.types[this.getColumnIndex(nextColumn, recordset)] || 'String';
+        var columnType = configuration.data.types && configuration.data.types.length > 0 ?
+            configuration.data.types[this.getColumnIndex(nextColumn, recordset)] : 'String';
         if (columnType == 'Number') {
             toReturn += 'text-align: right;';
         }
@@ -3518,7 +3517,7 @@ var TableOne = /** @class */ (function (_super) {
         return '';
     };
     TableOne.prototype.handlingSmartGrid = function (element) {
-        if (!window.$)
+        if (!window.$ || !window.$.prototype.smartGrid)
             return;
         window.$(element.getElementsByTagName('table')[0]).smartGrid({
             head: true,

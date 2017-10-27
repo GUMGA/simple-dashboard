@@ -42,7 +42,7 @@ export class TableOne extends BaseTable {
             return prev += `
                 <th>
                     <strong>
-                        ${next.label || next.name}
+                        ${next.label || next.name || ''}
                     </strong>
                 </th>
             `;
@@ -68,7 +68,9 @@ export class TableOne extends BaseTable {
                 toReturn += 'background-color: '+data.color.value+';';
             }
         });
-        let columnType = configuration.data.types[this.getColumnIndex(nextColumn, recordset)] || 'String';
+
+        let columnType = configuration.data.types && configuration.data.types.length > 0 ? 
+                            configuration.data.types[this.getColumnIndex(nextColumn, recordset)] : 'String';
 
         if(columnType == 'Number'){
             toReturn += 'text-align: right;';
@@ -153,7 +155,7 @@ export class TableOne extends BaseTable {
     }
 
     private handlingSmartGrid(element: HTMLElement){
-        if(!window.$) return;
+        if(!window.$ || !window.$.prototype.smartGrid) return;
         window.$(element.getElementsByTagName('table')[0]).smartGrid({
             head: true,
             foot: this.hasColumnsOperation(),
