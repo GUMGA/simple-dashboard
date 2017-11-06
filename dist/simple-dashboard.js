@@ -3425,9 +3425,12 @@ var TableOne = /** @class */ (function (_super) {
         this.columns = this.columns.sort(function (a, b) { return a.sequence - b.sequence; });
         this.rows = configuration.data ? configuration.data.rows : [];
     };
-    TableOne.prototype.getTableHeader = function () {
+    TableOne.prototype.getTableHeader = function (recordset, configuration) {
+        var _this = this;
         return this.columns.reduce(function (prev, next, index) {
-            return prev += "\n                <th>\n                    <strong>\n                        " + (next.label || next.name || '') + "\n                    </strong>\n                </th>\n            ";
+            var columnType = configuration.data.types && configuration.data.types.length > 0 ?
+                configuration.data.types[_this.getColumnIndex(next, recordset)] : 'String';
+            return prev += "\n                <th style=\"" + (columnType == 'Number' ? 'text-align: right;' : 'text-align: left;') + "\">\n                    <strong>\n                        " + (next.label || next.name || '') + "\n                    </strong>\n                </th>\n            ";
         }, ' ');
     };
     TableOne.prototype.getColumnIndex = function (column, recordset) {
@@ -3529,7 +3532,7 @@ var TableOne = /** @class */ (function (_super) {
         return this.columns.filter(function (column) { return column.operation; }).length > 0;
     };
     TableOne.prototype.generateTemplate = function (element, recordset, configuration) {
-        var template = "\n        " + (configuration.title ? "\n            <h6 class=\"table-title\">" + configuration.title + "</h6>  \n        " : "") + "\n        <div class=\"table-responsive simple-dashboard-table\">\n            <div class=\"content\">\n                <table class=\"table\">\n                    <thead>\n                        <tr>\n                        " + this.getTableHeader() + "\n                        </tr>\n                    </thead>\n                    <tbody>\n                        " + this.getTableBody(recordset, configuration) + "\n                    </tbody>\n                    " + (this.hasColumnsOperation() ? "\n                    <tfoot>\n                        <tr>\n                        " + this.getTableFooter(recordset, configuration) + "\n                        </tr>\n                    </tfoot>\n                    " : "") + "\n                </table>\n            </div>\n            " + _super.prototype.handlingLastUpdate.call(this, configuration) + "\n        </div>\n        ";
+        var template = "\n        " + (configuration.title ? "\n            <h6 class=\"table-title\">" + configuration.title + "</h6>  \n        " : "") + "\n        <div class=\"table-responsive simple-dashboard-table\">\n            <div class=\"content\">\n                <table class=\"table\">\n                    <thead>\n                        <tr>\n                        " + this.getTableHeader(recordset, configuration) + "\n                        </tr>\n                    </thead>\n                    <tbody>\n                        " + this.getTableBody(recordset, configuration) + "\n                    </tbody>\n                    " + (this.hasColumnsOperation() ? "\n                    <tfoot>\n                        <tr>\n                        " + this.getTableFooter(recordset, configuration) + "\n                        </tr>\n                    </tfoot>\n                    " : "") + "\n                </table>\n            </div>\n            " + _super.prototype.handlingLastUpdate.call(this, configuration) + "\n        </div>\n        ";
         element.innerHTML = template;
         this.handlingSmartGrid(element);
     };

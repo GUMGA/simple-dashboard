@@ -37,10 +37,12 @@ export class TableOne extends BaseTable {
         this.rows = configuration.data ? configuration.data.rows : [];
     }
 
-    private getTableHeader(){
+    private getTableHeader(recordset: RecordSet, configuration: Configuration){
         return this.columns.reduce((prev, next, index) => {
+            let columnType = configuration.data.types && configuration.data.types.length > 0 ? 
+            configuration.data.types[this.getColumnIndex(next, recordset)] : 'String';
             return prev += `
-                <th>
+                <th style="${columnType == 'Number' ? 'text-align: right;' : 'text-align: left;'}">
                     <strong>
                         ${next.label || next.name || ''}
                     </strong>
@@ -177,7 +179,7 @@ export class TableOne extends BaseTable {
                 <table class="table">
                     <thead>
                         <tr>
-                        ${this.getTableHeader()}
+                        ${this.getTableHeader(recordset, configuration)}
                         </tr>
                     </thead>
                     <tbody>
