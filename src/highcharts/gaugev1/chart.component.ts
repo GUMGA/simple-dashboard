@@ -40,7 +40,7 @@ export class GaugeV1 extends BaseHighChart {
                     fontSize: this.getFontSize() + "px"
                   },
                   formatter: function () {
-                      return CommonProvider.formatValue(this.y, configuration.currentValue.format, configuration.precision)
+                      return CommonProvider.formatValue(this.y, configuration.currentValue.format, configuration.currentValue.formatPrecision)
                   }
               }
           });
@@ -95,7 +95,7 @@ export class GaugeV1 extends BaseHighChart {
                   fontSize: this.getFontSize() + "px"
                 },
                 formatter: function () {
-                    return CommonProvider.formatValue(this.value, configuration.currentValue.format, configuration.precision)
+                    return CommonProvider.formatValue(this.value, configuration.currentValue.format, configuration.currentValue.formatPrecision)
                 }
             },
             min: this.minimumValue,
