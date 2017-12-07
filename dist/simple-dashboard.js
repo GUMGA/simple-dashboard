@@ -3514,7 +3514,9 @@ var TableOne = /** @class */ (function (_super) {
     TableOne.prototype.formatValue = function (index, value) {
         if (value || value == 0) {
             this.columns[index].format = this.columns[index].format || '';
-            this.columns[index].formatPrecision = this.columns[index].formatPrecision || 2;
+            if (!(this.columns[index].formatPrecision >= 0)) {
+                this.columns[index].formatPrecision = 2;
+            }
             return __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(value, this.columns[index].format, this.columns[index].formatPrecision);
         }
         return '';

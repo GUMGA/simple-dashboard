@@ -150,7 +150,9 @@ export class TableOne extends BaseTable {
     private formatValue(index, value){
         if (value || value == 0) {
             this.columns[index].format = this.columns[index].format || '';
-            this.columns[index].formatPrecision = this.columns[index].formatPrecision || 2;
+            if(!(this.columns[index].formatPrecision >= 0)){
+                this.columns[index].formatPrecision = 2;
+            }
             return CommonProvider.formatValue(value, this.columns[index].format, this.columns[index].formatPrecision);
         }
         return '';
