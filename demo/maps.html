@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="ctrl">
+<head>
+    <meta charset="utf-8">
+    <title>Simple Dashboard</title>
+    <link rel="stylesheet" href="../dist/simple-dashboard.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic&subset=latin,cyrillic">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+
+<style>
+    body {
+        background-color: #f5f5f5;
+    }
+
+    #chart {
+        width: 960px;
+        height: 500px;
+    }
+</style>
+
+<div id="chart" style="margin: 50px;"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../node_modules/moment/min/moment.min.js"></script>
+<script type="text/javascript" src="../dist/simple-dashboard.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+<script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
+
+<script type="text/javascript">
+
+    angular.module('app', [])
+        .controller('ctrl', function ($http, $timeout) {
+
+            $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-population-density.json&callback=?', function (data) {
+
+                // Add lower case codes to the data set for inclusion in the tooltip.pointFormat
+                $.each(data, function () {
+                    this.flag = this.code.replace('UK', 'GB').toLowerCase();
+                });
+
+                $timeout(function() {
+                    var maps = new mf.Chart.Maps(document.getElementById('chart'), {
+
+                        title: {
+                            text: 'Fixed tooltip with HTML'
+                        },
+
+                        legend: {
+                            title: {
+                                text: 'Population density per km²',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+                                }
+                            }
+                        },
+
+                        mapNavigation: {
+                            enabled: true,
+                            buttonOptions: {
+                                verticalAlign: 'bottom'
+                            }
+                        },
+
+                        tooltip: {
+                            backgroundColor: 'none',
+                            borderWidth: 0,
+                            shadow: false,
+                            useHTML: true,
+                            padding: 0,
+                            pointFormat: '<span class="f32"><span class="flag {point.flag}">' +
+                            '</span></span> {point.name}<br>' +
+                            '<span style="font-size:30px">{point.value}/km²</span>',
+                            positioner: function () {
+                                return { x: 0, y: 250 };
+                            }
+                        },
+
+                        colorAxis: {
+                            min: 1,
+                            max: 1000,
+                            type: 'logarithmic'
+                        },
+
+                        series: [{
+                            data: data,
+                            mapData: Highcharts.maps['custom/world'],
+                            joinBy: ['iso-a2', 'code'],
+                            name: 'Population density',
+                            states: {
+                                hover: {
+                                    color: '#a4edba'
+                                }
+                            }
+                        }]
+                    });
+                }, 1000)
+
+
+            });
+
+        })
+
+</script>
+
+</body>
+</html>
