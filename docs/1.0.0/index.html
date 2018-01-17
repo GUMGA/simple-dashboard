@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <title>simple-dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://gumga.github.io/components/style.css">
+      <link rel="stylesheet" href="dist/simple-dashboard.min.css">
+      <style>
+          .chart-card {
+              width: 500px;
+              height: 110px;
+              margin: 50px;
+              position: relative;
+          }
+          .chart-iframe {
+            width: 327px;
+            height: 243px;
+          }
+          .chart-feed {
+              height: 257px;
+              width: 500px;
+              position: relative;
+              margin-bottom: 73px !important;
+          }
+          .chart-img {
+              height: 400px;
+              width: 600px;
+          }
+          #chart {
+              transition: all 300ms ease;
+          }
+
+          .row-flex {
+              display: flex; flex: 1; flex-wrap: wrap; padding: 10px; justify-content: center;
+          }
+      </style>
+  </head>
+  <body >
+
+    <nav class="navbar navbar-inverse" ng-controller="VersionController as ctrl">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">simple-dashboard</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#"
+                 class="dropdown-toggle"
+                 data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ctrl.version}} <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li ng-repeat="version in ctrl.versions"><a href="../{{version}}">{{version}}</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container" ng-controller="Ctrl as ctrl">
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="row">
+              <div class="col-xs-12">
+                  <h2>Descrição</h2>
+                  <p>O simple-dashboard é um componente que permite trabalhar com gráficos. Com ele é possível criar mapas, cartões, pizzas, barras, linhas entre outros.</p>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-xs-12">
+                  <h3>Observações</h3>
+                  <p>
+                      Se caso for utilizar mapas, é necessário adicionar ao seu projeto o respectivo mapa desejado. Os mesmos podem ser importados da seguinte
+                  </p>
+              </div>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <h3>Instalação</h3>
+          <pre><code class="prettyprint">// npm
+npm i gumga-tree-ng --save
+
+// Importação das dependências do componente pelo npm
+//-------------------------------------------------------------//
+&lt;script src="node_modules/gumga-tree-ng/dist/simple-dashboard.min.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="node_modules/simple-dashboard/dist/simple-dashboard.min.js"&gt;
+          </code>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Como utilizar
+        </div>
+        <div class="panel-body">
+          <div class="row row-flex">
+              <div id="chart" style="margin: 50px"></div>
+            <div class="col-xs-12">
+              <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" ng-click="ctrl.Bar()"><a href="#bar" aria-controls="profile" role="tab" data-toggle="tab">Barras</a></li>
+                <li role="presentation" ng-click="ctrl.BarLine()"><a href="#bar-line" aria-controls="profile" role="tab" data-toggle="tab">Barras e linhas</a></li>
+                <li role="presentation" ng-click="ctrl.BarLinePie()"><a href="#bar-line-pie" aria-controls="profile" role="tab" data-toggle="tab">Barras, linhas e pizzas</a></li>
+                <li role="presentation" ng-click="ctrl.CardOne()"><a href="#card-one" aria-controls="profile" role="tab" data-toggle="tab">Cartão versão 1</a></li>
+                <li role="presentation" ng-click="ctrl.CardTwo()"><a href="#card-two" aria-controls="profile" role="tab" data-toggle="tab">Cartão versão 2</a></li>
+                <li role="presentation" ng-click="ctrl.CardFour()"><a href="#card-four" aria-controls="profile" role="tab" data-toggle="tab">Cartão versão 4</a></li>
+                <li role="presentation" ng-click="ctrl.CardFive()"><a href="#card-five" aria-controls="profile" role="tab" data-toggle="tab">Cartão versão 5</a></li>
+                <li role="presentation" ng-click="ctrl.FeedOne()"><a href="#feed-one" aria-controls="profile" role="tab" data-toggle="tab">Feed</a></li>
+                <li role="presentation" ng-click="ctrl.GaugeV1()"><a href="#gaugev1" aria-controls="profile" role="tab" data-toggle="tab">Gauge versão 1</a></li>
+                <li role="presentation" ng-click="ctrl.GaugeV2()"><a href="#gaugev2" aria-controls="profile" role="tab" data-toggle="tab">Gauge versão 2</a></li>
+                <li role="presentation" ng-click="ctrl.IframeOne()"><a href="#iframe-one" aria-controls="profile" role="tab" data-toggle="tab">IFrame</a></li>
+                <li role="presentation" ng-click="ctrl.ImageOne()"><a href="#image-one" aria-controls="profile" role="tab" data-toggle="tab">Imagem</a></li>
+                <li role="presentation" ng-click="ctrl.Line()"><a href="#line" aria-controls="profile" role="tab" data-toggle="tab">Linhas</a></li>
+                <li role="presentation" ng-click="ctrl.Maps()"><a href="#maps" aria-controls="profile" role="tab" data-toggle="tab">Mapa</a></li>
+                <li role="presentation" ng-click="ctrl.Pie()"><a href="#pie" aria-controls="profile" role="tab" data-toggle="tab">Pizza</a></li>
+                <li role="presentation" ng-click="ctrl.TableOne()"><a href="#table-one" aria-controls="profile" role="tab" data-toggle="tab">Tabela</a></li>
+                <li role="presentation" ng-click="ctrl.TextOne()"><a href="#text-one" aria-controls="profile" role="tab" data-toggle="tab">Texto</a></li>
+                <li role="presentation" ng-click="ctrl.YoutubeOne()"><a href="#youtube-one" aria-controls="profile" role="tab" data-toggle="tab">YouTube</a></li>
+              </ul>
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane" id="html">
+                  <pre><code class="prettyprint" ng-non-bindable>&lt;div id="chart" style="margin: 50px;">&lt;/div></code></pre>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="bar">
+                  <pre><code class="prettyprint">angular.module('app', [])
+    .controller('ctrl', function($http){
+      function getBoard(id){
+        $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=algumToken')
+          .then(function(resp){
+            var table = new mf.Chart.Bar(document.getElementById('chart'), resp.data.data, resp.data);
+          });
+      }
+      getBoard(298);
+    })</code></pre>
+                </div>
+                  <div role="tabpanel" class="tab-pane active" id="bar-line">
+                  <pre><code class="prettyprint">angular.module('app', [])
+    .controller('ctrl', function($http){
+      function getBoard(id){
+        $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=algumToken')
+          .then(function(resp){
+            var card = new mf.Chart.BarLine(document.getElementById('chart'), resp.data.data, resp.data);
+          });
+      }
+      getBoard(298);
+    })</code></pre>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="bar-line-pie">
+                  <pre><code class="prettyprint">angular.module('app', [])
+    .controller('ctrl', function($http){
+      function getBoard(id){
+        $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=algumToken')
+          .then(function(resp){
+            var bar = new mf.Chart.BarLinePie(document.getElementById('chart'), resp.data.data, resp.data);
+          });
+      }
+      getBoard(298);
+    })</code></pre>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="card-five">
+                  <pre><code class="prettyprint">angular.module('app', [])
+    .controller('ctrl', function($http){
+      function getBoard(id){
+        $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=algumToken')
+          .then(function(resp){
+            var card = new mf.Card.CardFive(document.getElementById('chart'), resp.data.data, resp.data);
+          });
+      }
+      getBoard(298);
+    })</code></pre>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="card-four">
+                  <pre><code class="prettyprint">angular.module('app', [])
+    .controller('ctrl', function($http){
+      function getBoard(id){
+        $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=algumToken')
+          .then(function(resp){
+            var card = new mf.Card.CardFour(document.getElementById('chart'), resp.data.data, resp.data);
+          });
+      }
+      getBoard(298);
+    })</code></pre>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="card-one">
+                  <pre><code class="prettyprint">angular.module('app', [])
+    .controller('ctrl', function($http){
+      function getBoard(id){
+        $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=algumToken')
+          .then(function(resp){
+            var card = new mf.Card.CardOne(document.getElementById('chart'), resp.data.data, resp.data);
+          });
+      }
+      getBoard(298);
+    })</code></pre>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="card-two">
+                  <pre><code class="prettyprint">angular.module('app', [])
+    .controller('ctrl', function($http){
+      function getBoard(id){
+        $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=algumToken')
+          .then(function(resp){
+            var card = new mf.Card.CardTwo(document.getElementById('chart'), resp.data.data, resp.data);
+          });
+      }
+      getBoard(298);
+    })</code></pre>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="feed-one">
+                  <pre><code class="prettyprint">angular.module('app', [])
+    .controller('ctrl', function($http){
+      function getBoard(id){
+        $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=algumToken')
+          .then(function(resp){
+            var card = new mf.Feed.FeedOne(document.getElementById('feed'), resp.data.data, resp.data);
+          });
+      }
+      getBoard(298);
+    })</code></pre>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="gaugev1">
+                  <pre><code class="prettyprint">angular.module('app', [])
+    .controller('ctrl', function($http){
+      function getBoard(id){
+        $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=algumToken')
+          .then(function(resp){
+            var card = new mf.Chart.GaugeV1(document.getElementById('chart'), resp.data.data, resp.data);
+          });
+      }
+      getBoard(298);
+    })</code></pre>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="gaugev2">
+                  <pre><code class="prettyprint">angular.module('app', [])
+    .controller('ctrl', function($http){
+      function getBoard(id){
+        $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=algumToken')
+          .then(function(resp){
+            var card = new mf.Chart.GaugeV2(document.getElementById('chart'), resp.data.data, resp.data);
+          });
+      }
+      getBoard(298);
+    })</code></pre>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="iframe-one">
+                  <pre><code class="prettyprint">angular.module('app', [])
+    .controller('ctrl', function($http){
+      function getBoard(id){
+        $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=algumToken')
+          .then(function(resp){
+            var table = new mf.Iframe.IframeOne(document.getElementById('chart'), resp.data.data, resp.data);
+          });
+      }
+      getBoard(298);
+    })</code></pre>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="image-one">
+                  <pre><code class="prettyprint">angular.module('app', [])
+    .controller('ctrl', function($http){
+      function getBoard(id){
+        $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=algumToken')
+          .then(function(resp){
+            var table = new mf.Image.ImageOne(document.getElementById('chart'), resp.data.data, resp.data);
+          });
+      }
+      getBoard(298);
+    })</code></pre>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="maps">
+                  <pre><code class="prettyprint">angular.module('app', [])
+    .controller('ctrl', function($http){
+      function getBoard(id){
+        $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-population-density.json&callback=?', function (data) {
+
+                // Add lower case codes to the data set for inclusion in the tooltip.pointFormat
+                $.each(data, function () {
+                    this.flag = this.code.replace('UK', 'GB').toLowerCase();
+                });
+
+                $timeout(function() {
+                    var maps = new mf.Chart.Maps(document.getElementById('chart'), {
+
+                        title: {
+                            text: 'Fixed tooltip with HTML'
+                        },
+
+                        legend: {
+                            title: {
+                                text: 'Population density per km²',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+                                }
+                            }
+                        },
+
+                        mapNavigation: {
+                            enabled: true,
+                            buttonOptions: {
+                                verticalAlign: 'bottom'
+                            }
+                        },
+
+                        tooltip: {
+                            backgroundColor: 'none',
+                            borderWidth: 0,
+                            shadow: false,
+                            useHTML: true,
+                            padding: 0,
+                            pointFormat: '&lt;span class="f32">&lt;span class="flag {point.flag}">' +
+                            '&lt;/span>&lt;/span> {point.name}&lt;br>' +
+                            '&lt;span style="font-size:30px">{point.value}/km²&lt;/span>',
+                            positioner: function () {
+                                return { x: 0, y: 250 };
+                            }
+                        },
+
+                        colorAxis: {
+                            min: 1,
+                            max: 1000,
+                            type: 'logarithmic'
+                        },
+
+                        series: [{
+                            data: data,
+                            mapData: Highcharts.maps['custom/world'],
+                            joinBy: ['iso-a2', 'code'],
+                            name: 'Population density',
+                            states: {
+                                hover: {
+                                    color: '#a4edba'
+                                }
+                            }
+                        }]
+                    });
+                }, 1000)
+
+
+            });
+      }
+      getBoard(298);
+    })</code></pre>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="line">
+                  <pre><code class="prettyprint">angular.module('app', [])
+    .controller('ctrl', function($http){
+      function getBoard(id){
+        $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=algumToken')
+          .then(function(resp){
+            var card = new mf.Chart.Line(document.getElementById('chart'), resp.data.data, resp.data);
+          });
+      }
+      getBoard(298);
+    })</code></pre>
+                  </div><div role="tabpanel" class="tab-pane" id="pie">
+                  <pre><code class="prettyprint">angular.module('app', [])
+    .controller('ctrl', function($http){
+      function getBoard(id){
+        $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=algumToken')
+          .then(function(resp){
+            var card = new mf.Chart.Pie(document.getElementById('chart'), resp.data.data, resp.data);
+          });
+      }
+      getBoard(298);
+    })</code></pre>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="table-one">
+                  <pre><code class="prettyprint">angular.module('app', [])
+    .controller('ctrl', function($http){
+      function getBoard(id){
+        $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=algumToken')
+          .then(function(resp){
+            var table = new mf.Table.TableOne(document.getElementById('chart'), resp.data.data, resp.data);
+          });
+      }
+      getBoard(298);
+    })</code></pre>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="text-one">
+              <pre><code class="prettyprint">angular.module('app', [])
+    .controller('ctrl', function($http){
+      function getBoard(id){
+        $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=algumToken')
+          .then(function(resp){
+            var table = new mf.Text.TextOne(document.getElementById('chart'), resp.data.data, resp.data);
+          });
+      }
+      getBoard(298);
+})</code></pre>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="youtube-one">
+              <pre><code class="prettyprint">angular.module('app', [])
+    .controller('ctrl', function($http){
+      function getBoard(id){
+        $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=algumToken')
+          .then(function(resp){
+            var table = new mf.Youtube.YoutubeOne(document.getElementById('chart'), resp.data.data, resp.data);
+          });
+      }
+      getBoard(298);
+})</code></pre>
+              </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Atributos
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>
+                        Ao criar uma instância de algum objeto pertencente ao simple-dashboard, é necessário definir três parâmetros. O primeiro é o HTMLElement, o segundo identifica o RecordSet e o terceiro é um objeto do tipo Configuration.
+                        <ul>
+                            <li>HTMLElement: elemento HTML onde será aplicado o gráfico</li>
+                            <li>RecordSet: Os dados que serão aplicados no gráfico</li>
+                            <li>Configuration: A configuração que pode ser feita no gráfico</li>
+                        </ul>
+                    </p>
+                    <p>
+                        Exemplo:
+                        <pre><code class="prettyprint prettyprinted">var recordSet = {
+    "columns": [
+        "qnt"
+    ],
+    "labels": [],
+    "positions": [],
+    "icons": [],
+    "colors": [],
+    "fontColors": [],
+    "rows": [
+        [
+            61
+        ]
+    ],
+    "columnFormats": [],
+    "fontFamily": [],
+    "message": null,
+    "identifier": null,
+    "types": [
+        "Number"
+    ]
+};
+
+var Configuration = {
+    "type": "StudioBoardGaugeV1",
+    "id": 851,
+    "oi": {
+        "value": "7."
+    },
+    "gumgaOrganizations": ",,,",
+    "gumgaUsers": ",,,",
+    "title": "Gauge",
+    "refreshInterval": "5m",
+    "visibleDevices": [
+        {
+            "id": 4713,
+            "oi": {
+                "value": "7."
+            },
+            "device": "MOBILE",
+            "visible": true
+        },
+        {
+            "id": 4714,
+            "oi": {
+                "value": "7."
+            },
+            "device": "DESKTOP",
+            "visible": true
+        },
+        {
+            "id": 4715,
+            "oi": {
+                "value": "7."
+            },
+            "device": "LAPTOP",
+            "visible": true
+        },
+        {
+            "id": 4716,
+            "oi": {
+                "value": "7."
+            },
+            "device": "TABLET",
+            "visible": true
+        }
+    ],
+    "positions": [
+        {
+            "id": 17640,
+            "oi": {
+                "value": "7."
+            },
+            "col": 0,
+            "row": 0,
+            "sizeX": 5,
+            "sizeY": 21,
+            "device": "DESKTOP"
+        },
+        {
+            "id": 17441,
+            "oi": {
+                "value": "7."
+            },
+            "col": 0,
+            "row": 0,
+            "sizeX": 12,
+            "sizeY": 17,
+            "device": "MOBILE"
+        }
+    ],
+    "quickFilterActives": [],
+    "data": {
+        "columns": [
+            "qnt"
+        ],
+        "labels": [],
+        "positions": [],
+        "icons": [],
+        "colors": [],
+        "fontColors": [],
+        "rows": [
+            [
+                61
+            ]
+        ],
+        "columnFormats": [],
+        "fontFamily": [],
+        "message": null,
+        "identifier": null,
+        "types": [
+            "Number"
+        ]
+    },
+    "conditionalsFormatting": [
+        {
+            "type": "StudioBoardGaugeConditionalFormatting",
+            "id": 301,
+            "oi": {
+                "value": "7."
+            },
+            "sequence": null,
+            "field": null,
+            "condition": null,
+            "value": null,
+            "color": {
+                "value": "#000000"
+            }
+        }
+    ],
+    "boardAlerts": [],
+    "triggeredAlerts": [],
+    "presentationParameterBoardActives": [],
+    "lastUpdate": "2017-12-08T13:01:28Z",
+    "showlastUpdate": false,
+    "information": null,
+    "boardFontSize": "SMALL",
+    "dynamicColumns": false,
+    "timeToReturnData": 0,
+    "style": null,
+    "minimumValue": {
+        "id": 2423,
+        "oi": {
+            "value": "7."
+        },
+        "name": null,
+        "type": null,
+        "format": null,
+        "formatPrecision": null,
+        "label": null,
+        "icon": null,
+        "color": null,
+        "fontColor": null,
+        "iconColor": null,
+        "fontFamily": null,
+        "displayOrder": -1,
+        "title": null,
+        "sequence": null,
+        "description": null,
+        "value": "0",
+        "operation": null
+    },
+    "currentValue": {
+        "id": 2421,
+        "oi": {
+            "value": "7."
+        },
+        "name": "qnt",
+        "type": null,
+        "format": "moeda",
+        "formatPrecision": 3,
+        "label": "Qnt",
+        "icon": null,
+        "color": null,
+        "fontColor": null,
+        "iconColor": null,
+        "fontFamily": null,
+        "displayOrder": -1,
+        "title": null,
+        "sequence": null,
+        "description": null,
+        "value": null,
+        "operation": null
+    },
+    "maximumValue": {
+        "id": 2422,
+        "oi": {
+            "value": "7."
+        },
+        "name": null,
+        "type": null,
+        "format": null,
+        "formatPrecision": null,
+        "label": null,
+        "icon": null,
+        "color": null,
+        "fontColor": null,
+        "iconColor": null,
+        "fontFamily": null,
+        "displayOrder": -1,
+        "title": null,
+        "sequence": null,
+        "description": null,
+        "value": "100",
+        "operation": null
+    },
+    "fixedValue": true,
+    "beginningColor": "#5cb85c",
+    "middleColor": "#f0ad4e",
+    "endColor": "#d9534f"
+}
+
+var chart = new mf.Chart.GaugeV1(document.getElementById('chart'), recordSet, configuration);</code></pre>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.3/moment.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    <script src="dist/simple-dashboard.min.js"></script>
+    <script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="https://gumga.github.io/components/app.js"></script>
+
+  </body>
+</html>
