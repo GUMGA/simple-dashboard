@@ -2609,13 +2609,13 @@ var GaugeV1 = /** @class */ (function (_super) {
     GaugeV1.prototype.addSerie = function (name, value, configuration) {
         this.series.push({
             name: name,
-            data: [value],
+            data: [parseFloat(value)],
             dataLabels: {
                 style: {
                     fontSize: this.getFontSize() + "px"
                 },
                 formatter: function () {
-                    return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.currentValue.format, configuration.precision);
+                    return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.currentValue.format, configuration.currentValue.formatPrecision);
                 }
             }
         });
@@ -2670,7 +2670,7 @@ var GaugeV1 = /** @class */ (function (_super) {
                         fontSize: this.getFontSize() + "px"
                     },
                     formatter: function () {
-                        return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, configuration.currentValue.format, configuration.precision);
+                        return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, configuration.currentValue.format, configuration.currentValue.formatPrecision);
                     }
                 },
                 min: this.minimumValue,
@@ -2750,15 +2750,16 @@ var GaugeV2 = /** @class */ (function (_super) {
         return recordset.rows[0] && recordset.rows[0][index] ? recordset.rows[0][index] : 0;
     };
     GaugeV2.prototype.addSerie = function (name, value, configuration) {
+        console.log(value);
         this.series.push({
             name: name,
-            data: [value],
+            data: [parseFloat(value)],
             dataLabels: {
                 style: {
                     fontSize: this.getFontSize() + "px"
                 },
                 formatter: function () {
-                    return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.currentValue.format, configuration.precision);
+                    return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.currentValue.format, configuration.currentValue.formatPrecision);
                 }
             }
         });
@@ -2813,9 +2814,9 @@ var GaugeV2 = /** @class */ (function (_super) {
                     style: {
                         fontSize: this.getFontSize() + "px"
                     },
-                    formatter: function () {
-                        return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, configuration.currentValue.format, configuration.precision);
-                    },
+                    //   formatter: function () {
+                    //     return CommonProvider.formatValue(this.value, configuration.currentValue.format, configuration.currentValue.formatPrecision)
+                    //   },
                     rotation: 'auto'
                 },
                 title: {
@@ -3487,7 +3488,9 @@ var TableOne = /** @class */ (function (_super) {
     };
     TableOne.prototype.getColumnSum = function (column, recordset) {
         var _this = this;
-        return this.rows.reduce(function (prev, next) { return prev + next[_this.getColumnIndex(column, recordset)]; }, 0);
+        return this.rows.reduce(function (prev, next) {
+            return prev + Number(next[_this.getColumnIndex(column, recordset)]);
+        }, 0);
     };
     TableOne.prototype.getColumnFooterByOperation = function (column, recordset) {
         switch (column.operation) {
@@ -3508,7 +3511,7 @@ var TableOne = /** @class */ (function (_super) {
                 value = _this.getColumnFooterByOperation(next, recordset);
                 value = _this.formatValue(index, value);
             }
-            return prev += "\n                <td>\n                    " + value + "\n                </td>\n            ";
+            return prev += "\n                <td style=\"text-align: right;\">\n                    " + value + "\n                </td>\n            ";
         }, ' ');
     };
     TableOne.prototype.formatValue = function (index, value) {

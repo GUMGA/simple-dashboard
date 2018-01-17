@@ -34,7 +34,7 @@ export class GaugeV1 extends BaseHighChart {
       this.series.push(
           {
               name:name,
-              data: [value],
+              data: [parseFloat(value)],
               dataLabels: {
                   style: {
                     fontSize: this.getFontSize() + "px"

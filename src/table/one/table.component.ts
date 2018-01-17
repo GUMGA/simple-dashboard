@@ -117,7 +117,9 @@ export class TableOne extends BaseTable {
     }
 
     private getColumnSum(column, recordset: RecordSet){
-        return this.rows.reduce((prev, next) => prev + next[this.getColumnIndex(column, recordset)], 0);
+        return this.rows.reduce((prev, next) => {
+            return prev + Number(next[this.getColumnIndex(column, recordset)]);
+        }, 0);
     }
 
     private getColumnFooterByOperation(column, recordset: RecordSet){
@@ -140,7 +142,7 @@ export class TableOne extends BaseTable {
                 value = this.formatValue(index, value);
             }
             return prev += `
-                <td>
+                <td style="text-align: right;">
                     ${value}
                 </td>
             `;

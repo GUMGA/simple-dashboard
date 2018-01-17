@@ -31,10 +31,11 @@ export class GaugeV2 extends BaseHighChart {
   }
 
   protected addSerie(name, value, configuration: Configuration){
+      console.log(value);
       this.series.push(
           {
               name:name,
-              data: [value],
+              data: [parseFloat(value)],
               dataLabels: {
                   style: {
                     fontSize: this.getFontSize() + "px"
@@ -97,9 +98,9 @@ export class GaugeV2 extends BaseHighChart {
               style: {
                 fontSize: this.getFontSize() +"px"
               },
-              formatter: function () {
-                return CommonProvider.formatValue(this.value, configuration.currentValue.format, configuration.currentValue.formatPrecision)
-              },
+            //   formatter: function () {
+            //     return CommonProvider.formatValue(this.value, configuration.currentValue.format, configuration.currentValue.formatPrecision)
+            //   },
               rotation: 'auto'
           },
           title: {
