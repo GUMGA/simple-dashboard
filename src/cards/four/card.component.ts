@@ -33,6 +33,30 @@ export class CardFour extends BaseCard {
     if(configuration.field && configuration.field.description){
       this.card.description = configuration.field.description;
     }
+
+    if (configuration.field && configuration.field.name) {
+      let index = this.getPosition(configuration.field.name);
+      if (recordset.rows && recordset.rows[0]) {
+        let cardValue = recordset.rows[0][index];
+        this.card.value = CommonProvider.formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
+
+
+        configuration.conditionalsFormatting.forEach(condition => {
+          let indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(configuration.field.name);
+          let row = configuration.data.rowsConditionalFormattings[0];
+          if (CommonProvider.isConditionalFormatting(condition.condition, row[indexColumnCondition], condition.value)) {
+            if (condition.icon && condition.icon.value) {
+              this.card.icon = condition.icon.value;
+            }
+            if (condition.color && condition.color.value) {
+              this.card.color = condition.color.value;
+            }
+          }
+        });
+
+      }
+    }
+    
   }
 
   protected generateTemplate(element: HTMLElement, recordset: RecordSet, configuration: Configuration): void {

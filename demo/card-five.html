@@ -33,13 +33,13 @@
 
 
           function getBoard(id){
-            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=eterno')
+            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=232L127E1516797784301C151679598430100O127.I')
               .then(function(resp){
                 var card = new mf.Card.CardFive(document.getElementById('chart'), resp.data.data, resp.data);
               });
           }
 
-          getBoard(2573);
+          getBoard(3153);
 
 
         })

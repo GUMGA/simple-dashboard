@@ -1420,6 +1420,7 @@ var CardFive = /** @class */ (function (_super) {
         this.card = {};
     };
     CardFive.prototype.processRecordSet = function (recordset, configuration) {
+        var _this = this;
         this.card = Object.assign({}, configuration.field);
         if (configuration.field && configuration.field.name && recordset.rows && recordset.rows[0]) {
             var index = this.getPosition(configuration.field.name);
@@ -1436,6 +1437,25 @@ var CardFive = /** @class */ (function (_super) {
         }
         if (configuration.field && configuration.field.iconColor && configuration.field.iconColor.value) {
             this.card.iconColor = configuration.field.iconColor.value;
+        }
+        if (configuration.field && configuration.field.name) {
+            var index = this.getPosition(configuration.field.name);
+            if (recordset.rows && recordset.rows[0]) {
+                var cardValue = recordset.rows[0][index];
+                this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
+                configuration.conditionalsFormatting.forEach(function (condition) {
+                    var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(configuration.field.name);
+                    var row = configuration.data.rowsConditionalFormattings[0];
+                    if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(condition.condition, row[indexColumnCondition], condition.value)) {
+                        if (condition.icon && condition.icon.value) {
+                            _this.card.icon = condition.icon.value;
+                        }
+                        if (condition.color && condition.color.value) {
+                            _this.card.color = condition.color.value;
+                        }
+                    }
+                });
+            }
         }
     };
     CardFive.prototype.generateTemplate = function (element, recordset, configuration) {
@@ -1479,6 +1499,7 @@ var CardFour = /** @class */ (function (_super) {
         this.card = {};
     };
     CardFour.prototype.processRecordSet = function (recordset, configuration) {
+        var _this = this;
         this.card = Object.assign({}, configuration.field);
         if (configuration.field && configuration.field.name && recordset.rows && recordset.rows[0]) {
             var index = this.getPosition(configuration.field.name);
@@ -1498,6 +1519,25 @@ var CardFour = /** @class */ (function (_super) {
         }
         if (configuration.field && configuration.field.description) {
             this.card.description = configuration.field.description;
+        }
+        if (configuration.field && configuration.field.name) {
+            var index = this.getPosition(configuration.field.name);
+            if (recordset.rows && recordset.rows[0]) {
+                var cardValue = recordset.rows[0][index];
+                this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
+                configuration.conditionalsFormatting.forEach(function (condition) {
+                    var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(configuration.field.name);
+                    var row = configuration.data.rowsConditionalFormattings[0];
+                    if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(condition.condition, row[indexColumnCondition], condition.value)) {
+                        if (condition.icon && condition.icon.value) {
+                            _this.card.icon = condition.icon.value;
+                        }
+                        if (condition.color && condition.color.value) {
+                            _this.card.color = condition.color.value;
+                        }
+                    }
+                });
+            }
         }
     };
     CardFour.prototype.generateTemplate = function (element, recordset, configuration) {
@@ -1558,10 +1598,12 @@ var CardOne = /** @class */ (function (_super) {
         if (configuration.field && configuration.field.name) {
             var index = this.getPosition(configuration.field.name);
             if (recordset.rows && recordset.rows[0]) {
-                var cardValue_1 = recordset.rows[0][index];
-                this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(cardValue_1, configuration.field.format, configuration.field.formatPrecision);
+                var cardValue = recordset.rows[0][index];
+                this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
                 configuration.conditionalsFormatting.forEach(function (condition) {
-                    if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(condition.condition, cardValue_1, condition.value)) {
+                    var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(configuration.field.name);
+                    var row = configuration.data.rowsConditionalFormattings[0];
+                    if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(condition.condition, row[indexColumnCondition], condition.value)) {
                         if (condition.icon && condition.icon.value) {
                             _this.card.icon = condition.icon.value;
                         }
@@ -1744,10 +1786,12 @@ var CardTwo = /** @class */ (function (_super) {
         if (configuration.field && configuration.field.name) {
             var index = this.getPosition(configuration.field.name);
             if (recordset.rows && recordset.rows[0]) {
-                var cardValue_1 = recordset.rows[0][index];
-                this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(cardValue_1, configuration.field.format, configuration.field.formatPrecision);
+                var cardValue = recordset.rows[0][index];
+                this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
                 configuration.conditionalsFormatting.forEach(function (condition) {
-                    if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(condition.condition, cardValue_1, condition.value)) {
+                    var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(configuration.field.name);
+                    var row = configuration.data.rowsConditionalFormattings[0];
+                    if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(condition.condition, row[indexColumnCondition], condition.value)) {
                         if (condition.icon && condition.icon.value) {
                             _this.card.icon = condition.icon.value;
                         }
