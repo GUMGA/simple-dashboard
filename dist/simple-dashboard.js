@@ -189,11 +189,9 @@ var BaseHighChart = /** @class */ (function () {
 var BaseCard = /** @class */ (function () {
     function BaseCard(element, recordset, configuration) {
         this.element = element;
-        this.recordset = recordset;
-        if (this.recordset) {
-            this.recordset.columns = this.recordset.columns || [];
-            this.recordset.rows = this.recordset.rows || [];
-        }
+        this.recordset = recordset || {};
+        this.recordset.columns = this.recordset.columns || [];
+        this.recordset.rows = this.recordset.rows || [];
         this.configuration = Object.assign({}, new __WEBPACK_IMPORTED_MODULE_1__common_configuration__["a" /* Configuration */](), configuration);
         this.render();
     }
@@ -1444,7 +1442,7 @@ var CardFive = /** @class */ (function (_super) {
                 var cardValue = recordset.rows[0][index];
                 this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
                 configuration.conditionalsFormatting.forEach(function (condition) {
-                    var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(configuration.field.name);
+                    var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(condition.field);
                     var row = configuration.data.rowsConditionalFormattings[0];
                     if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(condition.condition, row[indexColumnCondition], condition.value)) {
                         if (condition.icon && condition.icon.value) {
@@ -1525,8 +1523,9 @@ var CardFour = /** @class */ (function (_super) {
             if (recordset.rows && recordset.rows[0]) {
                 var cardValue = recordset.rows[0][index];
                 this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
+                console.log(configuration);
                 configuration.conditionalsFormatting.forEach(function (condition) {
-                    var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(configuration.field.name);
+                    var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(condition.field);
                     var row = configuration.data.rowsConditionalFormattings[0];
                     if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(condition.condition, row[indexColumnCondition], condition.value)) {
                         if (condition.icon && condition.icon.value) {
@@ -1601,7 +1600,7 @@ var CardOne = /** @class */ (function (_super) {
                 var cardValue = recordset.rows[0][index];
                 this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
                 configuration.conditionalsFormatting.forEach(function (condition) {
-                    var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(configuration.field.name);
+                    var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(condition.field);
                     var row = configuration.data.rowsConditionalFormattings[0];
                     if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(condition.condition, row[indexColumnCondition], condition.value)) {
                         if (condition.icon && condition.icon.value) {
@@ -1789,7 +1788,7 @@ var CardTwo = /** @class */ (function (_super) {
                 var cardValue = recordset.rows[0][index];
                 this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
                 configuration.conditionalsFormatting.forEach(function (condition) {
-                    var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(configuration.field.name);
+                    var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(condition.field);
                     var row = configuration.data.rowsConditionalFormattings[0];
                     if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(condition.condition, row[indexColumnCondition], condition.value)) {
                         if (condition.icon && condition.icon.value) {

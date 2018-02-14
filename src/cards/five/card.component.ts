@@ -37,7 +37,7 @@ export class CardFive extends BaseCard {
         this.card.value = CommonProvider.formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
 
         configuration.conditionalsFormatting.forEach(condition => {
-          let indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(configuration.field.name);
+          let indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(condition.field);
           let row = configuration.data.rowsConditionalFormattings[0];
           if (CommonProvider.isConditionalFormatting(condition.condition, row[indexColumnCondition], condition.value)) {
             if (condition.icon && condition.icon.value) {

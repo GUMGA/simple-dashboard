@@ -39,10 +39,10 @@ export class CardFour extends BaseCard {
       if (recordset.rows && recordset.rows[0]) {
         let cardValue = recordset.rows[0][index];
         this.card.value = CommonProvider.formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
-
+        console.log(configuration);
 
         configuration.conditionalsFormatting.forEach(condition => {
-          let indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(configuration.field.name);
+          let indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(condition.field);
           let row = configuration.data.rowsConditionalFormattings[0];
           if (CommonProvider.isConditionalFormatting(condition.condition, row[indexColumnCondition], condition.value)) {
             if (condition.icon && condition.icon.value) {
