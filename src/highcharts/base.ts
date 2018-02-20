@@ -8,7 +8,7 @@ declare let window;
 export abstract class BaseHighChart {
 
   private configuration : Configuration;
-  private recordset : RecordSet;
+  protected recordset : RecordSet;
   private element: HTMLElement;
 
 

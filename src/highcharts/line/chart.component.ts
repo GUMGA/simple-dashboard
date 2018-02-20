@@ -18,6 +18,12 @@ export class Line extends BaseHighChart {
             let categorieValue = row[this.getPosition(configuration.axisX.name)];
             this.addCategorie(categorieValue);
         });
+        if(configuration.dynamicColumns) {
+            configuration.axisY = [];
+            this.recordset.columns
+                .filter((column) => configuration.axisX.name != column)
+                .forEach((column) => configuration.axisY.push({name: column, label:column}));
+        }
         configuration.axisY.forEach(axisY => {
             if (axisY && axisY.name) {
                 let indexAxisY = this.getPosition(axisY.name), values: Array<any> = [], colorAxisY = undefined;
@@ -52,6 +58,7 @@ export class Line extends BaseHighChart {
 
     protected getHighChartConfiguration(configuration: Configuration) {
         return {
+            colors: configuration.dynamicColumns && configuration.colorPalette ? CommonProvider.getColorByPaletteKey(configuration.colorPalette, configuration.invertedColorPalette) : CommonProvider.getColorsPaletteDefault(configuration.invertedColorPalette) ,
             chart: {
                 spacingBottom: 50,
                 spacingTop: 20

@@ -20,6 +20,12 @@ export class Bar extends BaseHighChart {
         this.addCategorie(categorieValue);
       });
       var indexAxisX = this.getPosition(configuration.axisX.name);
+      if(configuration.dynamicColumns) {
+          configuration.axisY = [];
+          this.recordset.columns
+              .filter((column) => configuration.axisX.name != column)
+              .forEach((column) => configuration.axisY.push({name: column, label:column}));
+      }
       configuration.axisY.forEach(axisY => {
         if(axisY && axisY.name){
           let indexAxisY = this.getPosition(axisY.name), values:Array<any> = [];
@@ -32,7 +38,7 @@ export class Bar extends BaseHighChart {
                  values.push(Number(value));
              }
           });
-          let color = axisY.color && axisY.color.value ? axisY.color.value : '#ff0000';
+          let color = axisY.color && axisY.color.value ? axisY.color.value : null;
           this.addSerie(axisY.label ? axisY.label : axisY.name, values, color);
         }
       })
@@ -58,6 +64,7 @@ export class Bar extends BaseHighChart {
   protected getHighChartConfiguration(configuration: Configuration) {
     let stacking = (!configuration.stacking || configuration.stacking === 'DISABLE') ? null : configuration.stacking.toLowerCase();
     return {
+        colors: configuration.dynamicColumns && configuration.colorPalette ? CommonProvider.getColorByPaletteKey(configuration.colorPalette, configuration.invertedColorPalette) : CommonProvider.getColorsPaletteDefault(configuration.invertedColorPalette) ,
         chart: {
             type: 'column',
             zoomType: false,
@@ -143,13 +150,17 @@ export class Bar extends BaseHighChart {
   }
 
   private addSerie(name:string, values:Array<any>, color: string):void {
-    this.series.push({
-        name: name,
-        data: values,
-        color: color,
-        dataLabels: {}
+      let serie = {
+          name: name,
+          data: values,
+          color: color,
+          dataLabels: {}
       }
-    );
+      if(!color) {
+          delete serie.color;
+      }
+      this.series.push(serie);
+
   }
 
 }

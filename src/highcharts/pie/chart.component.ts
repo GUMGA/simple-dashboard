@@ -30,6 +30,7 @@ export class Pie extends BaseHighChart {
 
   protected getHighChartConfiguration(configuration: Configuration) {
     return {
+          colors: configuration.colorPalette ? CommonProvider.getColorByPaletteKey(configuration.colorPalette, configuration.invertedColorPalette) : CommonProvider.getColorsPaletteDefault(configuration.invertedColorPalette) ,
           chart: {
               plotBackgroundColor: null,
               plotBorderWidth: null,

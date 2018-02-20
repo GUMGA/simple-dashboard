@@ -47,6 +47,8 @@ export class Configuration {
     text: string;
     lastUpdate: any;
     showlastUpdate: Boolean;
+    colorPalette: string;
+    invertedColorPalette: Boolean;
 
     constructor() {
       this.boardFontSize = 'SMALL';
