@@ -1864,9 +1864,15 @@ var CommonProvider;
                     formattedValue = formatMoney(Number(formattedValue), precision, ',', '.');
                 break;
             case 'data#dd/MM/yyyy':
+                var date = new Date(value);
+                var userTimezoneOffset = date.getTimezoneOffset() * 60000;
+                value = new Date(date.getTime() + userTimezoneOffset);
                 formattedValue = window.moment(value).format("DD/MM/YYYY");
                 break;
             case 'datahora#dd/MM/yyyy HH:mm':
+                var date = new Date(value);
+                var userTimezoneOffset = date.getTimezoneOffset() * 60000;
+                value = new Date(date.getTime() + userTimezoneOffset);
                 formattedValue = window.moment(value).toDate().toLocaleString();
                 formattedValue = formattedValue.substring(0, formattedValue.length - 3);
                 break;
