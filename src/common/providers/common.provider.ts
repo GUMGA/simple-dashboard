@@ -54,10 +54,14 @@ export namespace CommonProvider {
                 formattedValue = window.moment(value).format("DD/MM/YYYY");
                 break;
             case 'datahora#dd/MM/yyyy HH:mm':
-                var date = new Date(value);
-                var userTimezoneOffset = date.getTimezoneOffset() * 60000;
-                value = new Date(date.getTime() + userTimezoneOffset);
-                formattedValue = window.moment(value).format("DD/MM/YYYY HH:mm:ss");
+                if(typeof value == 'number') {
+                    formattedValue = window.moment(new Date(value)).format("DD/MM/YYYY HH:mm:ss");
+                } else {
+                    var date = new Date(value);
+                    var userTimezoneOffset = date.getTimezoneOffset() * 60000;
+                    value = new Date(date.getTime() + userTimezoneOffset);
+                    formattedValue = window.moment(value).format("DD/MM/YYYY HH:mm:ss");
+                }
                 break;
             case 'hora#HH:mm':
                 formattedValue = window.moment(value).format("HH:mm");
