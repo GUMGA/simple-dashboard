@@ -57,8 +57,7 @@ export namespace CommonProvider {
                 var date = new Date(value);
                 var userTimezoneOffset = date.getTimezoneOffset() * 60000;
                 value = new Date(date.getTime() + userTimezoneOffset);
-                formattedValue = window.moment(value).toDate().toLocaleString();
-                formattedValue = formattedValue.substring(0, formattedValue.length - 3);
+                formattedValue = window.moment(value).format("DD/MM/YYYY HH:mm:ss");
                 break;
             case 'hora#HH:mm':
                 formattedValue = window.moment(value).format("HH:mm");
