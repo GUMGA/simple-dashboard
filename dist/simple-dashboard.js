@@ -2526,6 +2526,9 @@ var BarLinePie = /** @class */ (function (_super) {
     };
     BarLinePie.prototype.processRecordSet = function (recordset, configuration) {
         var _this = this;
+        if (!(configuration.axisX && configuration.axisX.name)) {
+            return;
+        }
         var indexAxisX = this.getPosition(configuration.axisX.name);
         var seriesColumnAxisY = [];
         configuration
@@ -2728,7 +2731,7 @@ var BarLinePie = /** @class */ (function (_super) {
                 noData: "Sem dados para apresentar"
             },
             title: {
-                text: configuration && configuration.title ? configuration.title : 'Título do Grafico',
+                text: configuration && configuration.title ? configuration.title : '',
                 style: {
                     fontSize: (this.getFontSize() + 7) + "px"
                 }
