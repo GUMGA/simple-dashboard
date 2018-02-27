@@ -2995,7 +2995,7 @@ var BarLine = /** @class */ (function (_super) {
                     dataLabels: {
                         enabled: configuration ? configuration.dataLabelAxisY : true,
                         formatter: function () {
-                            return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, this.format, this.precision);
+                            return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.precision);
                         }
                     }
                 },
@@ -3003,7 +3003,7 @@ var BarLine = /** @class */ (function (_super) {
                     dataLabels: {
                         enabled: configuration ? configuration.dataLabelAxisY : true,
                         formatter: function () {
-                            return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, this.format, this.precision);
+                            return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.precision);
                         }
                     }
                 }

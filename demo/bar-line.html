@@ -25,15 +25,14 @@
         .controller('ctrl', function($http){
 
 
-          function getBoard(id){
-            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=6L7E1523301301396C150774930139600O7.I')
+          function getBoard(id, token){
+            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken='+token)
               .then(function(resp){
                 var card = new mf.Chart.BarLine(document.getElementById('chart'), resp.data.data, resp.data);
               });
           }
   
-          getBoard(303);
-
+          getBoard(3754, '319L143E1519732566563C151973077382200O143.I');
 
         })
 

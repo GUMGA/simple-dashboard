@@ -164,7 +164,7 @@ export class BarLine extends BaseHighChart {
                 dataLabels: {
                     enabled: configuration ? configuration.dataLabelAxisY : true,
                     formatter: function () {
-                        return CommonProvider.formatValue(this.y, this.format, this.precision)
+                        return CommonProvider.formatValue(this.y, configuration.format, configuration.precision)
                     }
                 }
             },
@@ -172,7 +172,7 @@ export class BarLine extends BaseHighChart {
                 dataLabels: {
                     enabled: configuration ? configuration.dataLabelAxisY : true,
                     formatter: function () {
-                        return CommonProvider.formatValue(this.y, this.format, this.precision)
+                        return CommonProvider.formatValue(this.y, configuration.format, configuration.precision)
                     }
                 }
             }
