@@ -2589,7 +2589,7 @@ var BarLinePie = /** @class */ (function (_super) {
                         y: Number(row[indexPieAxisY_1])
                     });
                 });
-                _this.addSeriePie(objAxisY.name, seriesPieAxisY_1, objAxisY);
+                _this.addSeriePie(objAxisY.name, seriesPieAxisY_1, objAxisY, configuration);
             }
         });
         configuration.pies.forEach(function (pie) {
@@ -2608,7 +2608,7 @@ var BarLinePie = /** @class */ (function (_super) {
                     });
                 });
                 pie.showValues = configuration ? configuration.dataLabelAxisY : true;
-                _this.addSeriePie(pie.labelField.name, seriesPieAxisY_2, pie);
+                _this.addSeriePie(pie.labelField.name, seriesPieAxisY_2, pie, configuration);
             }
         });
     };
@@ -2627,7 +2627,7 @@ var BarLinePie = /** @class */ (function (_super) {
         });
         return result;
     };
-    BarLinePie.prototype.addSeriePie = function (name, values, pie) {
+    BarLinePie.prototype.addSeriePie = function (name, values, pie, configuration) {
         pie = pie || {};
         if (this.regExpDate.test(name)) {
             name = __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(name, 'data#dd/MM/yyyy', 2);
@@ -2638,7 +2638,15 @@ var BarLinePie = /** @class */ (function (_super) {
             }
         }
         this.series.push({
-            name: name, data: values, type: 'pie', yAxis: 1, dataLabels: {
+            name: name,
+            data: values,
+            type: 'pie',
+            yAxis: 1,
+            dataLabels: {
+                formatter: function () {
+                    var mask = pie && pie.format ? pie.format : configuration.format;
+                    return '<b>' + __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, mask, configuration.precision) + '</b>';
+                },
                 style: {
                     fontSize: this.getFontSize() + "px"
                 },
@@ -2758,6 +2766,10 @@ var BarLinePie = /** @class */ (function (_super) {
             xAxis: {
                 categories: this.categories,
                 labels: {
+                    formatter: function () {
+                        var mask = configuration.axisX && configuration.axisX.format ? configuration.axisX.format : configuration.format;
+                        return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, mask, configuration.precision);
+                    },
                     style: {
                         fontSize: this.getFontSize() + "px"
                     }
@@ -2812,6 +2824,13 @@ var BarLinePie = /** @class */ (function (_super) {
                             return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.precision);
                         }
                     }
+                }, pie: {
+                    allowPointSelect: false,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: configuration.showValues ? true : false
+                    },
+                    showInLegend: configuration.showLegend
                 }
             }
         };
@@ -3115,6 +3134,10 @@ var Bar = /** @class */ (function (_super) {
                     text: configuration ? configuration.titleAxisY : 'Titulo do eixo horizontal'
                 },
                 labels: {
+                    formatter: function () {
+                        var mask = configuration.axisX && configuration.axisX.format ? configuration.axisX.format : configuration.format;
+                        return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, mask, configuration.precision);
+                    },
                     style: {
                         fontSize: this.getFontSize() + "px"
                     }
@@ -3620,7 +3643,8 @@ var Line = /** @class */ (function (_super) {
                 categories: this.categories,
                 labels: {
                     formatter: function () {
-                        return this.value;
+                        var mask = configuration.axisX && configuration.axisX.format ? configuration.axisX.format : configuration.format;
+                        return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, mask, configuration.precision);
                     },
                     style: {
                         fontSize: this.getFontSize() + "px"
