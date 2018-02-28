@@ -80,7 +80,8 @@ export class Line extends BaseHighChart {
                 categories: this.categories,
                 labels: {
                     formatter: function () {
-                        return this.value
+                        let mask = configuration.axisX && configuration.axisX.format ? configuration.axisX.format : configuration.format;
+                        return CommonProvider.formatValue(this.value, mask, configuration.precision);
                     },
                     style: {
                         fontSize: this.getFontSize() + "px"

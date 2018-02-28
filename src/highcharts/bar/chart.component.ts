@@ -4,7 +4,6 @@ import { Configuration }  from '../../common/configuration';
 import { CommonProvider} from '../../common/providers';
 
 export class Bar extends BaseHighChart {
-    
 
   private categories: Array<string>;
   private series: Array<any>;
@@ -15,7 +14,7 @@ export class Bar extends BaseHighChart {
   }
 
   protected processRecordSet(recordset: RecordSet, configuration: Configuration) {
-      recordset.rows.forEach(row => {
+        recordset.rows.forEach(row => {
         let categorieValue = row[this.getPosition(configuration.axisX.name)];
         this.addCategorie(categorieValue);
       });
@@ -43,7 +42,7 @@ export class Bar extends BaseHighChart {
         }
       })
   }
-  
+
   private getConditionFormatColor(column, value, configuration: Configuration) {
     let result = undefined;
     configuration.conditionalsFormatting = configuration.conditionalsFormatting || [];
@@ -63,6 +62,7 @@ export class Bar extends BaseHighChart {
 
   protected getHighChartConfiguration(configuration: Configuration) {
     let stacking = (!configuration.stacking || configuration.stacking === 'DISABLE') ? null : configuration.stacking.toLowerCase();
+
     return {
         colors: configuration.dynamicColumns && configuration.colorPalette ? CommonProvider.getColorByPaletteKey(configuration.colorPalette, configuration.invertedColorPalette) : CommonProvider.getColorsPaletteDefault(configuration.invertedColorPalette) ,
         chart: {
@@ -86,9 +86,13 @@ export class Bar extends BaseHighChart {
                 text: configuration ? configuration.titleAxisY : 'Titulo do eixo horizontal'
             },
             labels: {
-              style: {
-                fontSize: this.getFontSize() + "px"
-              }
+                formatter: function () {
+                    let mask = configuration.axisX && configuration.axisX.format ? configuration.axisX.format : configuration.format;
+                    return CommonProvider.formatValue(this.value, mask, configuration.precision);
+                },
+                style: {
+                   fontSize: this.getFontSize() + "px"
+                }
             }
         },
         legend: {

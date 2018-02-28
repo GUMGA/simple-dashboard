@@ -21,6 +21,8 @@ export class BarLinePie extends BaseHighChart {
     }
 
     protected processRecordSet(recordset: RecordSet, configuration: Configuration): void {
+        // console.log(configuration)
+        console.log(configuration.pies[0].format);
         if(!(configuration.axisX && configuration.axisX.name)) {
             return;
         }
@@ -78,7 +80,7 @@ export class BarLinePie extends BaseHighChart {
                                 y: Number(row[indexPieAxisY])
                             });
                         });
-                    this.addSeriePie(objAxisY.name, seriesPieAxisY, objAxisY);
+                    this.addSeriePie(objAxisY.name, seriesPieAxisY, objAxisY, configuration);
                 }
             })
 
@@ -98,7 +100,7 @@ export class BarLinePie extends BaseHighChart {
                         });
                     })
                 pie.showValues = configuration ? configuration.dataLabelAxisY : true;
-                this.addSeriePie(pie.labelField.name, seriesPieAxisY, pie);
+                this.addSeriePie(pie.labelField.name, seriesPieAxisY, pie, configuration);
             }
         })
 
@@ -121,7 +123,7 @@ export class BarLinePie extends BaseHighChart {
         return result;
     }
 
-    protected addSeriePie(name, values, pie): void {
+    protected addSeriePie(name, values, pie, configuration): void {
         pie = pie || {};
         if (this.regExpDate.test(name)) {
             name = CommonProvider.formatValue(name, 'data#dd/MM/yyyy', 2);
@@ -131,7 +133,15 @@ export class BarLinePie extends BaseHighChart {
             }
         }
         this.series.push({
-            name: name, data: values, type: 'pie', yAxis: 1, dataLabels: {
+            name: name,
+            data: values,
+            type: 'pie',
+            yAxis: 1,
+            dataLabels: {
+                formatter: function(){
+                    let mask = pie && pie.format ? pie.format : configuration.format;
+                    return '<b>'+CommonProvider.formatValue(this.y, mask, configuration.precision)+'</b>'
+                },
                 style: {
                     fontSize: this.getFontSize() + "px"
                 },
@@ -261,6 +271,10 @@ export class BarLinePie extends BaseHighChart {
             xAxis: {
                 categories: this.categories,
                 labels: {
+                    formatter: function () {
+                        let mask = configuration.axisX && configuration.axisX.format ? configuration.axisX.format : configuration.format;
+                        return CommonProvider.formatValue(this.value, mask, configuration.precision);
+                    },
                     style: {
                         fontSize: this.getFontSize() + "px"
                     }
@@ -315,7 +329,17 @@ export class BarLinePie extends BaseHighChart {
                             return CommonProvider.formatValue(this.y, configuration.format, configuration.precision)
                         }
                     }
+                },pie: {
+                    allowPointSelect: false,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: configuration.showValues ? true : false
+                    },
+                    showInLegend: configuration.showLegend
                 }
+
+
+
             }
         }
     }

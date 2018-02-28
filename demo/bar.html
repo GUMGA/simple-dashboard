@@ -36,13 +36,13 @@
 
 
           function getBoard(id){
-            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=6L7E1508267543145C150826574314500O7.I')
+            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=232L127E1519758101183C151975630118300O127.I')
               .then(function(resp){
                 var table = new mf.Chart.Bar(document.getElementById('chart'), resp.data.data, resp.data);
               });
           }
   
-          getBoard(298);
+          getBoard(3766);
 
         })
 
