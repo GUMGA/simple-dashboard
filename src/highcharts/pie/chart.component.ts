@@ -56,7 +56,7 @@ export class Pie extends BaseHighChart {
           },
           tooltip:{
              formatter: function () {
-                 return CommonProvider.formatValue(this.y, configuration.format, configuration.precision);
+                 return CommonProvider.formatValue(this.y, configuration.format, configuration.formatPrecision);
              },
              enabled: !configuration.showValues ? true : false
          },
@@ -67,7 +67,7 @@ export class Pie extends BaseHighChart {
                   dataLabels: {
                     enabled: configuration.showValues ? true : false,
                     formatter: function(){
-                      return '<b>'+CommonProvider.formatValue(this.y, configuration.format, configuration.precision)+'</b>'
+                      return '<b>'+CommonProvider.formatValue(this.y, configuration.format, configuration.formatPrecision)+'</b>'
                     },
                   },
                   showInLegend: configuration.showLegend

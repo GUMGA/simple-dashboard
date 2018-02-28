@@ -24,6 +24,7 @@ export namespace CommonProvider {
     export function formatValue(value, format, precision?) {
         var formattedValue = value;
         if ((!precision || precision ) && precision == null) {
+            // console.log('passei por aqui', precision)
             precision = 2;
         }
 

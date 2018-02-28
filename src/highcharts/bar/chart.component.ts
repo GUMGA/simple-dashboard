@@ -88,7 +88,7 @@ export class Bar extends BaseHighChart {
             labels: {
                 formatter: function () {
                     let mask = configuration.axisX && configuration.axisX.format ? configuration.axisX.format : configuration.format;
-                    return CommonProvider.formatValue(this.value, mask, configuration.precision);
+                    return CommonProvider.formatValue(this.value, mask, configuration.axisX.formatPrecision);
                 },
                 style: {
                    fontSize: this.getFontSize() + "px"
@@ -104,7 +104,7 @@ export class Bar extends BaseHighChart {
         tooltip: {
             enabled: configuration ? !configuration.dataLabelAxisY : false,
             formatter: function () {
-                return CommonProvider.formatValue(this.y, configuration.format, configuration.precision);
+                return CommonProvider.formatValue(this.y, configuration.format, configuration.formatPrecision);
             }
         },
         zAxis: {
@@ -121,7 +121,7 @@ export class Bar extends BaseHighChart {
             },
             labels: {
                 formatter: function () {
-                    return CommonProvider.formatValue(this.value, configuration.format, configuration.precision);
+                    return CommonProvider.formatValue(this.value, configuration.format, configuration.formatPrecision);
                 },
                 style: {
                   fontSize: this.getFontSize() + "px"
@@ -141,7 +141,7 @@ export class Bar extends BaseHighChart {
                 dataLabels: {
                     enabled: configuration ? configuration.dataLabelAxisY : true,
                     formatter: function () {
-                        return CommonProvider.formatValue(this.y, configuration.format, configuration.precision);
+                        return CommonProvider.formatValue(this.y, configuration.format, configuration.formatPrecision);
                     }
                 }
             }

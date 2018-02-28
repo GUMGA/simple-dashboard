@@ -1841,6 +1841,7 @@ var CommonProvider;
     function formatValue(value, format, precision) {
         var formattedValue = value;
         if ((!precision || precision) && precision == null) {
+            // console.log('passei por aqui', precision)
             precision = 2;
         }
         if (formattedValue === undefined)
@@ -2571,10 +2572,10 @@ var BarLinePie = /** @class */ (function (_super) {
                 recordset
                     .rows
                     .forEach(function (row) { return seriesLineAxisY_1.push(Number(row[indexLineAxisY_1])); });
-                _this.addSerieSpline(objAxisY.name, seriesLineAxisY_1, _this.getConditionFormatColor(objAxisY.name, recordset.rows[recordset.rows.length - 1][indexLineAxisY_1], configuration) || color);
+                _this.addSerieSpline(objAxisY.label || objAxisY.name, seriesLineAxisY_1, _this.getConditionFormatColor(objAxisY.name, recordset.rows[recordset.rows.length - 1][indexLineAxisY_1], configuration) || color);
             }
             else if (objAxisY.type === 'column') {
-                _this.addSerieColumn(objAxisY.label, seriesColumnAxisY, color);
+                _this.addSerieColumn(objAxisY.label || objAxisY.name, seriesColumnAxisY, color);
             }
             else if (objAxisY.type === 'pie') {
                 objAxisY.showValues = configuration ? configuration.dataLabelAxisY : true;
@@ -2589,7 +2590,7 @@ var BarLinePie = /** @class */ (function (_super) {
                         y: Number(row[indexPieAxisY_1])
                     });
                 });
-                _this.addSeriePie(objAxisY.name, seriesPieAxisY_1, objAxisY, configuration);
+                _this.addSeriePie(objAxisY.label || objAxisY.name, seriesPieAxisY_1, objAxisY, configuration);
             }
         });
         configuration.pies.forEach(function (pie) {
@@ -2645,7 +2646,7 @@ var BarLinePie = /** @class */ (function (_super) {
             dataLabels: {
                 formatter: function () {
                     var mask = pie && pie.format ? pie.format : configuration.format;
-                    return '<b>' + __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, mask, configuration.precision) + '</b>';
+                    return '<b>' + __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, mask, pie.formatPrecision || configuration.formatPrecision) + '</b>';
                 },
                 style: {
                     fontSize: this.getFontSize() + "px"
@@ -2724,7 +2725,12 @@ var BarLinePie = /** @class */ (function (_super) {
     };
     BarLinePie.prototype.addSerieSpline = function (name, values, color) {
         this.series.push({
-            name: name, data: values, color: color, type: 'spline', yAxis: 1, dataLabels: {
+            name: name,
+            data: values,
+            color: color,
+            type: 'spline',
+            yAxis: 1,
+            dataLabels: {
                 style: {
                     fontSize: this.getFontSize() + "px"
                 }
@@ -2768,7 +2774,7 @@ var BarLinePie = /** @class */ (function (_super) {
                 labels: {
                     formatter: function () {
                         var mask = configuration.axisX && configuration.axisX.format ? configuration.axisX.format : configuration.format;
-                        return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, mask, configuration.precision);
+                        return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, mask, configuration.axisX.formatPrecision);
                     },
                     style: {
                         fontSize: this.getFontSize() + "px"
@@ -2778,7 +2784,7 @@ var BarLinePie = /** @class */ (function (_super) {
             tooltip: {
                 enabled: configuration ? !configuration.dataLabelAxisY : false,
                 formatter: function () {
-                    return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.precision);
+                    return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.formatPrecision);
                 }
             },
             yAxis: [
@@ -2799,7 +2805,7 @@ var BarLinePie = /** @class */ (function (_super) {
                     },
                     labels: {
                         formatter: function () {
-                            return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, configuration.format, configuration.precision);
+                            return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, configuration.format, configuration.formatPrecision);
                         },
                         style: {
                             fontSize: this.getFontSize() + "px"
@@ -2813,7 +2819,7 @@ var BarLinePie = /** @class */ (function (_super) {
                     dataLabels: {
                         enabled: configuration ? configuration.dataLabelAxisY : true,
                         formatter: function () {
-                            return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.precision);
+                            return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.formatPrecision);
                         }
                     }
                 },
@@ -2821,7 +2827,7 @@ var BarLinePie = /** @class */ (function (_super) {
                     dataLabels: {
                         enabled: configuration ? configuration.dataLabelAxisY : true,
                         formatter: function () {
-                            return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.precision);
+                            return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.formatPrecision);
                         }
                     }
                 }, pie: {
@@ -3136,7 +3142,7 @@ var Bar = /** @class */ (function (_super) {
                 labels: {
                     formatter: function () {
                         var mask = configuration.axisX && configuration.axisX.format ? configuration.axisX.format : configuration.format;
-                        return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, mask, configuration.precision);
+                        return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, mask, configuration.axisX.formatPrecision);
                     },
                     style: {
                         fontSize: this.getFontSize() + "px"
@@ -3152,7 +3158,7 @@ var Bar = /** @class */ (function (_super) {
             tooltip: {
                 enabled: configuration ? !configuration.dataLabelAxisY : false,
                 formatter: function () {
-                    return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.precision);
+                    return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.formatPrecision);
                 }
             },
             zAxis: {
@@ -3169,7 +3175,7 @@ var Bar = /** @class */ (function (_super) {
                 },
                 labels: {
                     formatter: function () {
-                        return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, configuration.format, configuration.precision);
+                        return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, configuration.format, configuration.formatPrecision);
                     },
                     style: {
                         fontSize: this.getFontSize() + "px"
@@ -3189,7 +3195,7 @@ var Bar = /** @class */ (function (_super) {
                     dataLabels: {
                         enabled: configuration ? configuration.dataLabelAxisY : true,
                         formatter: function () {
-                            return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.precision);
+                            return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.formatPrecision);
                         }
                     }
                 }
@@ -3644,7 +3650,7 @@ var Line = /** @class */ (function (_super) {
                 labels: {
                     formatter: function () {
                         var mask = configuration.axisX && configuration.axisX.format ? configuration.axisX.format : configuration.format;
-                        return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, mask, configuration.precision);
+                        return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, mask, configuration.axisX.formatPrecision);
                     },
                     style: {
                         fontSize: this.getFontSize() + "px"
@@ -3663,7 +3669,7 @@ var Line = /** @class */ (function (_super) {
                 },
                 labels: {
                     formatter: function () {
-                        return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, configuration.format, configuration.precision);
+                        return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, configuration.format, configuration.formatPrecision);
                     },
                     style: {
                         fontSize: this.getFontSize() + "px"
@@ -3673,7 +3679,7 @@ var Line = /** @class */ (function (_super) {
             tooltip: {
                 enabled: configuration ? !configuration.dataLabelAxisY : false,
                 formatter: function () {
-                    return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.precision);
+                    return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.formatPrecision);
                 }
             },
             exporting: {
@@ -3685,7 +3691,7 @@ var Line = /** @class */ (function (_super) {
                     dataLabels: {
                         enabled: configuration ? configuration.dataLabelAxisY : true,
                         formatter: function () {
-                            return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.precision);
+                            return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.formatPrecision);
                         },
                         style: {
                             fontSize: this.getFontSize() + "px"
@@ -3820,7 +3826,7 @@ var Pie = /** @class */ (function (_super) {
             },
             tooltip: {
                 formatter: function () {
-                    return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.precision);
+                    return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.formatPrecision);
                 },
                 enabled: !configuration.showValues ? true : false
             },
@@ -3831,7 +3837,7 @@ var Pie = /** @class */ (function (_super) {
                     dataLabels: {
                         enabled: configuration.showValues ? true : false,
                         formatter: function () {
-                            return '<b>' + __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.precision) + '</b>';
+                            return '<b>' + __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.formatPrecision) + '</b>';
                         },
                     },
                     showInLegend: configuration.showLegend

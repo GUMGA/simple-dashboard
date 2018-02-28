@@ -55,16 +55,16 @@ export class BarLinePie extends BaseHighChart {
                         });
                 }
 
-                let color = objAxisY.color && objAxisY.color.value ? objAxisY.color.value : '#ff0000'
+                let color = objAxisY.color && objAxisY.color.value ? objAxisY.color.value : '#ff0000';
                 if (objAxisY.type === 'spline') {
                     let indexLineAxisY = this.getPosition(objAxisY.name);
                     let seriesLineAxisY = [];
                     recordset
                         .rows
                         .forEach((row) => seriesLineAxisY.push(Number(row[indexLineAxisY])));
-                    this.addSerieSpline(objAxisY.name, seriesLineAxisY, this.getConditionFormatColor(objAxisY.name, recordset.rows[recordset.rows.length - 1][indexLineAxisY], configuration) || color);
+                    this.addSerieSpline(objAxisY.label || objAxisY.name, seriesLineAxisY, this.getConditionFormatColor(objAxisY.name, recordset.rows[recordset.rows.length - 1][indexLineAxisY], configuration) || color);
                 } else if (objAxisY.type === 'column') {
-                    this.addSerieColumn(objAxisY.label, seriesColumnAxisY, color);
+                    this.addSerieColumn(objAxisY.label || objAxisY.name, seriesColumnAxisY, color);
                 } else if (objAxisY.type === 'pie') {
                     objAxisY.showValues = configuration ? configuration.dataLabelAxisY : true;
                     let indexPieAxisY = this.getPosition(objAxisY.name);
@@ -78,7 +78,7 @@ export class BarLinePie extends BaseHighChart {
                                 y: Number(row[indexPieAxisY])
                             });
                         });
-                    this.addSeriePie(objAxisY.name, seriesPieAxisY, objAxisY, configuration);
+                    this.addSeriePie(objAxisY.label || objAxisY.name, seriesPieAxisY, objAxisY, configuration);
                 }
             })
 
@@ -138,7 +138,7 @@ export class BarLinePie extends BaseHighChart {
             dataLabels: {
                 formatter: function(){
                     let mask = pie && pie.format ? pie.format : configuration.format;
-                    return '<b>'+CommonProvider.formatValue(this.y, mask, configuration.precision)+'</b>'
+                    return '<b>'+CommonProvider.formatValue(this.y, mask, pie.formatPrecision || configuration.formatPrecision)+'</b>'
                 },
                 style: {
                     fontSize: this.getFontSize() + "px"
@@ -226,7 +226,12 @@ export class BarLinePie extends BaseHighChart {
 
     protected addSerieSpline(name, values, color): void {
         this.series.push({
-            name: name, data: values, color: color, type: 'spline', yAxis: 1, dataLabels: {
+            name: name,
+            data: values,
+            color: color,
+            type: 'spline',
+            yAxis: 1,
+            dataLabels: {
                 style: {
                     fontSize: this.getFontSize() + "px"
                 }
@@ -271,7 +276,7 @@ export class BarLinePie extends BaseHighChart {
                 labels: {
                     formatter: function () {
                         let mask = configuration.axisX && configuration.axisX.format ? configuration.axisX.format : configuration.format;
-                        return CommonProvider.formatValue(this.value, mask, configuration.precision);
+                        return CommonProvider.formatValue(this.value, mask, configuration.axisX.formatPrecision);
                     },
                     style: {
                         fontSize: this.getFontSize() + "px"
@@ -281,7 +286,7 @@ export class BarLinePie extends BaseHighChart {
             tooltip: {
                 enabled: configuration ? !configuration.dataLabelAxisY : false,
                 formatter: function () {
-                    return CommonProvider.formatValue(this.y, configuration.format, configuration.precision)
+                    return CommonProvider.formatValue(this.y, configuration.format, configuration.formatPrecision)
                 }
             },
             yAxis: [
@@ -302,7 +307,7 @@ export class BarLinePie extends BaseHighChart {
                     },
                     labels: {
                         formatter: function () {
-                            return CommonProvider.formatValue(this.value, configuration.format, configuration.precision)
+                            return CommonProvider.formatValue(this.value, configuration.format, configuration.formatPrecision)
                         },
                         style: {
                             fontSize: this.getFontSize() + "px"
@@ -316,7 +321,7 @@ export class BarLinePie extends BaseHighChart {
                     dataLabels: {
                         enabled: configuration ? configuration.dataLabelAxisY : true,
                         formatter: function () {
-                            return CommonProvider.formatValue(this.y, configuration.format, configuration.precision)
+                            return CommonProvider.formatValue(this.y, configuration.format, configuration.formatPrecision)
                         }
                     }
                 },
@@ -324,7 +329,7 @@ export class BarLinePie extends BaseHighChart {
                     dataLabels: {
                         enabled: configuration ? configuration.dataLabelAxisY : true,
                         formatter: function () {
-                            return CommonProvider.formatValue(this.y, configuration.format, configuration.precision)
+                            return CommonProvider.formatValue(this.y, configuration.format, configuration.formatPrecision)
                         }
                     }
                 },pie: {
