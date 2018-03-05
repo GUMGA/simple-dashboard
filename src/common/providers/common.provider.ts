@@ -21,6 +21,8 @@ export namespace CommonProvider {
         }
     }
 
+
+
     export function formatValue(value, format, precision?) {
         var formattedValue = value;
         if ((!precision || precision ) && precision == null) {
@@ -55,14 +57,11 @@ export namespace CommonProvider {
                 formattedValue = window.moment(value).format("DD/MM/YYYY");
                 break;
             case 'datahora#dd/MM/yyyy HH:mm':
-                if(typeof value == 'number') {
-                    formattedValue = window.moment(new Date(value)).format("DD/MM/YYYY HH:mm:ss");
-                } else {
-                    var date = new Date(value);
-                    var userTimezoneOffset = date.getTimezoneOffset() * 60000;
-                    value = new Date(date.getTime() + userTimezoneOffset);
-                    formattedValue = window.moment(value).format("DD/MM/YYYY HH:mm:ss");
+                if(Number(value) != NaN){
+                    value = Number(value);
                 }
+                value = window.moment(value).utc().milliseconds() ? window.moment(value) : window.moment(value).utc();
+                formattedValue =  value.format('DD/MM/YYYY HH:mm:ss');
                 break;
             case 'hora#HH:mm':
                 formattedValue = window.moment(value).format("HH:mm");
