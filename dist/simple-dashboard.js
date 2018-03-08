@@ -1444,6 +1444,10 @@ var CardFive = /** @class */ (function (_super) {
                 configuration.conditionalsFormatting.forEach(function (condition) {
                     var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(condition.field);
                     var row = configuration.data.rowsConditionalFormattings[0];
+                    if (condition.compareOtherField) {
+                        var indexColumnConditionCompare = configuration.data.columnsConditionalFormattings.indexOf(condition.fieldCompare);
+                        condition.value = row[indexColumnConditionCompare];
+                    }
                     if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(condition.condition, row[indexColumnCondition], condition.value)) {
                         if (condition.icon && condition.icon.value) {
                             _this.card.icon = condition.icon.value;
@@ -1527,6 +1531,10 @@ var CardFour = /** @class */ (function (_super) {
                 configuration.conditionalsFormatting.forEach(function (condition) {
                     var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(condition.field);
                     var row = configuration.data.rowsConditionalFormattings[0];
+                    if (condition.compareOtherField) {
+                        var indexColumnConditionCompare = configuration.data.columnsConditionalFormattings.indexOf(condition.fieldCompare);
+                        condition.value = row[indexColumnConditionCompare];
+                    }
                     if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(condition.condition, row[indexColumnCondition], condition.value)) {
                         if (condition.icon && condition.icon.value) {
                             _this.card.icon = condition.icon.value;
@@ -1602,6 +1610,10 @@ var CardOne = /** @class */ (function (_super) {
                 configuration.conditionalsFormatting.forEach(function (condition) {
                     var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(condition.field);
                     var row = configuration.data.rowsConditionalFormattings[0];
+                    if (condition.compareOtherField) {
+                        var indexColumnConditionCompare = configuration.data.columnsConditionalFormattings.indexOf(condition.fieldCompare);
+                        condition.value = row[indexColumnConditionCompare];
+                    }
                     if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(condition.condition, row[indexColumnCondition], condition.value)) {
                         if (condition.icon && condition.icon.value) {
                             _this.card.icon = condition.icon.value;
@@ -1678,6 +1690,10 @@ var CardThree = /** @class */ (function (_super) {
             var valueOne_1 = recordset.rows[0][this.getPosition(configuration.fieldOne.name)];
             this.card.fieldOne = Object.assign(configuration.fieldOne, { value: __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(valueOne_1, configuration.fieldOne.format, configuration.fieldOne.formatPrecision) });
             this.getConditionalsFormatting(configuration, configuration.fieldOne.name).forEach(function (data) {
+                if (data.compareOtherField) {
+                    var indexColumnConditionCompare = configuration.data.columnsConditionalFormattings.indexOf(data.fieldCompare);
+                    data.value = recordset.rows[0][indexColumnConditionCompare];
+                }
                 _this.applyConditionalsFormatting(data.condition, valueOne_1, data.value, data);
             });
         }
@@ -1691,6 +1707,10 @@ var CardThree = /** @class */ (function (_super) {
             var valueTwo_1 = recordset.rows[0][this.getPosition(configuration.fieldTwo.name)];
             this.card.fieldTwo = Object.assign(configuration.fieldTwo, { value: __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(valueTwo_1, configuration.fieldTwo.format, configuration.fieldTwo.formatPrecision) });
             this.getConditionalsFormatting(configuration, configuration.fieldTwo.name).forEach(function (data) {
+                if (data.compareOtherField) {
+                    var indexColumnConditionCompare = configuration.data.columnsConditionalFormattings.indexOf(data.fieldCompare);
+                    data.value = recordset.rows[0][indexColumnConditionCompare];
+                }
                 _this.applyConditionalsFormatting(data.condition, valueTwo_1, data.value, data);
             });
         }
@@ -1704,6 +1724,10 @@ var CardThree = /** @class */ (function (_super) {
             var valueThree_1 = recordset.rows[0][this.getPosition(configuration.fieldThree.name)];
             this.card.fieldThree = Object.assign(configuration.fieldThree, { value: __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(valueThree_1, configuration.fieldThree.format, configuration.fieldThree.formatPrecision) });
             this.getConditionalsFormatting(configuration, configuration.fieldThree.name).forEach(function (data) {
+                if (data.compareOtherField) {
+                    var indexColumnConditionCompare = configuration.data.columnsConditionalFormattings.indexOf(data.fieldCompare);
+                    data.value = recordset.rows[0][indexColumnConditionCompare];
+                }
                 _this.applyConditionalsFormatting(data.condition, valueThree_1, data.value, data);
             });
         }
@@ -1790,6 +1814,10 @@ var CardTwo = /** @class */ (function (_super) {
                 configuration.conditionalsFormatting.forEach(function (condition) {
                     var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(condition.field);
                     var row = configuration.data.rowsConditionalFormattings[0];
+                    if (condition.compareOtherField) {
+                        var indexColumnConditionCompare = configuration.data.columnsConditionalFormattings.indexOf(condition.fieldCompare);
+                        condition.value = row[indexColumnConditionCompare];
+                    }
                     if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(condition.condition, row[indexColumnCondition], condition.value)) {
                         if (condition.icon && condition.icon.value) {
                             _this.card.icon = condition.icon.value;
@@ -1820,6 +1848,7 @@ var CardTwo = /** @class */ (function (_super) {
 var CommonProvider;
 (function (CommonProvider) {
     function isConditionalFormatting(condition, compare, value) {
+        if (value === void 0) { value = ''; }
         switch (condition) {
             case 'EQ':
                 return value == compare;
@@ -2552,7 +2581,7 @@ var BarLinePie = /** @class */ (function (_super) {
                     }
                     _this.addCategorie(categorieValue);
                     var value = row[indexColumnAxisY_1];
-                    var color = _this.getConditionFormatColor(objAxisY.name, value, configuration) || _this.getConditionFormatColor(configuration.axisX.name, row[indexAxisX], configuration);
+                    var color = _this.getConditionFormatColor(objAxisY.name, value, configuration, row) || _this.getConditionFormatColor(configuration.axisX.name, row[indexAxisX], configuration, row);
                     if (color) {
                         seriesColumnAxisY.push({ y: Number(value), color: color });
                     }
@@ -2568,7 +2597,7 @@ var BarLinePie = /** @class */ (function (_super) {
                 recordset
                     .rows
                     .forEach(function (row) { return seriesLineAxisY_1.push(Number(row[indexLineAxisY_1])); });
-                _this.addSerieSpline(objAxisY.label || objAxisY.name, seriesLineAxisY_1, _this.getConditionFormatColor(objAxisY.name, recordset.rows[recordset.rows.length - 1][indexLineAxisY_1], configuration) || color);
+                _this.addSerieSpline(objAxisY.label || objAxisY.name, seriesLineAxisY_1, _this.getConditionFormatColor(objAxisY.name, recordset.rows[recordset.rows.length - 1][indexLineAxisY_1], configuration, recordset.rows[recordset.rows.length - 1]) || color);
             }
             else if (objAxisY.type === 'column') {
                 _this.addSerieColumn(objAxisY.label || objAxisY.name, seriesColumnAxisY, color);
@@ -2601,7 +2630,7 @@ var BarLinePie = /** @class */ (function (_super) {
                     seriesPieAxisY_2.push({
                         name: row[indexLabelField_1],
                         y: Number(row[indexDataSeries_1]),
-                        color: _this.getConditionFormatLabelColorPie(row[indexLabelField_1], pie) || _this.getConditionFormatDataColorPie(row[indexDataSeries_1], pie)
+                        color: _this.getConditionFormatLabelColorPie(row[indexLabelField_1], pie, row) || _this.getConditionFormatDataColorPie(row[indexDataSeries_1], pie, row)
                     });
                 });
                 pie.showValues = configuration ? configuration.dataLabelAxisY : true;
@@ -2609,7 +2638,8 @@ var BarLinePie = /** @class */ (function (_super) {
             }
         });
     };
-    BarLinePie.prototype.getConditionFormatColor = function (column, value, configuration) {
+    BarLinePie.prototype.getConditionFormatColor = function (column, value, configuration, row) {
+        var _this = this;
         var result = undefined;
         configuration.conditionalsFormatting = configuration.conditionalsFormatting || [];
         configuration
@@ -2618,6 +2648,9 @@ var BarLinePie = /** @class */ (function (_super) {
             return data.field && column && data.field.toLowerCase() === column.toLowerCase();
         })
             .forEach(function (data) {
+            if (data.compareOtherField) {
+                data.value = row[_this.getPosition(data.fieldCompare)];
+            }
             if (__WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].isConditionalFormatting(data.condition, value, data.value)) {
                 result = data.color.value;
             }
@@ -2678,7 +2711,8 @@ var BarLinePie = /** @class */ (function (_super) {
         }
         return position;
     };
-    BarLinePie.prototype.getConditionFormatLabelColorPie = function (value, pie) {
+    BarLinePie.prototype.getConditionFormatLabelColorPie = function (value, pie, row) {
+        var _this = this;
         var color = undefined;
         pie.conditionalsFormatting = pie.conditionalsFormatting || [];
         pie.conditionalsFormatting
@@ -2686,13 +2720,17 @@ var BarLinePie = /** @class */ (function (_super) {
             return data.field == pie.labelField.name;
         })
             .forEach(function (data) {
+            if (data.compareOtherField) {
+                data.value = row[_this.getPosition(data.fieldCompare)];
+            }
             if (__WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].isConditionalFormatting(data.condition, value, data.value)) {
                 color = data.color.value;
             }
         });
         return color;
     };
-    BarLinePie.prototype.getConditionFormatDataColorPie = function (value, pie) {
+    BarLinePie.prototype.getConditionFormatDataColorPie = function (value, pie, row) {
+        var _this = this;
         var color = undefined;
         pie.conditionalsFormatting = pie.conditionalsFormatting || [];
         pie.conditionalsFormatting
@@ -2700,6 +2738,9 @@ var BarLinePie = /** @class */ (function (_super) {
             return data.field == pie.dataSeries.name;
         })
             .forEach(function (data) {
+            if (data.compareOtherField) {
+                data.value = row[_this.getPosition(data.fieldCompare)];
+            }
             if (__WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].isConditionalFormatting(data.condition, value, data.value)) {
                 color = data.color.value;
             }
@@ -2883,7 +2924,7 @@ var BarLine = /** @class */ (function (_super) {
             categorieValue = __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(categorieValue, configuration.axisX.format, configuration.axisX.formatPrecision);
             _this.addCategorie(categorieValue);
             var value = row[indexColumnAxisY];
-            var color = _this.getConditionFormatColor(configuration.columnAxisY.name, value, configuration) || _this.getConditionFormatColor(configuration.axisX.name, row[indexAxisX], configuration);
+            var color = _this.getConditionFormatColor(configuration.columnAxisY.name, value, configuration, row) || _this.getConditionFormatColor(configuration.axisX.name, row[indexAxisX], configuration, row);
             if (color) {
                 seriesColumnAxisY.push({ y: Number(value), color: color });
             }
@@ -2904,7 +2945,8 @@ var BarLine = /** @class */ (function (_super) {
             _this.addSerieSpline(axisY.name, seriesLineAxisY, color);
         });
     };
-    BarLine.prototype.getConditionFormatColor = function (column, value, configuration) {
+    BarLine.prototype.getConditionFormatColor = function (column, value, configuration, row) {
+        var _this = this;
         var result = undefined;
         configuration
             .conditionalsFormatting
@@ -2912,6 +2954,9 @@ var BarLine = /** @class */ (function (_super) {
             return column && data.field.toLowerCase() === column.toLowerCase();
         })
             .forEach(function (data) {
+            if (data.compareOtherField) {
+                data.value = row[_this.getPosition(data.fieldCompare)];
+            }
             if (__WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].isConditionalFormatting(data.condition, value, data.value)) {
                 result = data.color.value;
             }
@@ -3083,7 +3128,7 @@ var Bar = /** @class */ (function (_super) {
                 var indexAxisY_1 = _this.getPosition(axisY.name), values_1 = [];
                 recordset.rows.forEach(function (row, index) {
                     var value = row[indexAxisY_1];
-                    var color = _this.getConditionFormatColor(axisY.name, value, configuration) || _this.getConditionFormatColor(configuration.axisX.name, row[indexAxisX], configuration);
+                    var color = _this.getConditionFormatColor(axisY.name, value, configuration, row) || _this.getConditionFormatColor(configuration.axisX.name, row[indexAxisX], configuration, row);
                     if (color) {
                         values_1.push({ y: Number(value), color: color });
                     }
@@ -3096,7 +3141,8 @@ var Bar = /** @class */ (function (_super) {
             }
         });
     };
-    Bar.prototype.getConditionFormatColor = function (column, value, configuration) {
+    Bar.prototype.getConditionFormatColor = function (column, value, configuration, row) {
+        var _this = this;
         var result = undefined;
         configuration.conditionalsFormatting = configuration.conditionalsFormatting || [];
         configuration
@@ -3105,6 +3151,9 @@ var Bar = /** @class */ (function (_super) {
             return data.field && data.field.toLowerCase() === column.toLowerCase();
         })
             .forEach(function (data) {
+            if (data.compareOtherField) {
+                data.value = row[_this.getPosition(data.fieldCompare)];
+            }
             if (__WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].isConditionalFormatting(data.condition, value, data.value)) {
                 result = data.color.value;
             }
@@ -3599,7 +3648,7 @@ var Line = /** @class */ (function (_super) {
                     var value = row[indexAxisY_1];
                     values_1.push(Number(value));
                     if (index == recordset.rows.length - 1) {
-                        colorAxisY_1 = _this.getConditionFormatDataColor(axisY.name, row[indexAxisY_1], configuration);
+                        colorAxisY_1 = _this.getConditionFormatDataColor(axisY.name, row[indexAxisY_1], configuration, row);
                     }
                 });
                 var color = colorAxisY_1 ? colorAxisY_1 : axisY.color ? axisY.color.value : undefined;
@@ -3607,7 +3656,8 @@ var Line = /** @class */ (function (_super) {
             }
         });
     };
-    Line.prototype.getConditionFormatDataColor = function (name, value, configuration) {
+    Line.prototype.getConditionFormatDataColor = function (name, value, configuration, row) {
+        var _this = this;
         var color = undefined;
         configuration
             .conditionalsFormatting
@@ -3615,6 +3665,9 @@ var Line = /** @class */ (function (_super) {
             return data.field == name;
         })
             .forEach(function (data) {
+            if (data.compareOtherField) {
+                data.value = row[_this.getPosition(data.fieldCompare)];
+            }
             if (__WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].isConditionalFormatting(data.condition, value, data.value)) {
                 color = data.color.value;
             }
@@ -3790,7 +3843,7 @@ var Pie = /** @class */ (function (_super) {
                 recordset.rows = recordset.rows || [];
             }
             recordset.rows.forEach(function (row) {
-                _this.addSerie(row[indexLabelField_1], row[indexDataSeries_1], _this.getConditionFormatLabelColor(configuration, row[indexLabelField_1]) || _this.getConditionFormatLabelColor(configuration, row[indexDataSeries_1]), configuration);
+                _this.addSerie(row[indexLabelField_1], row[indexDataSeries_1], _this.getConditionFormatLabelColor(configuration, row[indexLabelField_1], row) || _this.getConditionFormatLabelColor(configuration, row[indexDataSeries_1], row), configuration);
             });
         }
     };
@@ -3856,10 +3909,14 @@ var Pie = /** @class */ (function (_super) {
                 }
             } });
     };
-    Pie.prototype.getConditionFormatLabelColor = function (configuration, value) {
+    Pie.prototype.getConditionFormatLabelColor = function (configuration, value, row) {
+        var _this = this;
         var color = undefined;
         if (configuration.hasOwnProperty('conditionalsFormatting')) {
             configuration.conditionalsFormatting.forEach(function (conditionalsFormatting) {
+                if (conditionalsFormatting.compareOtherField) {
+                    conditionalsFormatting.value = row[_this.getPosition(conditionalsFormatting.fieldCompare)];
+                }
                 if (__WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].isConditionalFormatting(conditionalsFormatting.condition, value, conditionalsFormatting.value)) {
                     color = conditionalsFormatting.color.value;
                 }
@@ -4239,6 +4296,9 @@ var TableOne = /** @class */ (function (_super) {
             return data && nextColumn && data.field == nextColumn.name && data.typeColor == 'COLUMN';
         }).forEach(function (data) {
             var value = nextRow[_this.getColumnIndex(nextColumn, recordset)];
+            if (data.compareOtherField) {
+                data.value = nextRow[_this.getColumnIndex({ name: data.fieldCompare }, recordset)];
+            }
             if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(data.condition, value, data.value) && data.color && data.color.value) {
                 toReturn += 'background-color: ' + data.color.value + ';';
             }
@@ -4258,6 +4318,9 @@ var TableOne = /** @class */ (function (_super) {
             return data && data.typeColor == 'LINE';
         }).forEach(function (data) {
             var value = nextRow[_this.getColumnIndex({ name: data.field }, recordset)];
+            if (data.compareOtherField) {
+                data.value = nextRow[_this.getColumnIndex({ name: data.fieldCompare }, recordset)];
+            }
             if (__WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].isConditionalFormatting(data.condition, value, data.value) && data.color && data.color.value) {
                 toReturn += 'background-color: ' + data.color.value + ';';
             }

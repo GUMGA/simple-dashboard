@@ -25,7 +25,7 @@ export class BarLine extends BaseHighChart {
               categorieValue = CommonProvider.formatValue(categorieValue, configuration.axisX.format, configuration.axisX.formatPrecision)
               this.addCategorie(categorieValue);
               var value = row[indexColumnAxisY];
-              var color = this.getConditionFormatColor(configuration.columnAxisY.name, value, configuration) || this.getConditionFormatColor(configuration.axisX.name, row[indexAxisX], configuration);
+              var color = this.getConditionFormatColor(configuration.columnAxisY.name, value, configuration, row) || this.getConditionFormatColor(configuration.axisX.name, row[indexAxisX], configuration, row);
               if(color) {
                   seriesColumnAxisY.push({y:Number(value), color: color});
               } else {
@@ -47,14 +47,17 @@ export class BarLine extends BaseHighChart {
     });
   }
   
-  protected getConditionFormatColor(column, value, configuration: Configuration){
+  protected getConditionFormatColor(column, value, configuration: Configuration, row){
     var result = undefined;
     configuration
         .conditionalsFormatting
         .filter(function(data) {
             return column && data.field.toLowerCase() === column.toLowerCase();
         })
-        .forEach(function(data) {
+        .forEach((data) => {
+            if(data.compareOtherField){
+                data.value = row[this.getPosition(data.fieldCompare)];
+            }
             if(CommonProvider.isConditionalFormatting(data.condition, value, data.value)) {
                 result = data.color.value;
             }

@@ -22,7 +22,7 @@ export class Pie extends BaseHighChart {
       }
       recordset.rows.forEach(row => {
          this.addSerie(row[indexLabelField], row[indexDataSeries],
-           this.getConditionFormatLabelColor(configuration, row[indexLabelField]) || this.getConditionFormatLabelColor(configuration, row[indexDataSeries]),
+           this.getConditionFormatLabelColor(configuration, row[indexLabelField], row) || this.getConditionFormatLabelColor(configuration, row[indexDataSeries], row),
          configuration);
       })
     }
@@ -92,10 +92,13 @@ export class Pie extends BaseHighChart {
     }});
   }
 
-  private getConditionFormatLabelColor(configuration: Configuration, value: any):string {
+  private getConditionFormatLabelColor(configuration: Configuration, value: any, row):string {
     let color = undefined;
     if(configuration.hasOwnProperty('conditionalsFormatting')){
       configuration.conditionalsFormatting.forEach(conditionalsFormatting => {
+        if(conditionalsFormatting.compareOtherField){
+          conditionalsFormatting.value = row[this.getPosition(conditionalsFormatting.fieldCompare)];
+        }
         if(CommonProvider.isConditionalFormatting(conditionalsFormatting.condition, value, conditionalsFormatting.value)){
           color = conditionalsFormatting.color.value;
         }

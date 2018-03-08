@@ -45,7 +45,7 @@ export class BarLinePie extends BaseHighChart {
                             }
                             this.addCategorie(categorieValue);
                             let value = row[indexColumnAxisY];
-                            let color = this.getConditionFormatColor(objAxisY.name, value, configuration) || this.getConditionFormatColor(configuration.axisX.name, row[indexAxisX], configuration);
+                            let color = this.getConditionFormatColor(objAxisY.name, value, configuration, row) || this.getConditionFormatColor(configuration.axisX.name, row[indexAxisX], configuration, row);
                             if (color) {
                                 seriesColumnAxisY.push({ y: Number(value), color: color });
                             } else {
@@ -62,7 +62,7 @@ export class BarLinePie extends BaseHighChart {
                     recordset
                         .rows
                         .forEach((row) => seriesLineAxisY.push(Number(row[indexLineAxisY])));
-                    this.addSerieSpline(objAxisY.label || objAxisY.name, seriesLineAxisY, this.getConditionFormatColor(objAxisY.name, recordset.rows[recordset.rows.length - 1][indexLineAxisY], configuration) || color);
+                    this.addSerieSpline(objAxisY.label || objAxisY.name, seriesLineAxisY, this.getConditionFormatColor(objAxisY.name, recordset.rows[recordset.rows.length - 1][indexLineAxisY], configuration, recordset.rows[recordset.rows.length - 1]) || color);
                 } else if (objAxisY.type === 'column') {
                     this.addSerieColumn(objAxisY.label || objAxisY.name, seriesColumnAxisY, color);
                 } else if (objAxisY.type === 'pie') {
@@ -94,7 +94,7 @@ export class BarLinePie extends BaseHighChart {
                         seriesPieAxisY.push({
                             name: row[indexLabelField],
                             y: Number(row[indexDataSeries]),
-                            color: this.getConditionFormatLabelColorPie(row[indexLabelField], pie) || this.getConditionFormatDataColorPie(row[indexDataSeries], pie)
+                            color: this.getConditionFormatLabelColorPie(row[indexLabelField], pie, row) || this.getConditionFormatDataColorPie(row[indexDataSeries], pie, row)
                         });
                     })
                 pie.showValues = configuration ? configuration.dataLabelAxisY : true;
@@ -104,7 +104,7 @@ export class BarLinePie extends BaseHighChart {
 
     }
 
-    protected getConditionFormatColor(column, value, configuration: Configuration) {
+    protected getConditionFormatColor(column, value, configuration: Configuration, row) {
         let result = undefined;
         configuration.conditionalsFormatting = configuration.conditionalsFormatting || []
         configuration
@@ -112,7 +112,10 @@ export class BarLinePie extends BaseHighChart {
             .filter(function (data) {
                 return data.field && column && data.field.toLowerCase() === column.toLowerCase();
             })
-            .forEach(function (data) {
+            .forEach( (data) => {
+                if(data.compareOtherField){
+                    data.value = row[this.getPosition(data.fieldCompare)];
+                }
                 if (CommonProvider.isConditionalFormatting(data.condition, value, data.value)) {
                     result = data.color.value;
                 }
@@ -179,14 +182,17 @@ export class BarLinePie extends BaseHighChart {
         return position;
     }
 
-    protected getConditionFormatLabelColorPie(value, pie) {
+    protected getConditionFormatLabelColorPie(value, pie, row) {
         let color = undefined;
         pie.conditionalsFormatting = pie.conditionalsFormatting || []
         pie.conditionalsFormatting
             .filter(function (data) {
                 return data.field == pie.labelField.name
             })
-            .forEach(function (data) {
+            .forEach((data) => {
+                if(data.compareOtherField){
+                    data.value = row[this.getPosition(data.fieldCompare)];
+                }
                 if (CommonProvider.isConditionalFormatting(data.condition, value, data.value)) {
                     color = data.color.value;
                 }
@@ -194,14 +200,17 @@ export class BarLinePie extends BaseHighChart {
         return color;
     }
 
-    protected getConditionFormatDataColorPie(value, pie) {
+    protected getConditionFormatDataColorPie(value, pie, row) {
         let color = undefined;
         pie.conditionalsFormatting = pie.conditionalsFormatting || []
         pie.conditionalsFormatting
             .filter(function (data) {
                 return data.field == pie.dataSeries.name
             })
-            .forEach(function (data) {
+            .forEach((data) => {
+                if(data.compareOtherField){
+                    data.value = row[this.getPosition(data.fieldCompare)];
+                }
                 if (CommonProvider.isConditionalFormatting(data.condition, value, data.value)) {
                     color = data.color.value;
                 }

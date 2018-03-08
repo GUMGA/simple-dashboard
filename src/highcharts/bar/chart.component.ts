@@ -30,7 +30,7 @@ export class Bar extends BaseHighChart {
           let indexAxisY = this.getPosition(axisY.name), values:Array<any> = [];
           recordset.rows.forEach((row, index) => {
              let value = row[indexAxisY];
-             let color = this.getConditionFormatColor(axisY.name, value, configuration) || this.getConditionFormatColor(configuration.axisX.name, row[indexAxisX], configuration)
+             let color = this.getConditionFormatColor(axisY.name, value, configuration, row) || this.getConditionFormatColor(configuration.axisX.name, row[indexAxisX], configuration, row)
              if(color) {
                  values.push({y:Number(value), color: color});
              } else {
@@ -43,15 +43,18 @@ export class Bar extends BaseHighChart {
       })
   }
 
-  private getConditionFormatColor(column, value, configuration: Configuration) {
+  private getConditionFormatColor(column, value, configuration: Configuration, row) {
     let result = undefined;
     configuration.conditionalsFormatting = configuration.conditionalsFormatting || [];
     configuration
         .conditionalsFormatting
-        .filter(function(data) {
+        .filter((data) => {
             return data.field && data.field.toLowerCase() === column.toLowerCase();
         })
-        .forEach(function(data) {
+        .forEach((data) => {
+            if(data.compareOtherField){
+                data.value = row[this.getPosition(data.fieldCompare)];
+            }
             if(CommonProvider.isConditionalFormatting(data.condition, value, data.value)) {
                 result = data.color.value;
             }

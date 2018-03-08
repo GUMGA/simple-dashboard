@@ -66,6 +66,9 @@ export class TableOne extends BaseTable {
             return data && nextColumn && data.field == nextColumn.name && data.typeColor == 'COLUMN';
         }).forEach(data => {
             let value = nextRow[this.getColumnIndex(nextColumn, recordset)];
+            if(data.compareOtherField){
+                data.value = nextRow[this.getColumnIndex({name: data.fieldCompare}, recordset)];
+            }
             if(CommonProvider.isConditionalFormatting(data.condition, value, data.value) && data.color && data.color.value){
                 toReturn += 'background-color: '+data.color.value+';';
             }
@@ -88,6 +91,9 @@ export class TableOne extends BaseTable {
             return data && data.typeColor == 'LINE';
         }).forEach(data => {
             let value = nextRow[this.getColumnIndex({name: data.field}, recordset)];
+            if(data.compareOtherField){
+                data.value = nextRow[this.getColumnIndex({name: data.fieldCompare}, recordset)];
+            }
             if(CommonProvider.isConditionalFormatting(data.condition, value, data.value) && data.color && data.color.value){
                 toReturn += 'background-color: '+data.color.value+';';
             }

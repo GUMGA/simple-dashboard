@@ -6,5 +6,7 @@ export interface ConditionalFormatting {
     value: any;
     color: StringValue;
     field: string;
+    compareOtherField: boolean,
+    fieldCompare: string,
     typeColor: string;
 }

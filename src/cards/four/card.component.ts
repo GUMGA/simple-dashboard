@@ -1,8 +1,8 @@
 import './card.style.scss';
 import { BaseCard } from '../base';
-import { RecordSet     } from '../../common/interfaces';
-import { Configuration }  from '../../common/configuration';
-import { CommonProvider} from '../../common/providers';
+import { RecordSet } from '../../common/interfaces';
+import { Configuration } from '../../common/configuration';
+import { CommonProvider } from '../../common/providers';
 
 export class CardFour extends BaseCard {
 
@@ -14,23 +14,23 @@ export class CardFour extends BaseCard {
 
   protected processRecordSet(recordset: RecordSet, configuration: Configuration): void {
     this.card = Object.assign({}, configuration.field);
-    if(configuration.field && configuration.field.name && recordset.rows && recordset.rows[0]){
+    if (configuration.field && configuration.field.name && recordset.rows && recordset.rows[0]) {
       let index = this.getPosition(configuration.field.name);
       this.card.value = CommonProvider.formatValue(recordset.rows[0][index], configuration.field.format, configuration.field.formatPrecision);
     }
-    if(configuration.field && configuration.field.icon && configuration.field.icon.value){
+    if (configuration.field && configuration.field.icon && configuration.field.icon.value) {
       this.card.icon = configuration.field.icon.value;
     }
-    if(configuration.field && configuration.field.color && configuration.field.color.value){
+    if (configuration.field && configuration.field.color && configuration.field.color.value) {
       this.card.color = configuration.field.color.value;
     }
-    if(configuration.field && configuration.field.fontColor && configuration.field.fontColor.value){
+    if (configuration.field && configuration.field.fontColor && configuration.field.fontColor.value) {
       this.card.fontColor = configuration.field.fontColor.value;
     }
-    if(configuration.field && configuration.field.iconColor && configuration.field.iconColor.value){
+    if (configuration.field && configuration.field.iconColor && configuration.field.iconColor.value) {
       this.card.iconColor = configuration.field.iconColor.value;
     }
-    if(configuration.field && configuration.field.description){
+    if (configuration.field && configuration.field.description) {
       this.card.description = configuration.field.description;
     }
 
@@ -44,6 +44,10 @@ export class CardFour extends BaseCard {
         configuration.conditionalsFormatting.forEach(condition => {
           let indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(condition.field);
           let row = configuration.data.rowsConditionalFormattings[0];
+          if (condition.compareOtherField) {
+            let indexColumnConditionCompare = configuration.data.columnsConditionalFormattings.indexOf(condition.fieldCompare);
+            condition.value = row[indexColumnConditionCompare];
+          }
           if (CommonProvider.isConditionalFormatting(condition.condition, row[indexColumnCondition], condition.value)) {
             if (condition.icon && condition.icon.value) {
               this.card.icon = condition.icon.value;
@@ -56,7 +60,7 @@ export class CardFour extends BaseCard {
 
       }
     }
-    
+
   }
 
   protected generateTemplate(element: HTMLElement, recordset: RecordSet, configuration: Configuration): void {

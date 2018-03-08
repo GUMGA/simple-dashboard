@@ -31,7 +31,7 @@ export class Line extends BaseHighChart {
                     let value = row[indexAxisY];
                     values.push(Number(value));
                     if (index == recordset.rows.length - 1) {
-                        colorAxisY = this.getConditionFormatDataColor(axisY.name, row[indexAxisY], configuration);
+                        colorAxisY = this.getConditionFormatDataColor(axisY.name, row[indexAxisY], configuration, row);
                     }
                 });
                 let color = colorAxisY ? colorAxisY : axisY.color ? axisY.color.value : undefined;
@@ -40,14 +40,17 @@ export class Line extends BaseHighChart {
         });
     }
 
-    private getConditionFormatDataColor(name, value, configuration: Configuration) {
+    private getConditionFormatDataColor(name, value, configuration: Configuration, row) {
         var color = undefined;
         configuration
             .conditionalsFormatting
             .filter(function (data) {
                 return data.field == name
             })
-            .forEach(function (data) {
+            .forEach((data) => {
+                if(data.compareOtherField){
+                    data.value = row[this.getPosition(data.fieldCompare)];
+                }
                 if (CommonProvider.isConditionalFormatting(data.condition, value, data.value)) {
                     color = data.color.value;
                 }

@@ -2,7 +2,7 @@ export namespace CommonProvider {
 
     declare let window;
 
-    export function isConditionalFormatting(condition, compare, value) {
+    export function isConditionalFormatting(condition, compare, value = '') {
         switch (condition) {
             case 'EQ':
                 return value == compare;
