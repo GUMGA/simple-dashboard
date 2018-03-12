@@ -4,9 +4,10 @@ import * as HighchartsMore from 'highcharts/highcharts-more';
 import * as HighchartsExporting from 'highcharts/modules/exporting';
 import * as NoDataToDisplay from 'highcharts/modules/no-data-to-display';
 import * as SolidGauge from 'highcharts/modules/solid-gauge';
+import * as FunnelChart from 'highcharts/modules/funnel';
 import * as HighchartsMapsModule from 'highcharts/modules/map';
 import * as HighchartsHeatMapsModule from 'highcharts/modules/heatmap';
-import {Bar, Line, Pie, GaugeV1, GaugeV2, BarLine, BarLinePie, Maps} from './highcharts';
+import {Bar, Line, Pie, GaugeV1, GaugeV2, BarLine, BarLinePie, Maps, Funnel} from './highcharts';
 import {CardOne, CardTwo, CardThree, CardFive, CardFour} from './cards';
 import {FeedOne} from './feed'
 import {TableOne} from './table'
@@ -20,6 +21,7 @@ import {ImageOne} from './image'
 HighchartsMore(Highcharts);
 HighchartsExporting(Highcharts);
 SolidGauge(Highcharts);
+FunnelChart(Highcharts);
 HighchartsMapsModule(Highcharts);
 HighchartsHeatMapsModule(Highcharts);
 
@@ -62,6 +64,7 @@ window.mf = window.mf || {
         GaugeV2: GaugeV2,
         BarLine: BarLine,
         BarLinePie: BarLinePie,
+        Funnel: Funnel,
         Maps: Maps
     },
     Card: {
