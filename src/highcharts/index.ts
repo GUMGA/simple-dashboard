@@ -8,3 +8,4 @@ export { BarLine }        from './bar-line/chart.component';
 export { BarLinePie }     from './bar-line-pie/chart.component';
 export { Maps }     from './maps/maps.component';
 export { Funnel }     from './funnel/chart.component';
+export { Radar }     from './radar/chart.component';

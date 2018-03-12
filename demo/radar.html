@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="ctrl">
+  <head>
+    <meta charset="utf-8">
+    <title>Simple Dashboard</title>
+  </head>
+  <body>
+    
+    <div id="chart" style="width: 600px;"> 
+      
+    </div>
+    
+    <link rel="stylesheet" href="../dist/simple-dashboard.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../node_modules/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="../dist/simple-dashboard.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+    <script src="../node_modules/moment/min/moment.min.js"></script>
+
+    <script type="text/javascript">
+
+        
+
+        angular.module('app', [])
+        .controller('ctrl', function($http){
+
+
+          var card = new mf.Chart.Radar(document.getElementById('chart'), 
+          {
+            columns: ["empresa", "meta", "alcancado"],
+            rows: [
+              ["Gumga S/A", "10", "20"],
+              ["Grands", "20", "10"],
+              ["DB1", "40", "25"]
+            ]
+          }, 
+          {
+            showlastUpdate: true,
+            showValues: false,
+            lastUpdate: new Date(),
+            format: "moeda",
+            axisX: {
+              name: "empresa"
+            },
+            lineAxisY: [
+              {
+                name: "meta",
+                label: "Meta"
+              },
+              {
+                name: "alcancado",
+                label: "Alcançado"
+              }
+            ]
+          });
+
+        })
+
+    </script>
+
+  </body>
+</html>
