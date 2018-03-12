@@ -90,16 +90,16 @@ export class Funnel extends BaseHighChart {
 
     private getConditionFormatLabelColor(configuration: Configuration, value: any, row): string {
         let color = undefined;
-        // if(configuration.hasOwnProperty('conditionalsFormatting')){
-        //   configuration.conditionalsFormatting.forEach(conditionalsFormatting => {
-        //     if(conditionalsFormatting.compareOtherField){
-        //       conditionalsFormatting.value = row[this.getPosition(conditionalsFormatting.fieldCompare)];
-        //     }
-        //     if(CommonProvider.isConditionalFormatting(conditionalsFormatting.condition, value, conditionalsFormatting.value)){
-        //       color = conditionalsFormatting.color.value;
-        //     }
-        //   })
-        // }
+        if(configuration.hasOwnProperty('conditionalsFormatting')){
+          configuration.conditionalsFormatting.forEach(conditionalsFormatting => {
+            if(conditionalsFormatting.compareOtherField){
+              conditionalsFormatting.value = row[this.getPosition(conditionalsFormatting.fieldCompare)];
+            }
+            if(CommonProvider.isConditionalFormatting(conditionalsFormatting.condition, value, conditionalsFormatting.value)){
+              color = conditionalsFormatting.color.value;
+            }
+          })
+        }
         return color;
     }
 

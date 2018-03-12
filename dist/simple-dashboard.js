@@ -3451,17 +3451,18 @@ var Funnel = /** @class */ (function (_super) {
             } });
     };
     Funnel.prototype.getConditionFormatLabelColor = function (configuration, value, row) {
+        var _this = this;
         var color = undefined;
-        // if(configuration.hasOwnProperty('conditionalsFormatting')){
-        //   configuration.conditionalsFormatting.forEach(conditionalsFormatting => {
-        //     if(conditionalsFormatting.compareOtherField){
-        //       conditionalsFormatting.value = row[this.getPosition(conditionalsFormatting.fieldCompare)];
-        //     }
-        //     if(CommonProvider.isConditionalFormatting(conditionalsFormatting.condition, value, conditionalsFormatting.value)){
-        //       color = conditionalsFormatting.color.value;
-        //     }
-        //   })
-        // }
+        if (configuration.hasOwnProperty('conditionalsFormatting')) {
+            configuration.conditionalsFormatting.forEach(function (conditionalsFormatting) {
+                if (conditionalsFormatting.compareOtherField) {
+                    conditionalsFormatting.value = row[_this.getPosition(conditionalsFormatting.fieldCompare)];
+                }
+                if (__WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].isConditionalFormatting(conditionalsFormatting.condition, value, conditionalsFormatting.value)) {
+                    color = conditionalsFormatting.color.value;
+                }
+            });
+        }
         return color;
     };
     return Funnel;
