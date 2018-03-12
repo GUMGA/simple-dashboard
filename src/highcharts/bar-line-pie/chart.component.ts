@@ -21,7 +21,6 @@ export class BarLinePie extends BaseHighChart {
     }
 
     protected processRecordSet(recordset: RecordSet, configuration: Configuration): void {
-        console.log(configuration)
         if(!(configuration.axisX && configuration.axisX.name)) {
             return;
         }

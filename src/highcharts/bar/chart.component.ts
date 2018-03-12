@@ -64,7 +64,6 @@ export class Bar extends BaseHighChart {
   }
 
   protected getHighChartConfiguration(configuration: Configuration) {
-      console.log(configuration)
     let stacking = (!configuration.stacking || configuration.stacking === 'DISABLE') ? null : configuration.stacking.toLowerCase();
 
     return {

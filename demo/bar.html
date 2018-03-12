@@ -36,7 +36,7 @@
 
 
           function getBoard(id, token){
-            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken='+token)
+            $http.get('http://192.168.253.246:8080/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken='+token)
               .then(function(resp){
                 var table = new mf.Chart.Bar(document.getElementById('chart'), resp.data.data, resp.data);
               });

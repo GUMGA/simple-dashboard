@@ -2556,7 +2556,6 @@ var BarLinePie = /** @class */ (function (_super) {
     };
     BarLinePie.prototype.processRecordSet = function (recordset, configuration) {
         var _this = this;
-        console.log(configuration);
         if (!(configuration.axisX && configuration.axisX.name)) {
             return;
         }
@@ -3168,7 +3167,6 @@ var Bar = /** @class */ (function (_super) {
         return result;
     };
     Bar.prototype.getHighChartConfiguration = function (configuration) {
-        console.log(configuration);
         var stacking = (!configuration.stacking || configuration.stacking === 'DISABLE') ? null : configuration.stacking.toLowerCase();
         return {
             colors: configuration.dynamicColumns && configuration.colorPalette ? __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].getColorByPaletteKey(configuration.colorPalette, configuration.invertedColorPalette) : __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].getColorsPaletteDefault(configuration.invertedColorPalette),
