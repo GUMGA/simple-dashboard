@@ -21,6 +21,7 @@ export class BarLinePie extends BaseHighChart {
     }
 
     protected processRecordSet(recordset: RecordSet, configuration: Configuration): void {
+        console.log(configuration)
         if(!(configuration.axisX && configuration.axisX.name)) {
             return;
         }
@@ -282,6 +283,9 @@ export class BarLinePie extends BaseHighChart {
             },
             xAxis: {
                 categories: this.categories,
+                title: {
+                    text: configuration && configuration.axisX ? configuration.axisX.label : 'Titulo do eixo horizontal'
+                },
                 labels: {
                     formatter: function () {
                         let mask = configuration.axisX && configuration.axisX.format ? configuration.axisX.format : configuration.format;

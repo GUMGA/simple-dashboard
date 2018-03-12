@@ -122,6 +122,9 @@ export class BarLine extends BaseHighChart {
         xAxis: [
             {
                 categories: this.categories,
+                title: {
+                  text: configuration && configuration.axisX ? configuration.axisX.label : 'Titulo eixo horizontal'
+                },
                 labels: {
                   style: {
                     fontSize: this.getFontSize()+"px"

@@ -81,6 +81,9 @@ export class Line extends BaseHighChart {
             },
             xAxis: {
                 categories: this.categories,
+                title: {
+                    text: configuration ? configuration.axisX.label : 'Titulo do eixo horizontal'
+                },
                 labels: {
                     formatter: function () {
                         let mask = configuration.axisX && configuration.axisX.format ? configuration.axisX.format : configuration.format;
@@ -88,7 +91,8 @@ export class Line extends BaseHighChart {
                     },
                     style: {
                         fontSize: this.getFontSize() + "px"
-                    }
+                    },
+
                 }
             },
             legend: {

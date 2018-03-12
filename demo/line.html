@@ -26,16 +26,16 @@
         .controller('ctrl', function($http){
 
 
-          function getBoard(id){
+          function getBoard(id, token){
 
 //            $http.get('http://173.255.205.196/dashboard-api/api/boards/get-board-data/38?gumgaToken=4L5E1519839438060C151983763806000O5.I')
-            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=232L127E1519758101183C151975630118300O127.I')
+            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken='+token)
               .then(function(resp){
                 var card = new mf.Chart.Line(document.getElementById('chart'), resp.data.data, resp.data);
               });
           }
   
-          getBoard(3768);
+          getBoard(4100, '232L127E1520542144163C152054034416300O127.I');
 
 
         })

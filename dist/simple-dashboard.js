@@ -2556,6 +2556,7 @@ var BarLinePie = /** @class */ (function (_super) {
     };
     BarLinePie.prototype.processRecordSet = function (recordset, configuration) {
         var _this = this;
+        console.log(configuration);
         if (!(configuration.axisX && configuration.axisX.name)) {
             return;
         }
@@ -2808,6 +2809,9 @@ var BarLinePie = /** @class */ (function (_super) {
             },
             xAxis: {
                 categories: this.categories,
+                title: {
+                    text: configuration && configuration.axisX ? configuration.axisX.label : 'Titulo do eixo horizontal'
+                },
                 labels: {
                     formatter: function () {
                         var mask = configuration.axisX && configuration.axisX.format ? configuration.axisX.format : configuration.format;
@@ -3016,6 +3020,9 @@ var BarLine = /** @class */ (function (_super) {
             xAxis: [
                 {
                     categories: this.categories,
+                    title: {
+                        text: configuration && configuration.axisX ? configuration.axisX.label : 'Titulo eixo horizontal'
+                    },
                     labels: {
                         style: {
                             fontSize: this.getFontSize() + "px"
@@ -3161,6 +3168,7 @@ var Bar = /** @class */ (function (_super) {
         return result;
     };
     Bar.prototype.getHighChartConfiguration = function (configuration) {
+        console.log(configuration);
         var stacking = (!configuration.stacking || configuration.stacking === 'DISABLE') ? null : configuration.stacking.toLowerCase();
         return {
             colors: configuration.dynamicColumns && configuration.colorPalette ? __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].getColorByPaletteKey(configuration.colorPalette, configuration.invertedColorPalette) : __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].getColorsPaletteDefault(configuration.invertedColorPalette),
@@ -3182,7 +3190,7 @@ var Bar = /** @class */ (function (_super) {
             xAxis: {
                 categories: this.categories,
                 title: {
-                    text: configuration ? configuration.titleAxisY : 'Titulo do eixo horizontal'
+                    text: configuration ? configuration.axisX.label : 'Titulo do eixo horizontal'
                 },
                 labels: {
                     formatter: function () {
@@ -3512,7 +3520,6 @@ var GaugeV2 = /** @class */ (function (_super) {
         return recordset.rows[0] && recordset.rows[0][index] ? recordset.rows[0][index] : 0;
     };
     GaugeV2.prototype.addSerie = function (name, value, configuration) {
-        console.log(value);
         this.series.push({
             name: name,
             data: [parseFloat(value)],
@@ -3696,6 +3703,9 @@ var Line = /** @class */ (function (_super) {
             },
             xAxis: {
                 categories: this.categories,
+                title: {
+                    text: configuration ? configuration.axisX.label : 'Titulo do eixo horizontal'
+                },
                 labels: {
                     formatter: function () {
                         var mask = configuration.axisX && configuration.axisX.format ? configuration.axisX.format : configuration.format;
@@ -3703,7 +3713,7 @@ var Line = /** @class */ (function (_super) {
                     },
                     style: {
                         fontSize: this.getFontSize() + "px"
-                    }
+                    },
                 }
             },
             legend: {

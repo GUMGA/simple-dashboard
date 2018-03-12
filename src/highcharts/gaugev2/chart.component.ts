@@ -31,7 +31,6 @@ export class GaugeV2 extends BaseHighChart {
   }
 
   protected addSerie(name, value, configuration: Configuration){
-      console.log(value);
       this.series.push(
           {
               name:name,

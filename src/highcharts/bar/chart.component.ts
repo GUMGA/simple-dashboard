@@ -64,6 +64,7 @@ export class Bar extends BaseHighChart {
   }
 
   protected getHighChartConfiguration(configuration: Configuration) {
+      console.log(configuration)
     let stacking = (!configuration.stacking || configuration.stacking === 'DISABLE') ? null : configuration.stacking.toLowerCase();
 
     return {
@@ -86,7 +87,7 @@ export class Bar extends BaseHighChart {
         xAxis: {
             categories: this.categories,
             title: {
-                text: configuration ? configuration.titleAxisY : 'Titulo do eixo horizontal'
+                text: configuration ? configuration.axisX.label : 'Titulo do eixo horizontal'
             },
             labels: {
                 formatter: function () {

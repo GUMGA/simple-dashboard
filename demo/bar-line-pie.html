@@ -20,13 +20,15 @@
         .controller('ctrl', function($http){
 
 
-          $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/3769?gumgaToken=232L127E1519758101183C151975630118300O127.I')
-            .then(function(resp){
-              var bar = new mf.Chart.BarLinePie(document.getElementById('chart'), resp.data.data, resp.data);
+            getBoard = (id, token) => {
+                $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/' + id + '?gumgaToken=' + token)
+                    .then(function (resp) {
+                        var bar = new mf.Chart.BarLinePie(document.getElementById('chart'), resp.data.data, resp.data);
 //              console.log(bar);
-            });
+                    });
+            }
 
-//            getBoard(3769);
+            getBoard(4101, '232L127E1520542144163C152054034416300O127.I');
 
 
         })
