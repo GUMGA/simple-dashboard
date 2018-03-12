@@ -3422,12 +3422,12 @@ var Funnel = /** @class */ (function (_super) {
             plotOptions: {
                 series: {
                     dataLabels: {
-                        enabled: true,
+                        enabled: configuration.showValues != undefined ? configuration.showValues : true,
                         formatter: function () {
                             return '<b>' + __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.formatPrecision) + ' <br/> ' + this.point.name + '</b>';
                         },
                     },
-                    center: ['40%', '50%'],
+                    center: configuration.showValues ? ['40%', '50%'] : ['50%', '50%'],
                     neckWidth: '30%',
                     neckHeight: '25%',
                     width: '70%'
