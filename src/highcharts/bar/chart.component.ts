@@ -49,7 +49,7 @@ export class Bar extends BaseHighChart {
     configuration
         .conditionalsFormatting
         .filter((data) => {
-            return data.field && data.field.toLowerCase() === column.toLowerCase();
+            return data.field && data.field && data.field.toLowerCase() === column.toLowerCase();
         })
         .forEach((data) => {
             if(data.compareOtherField){

@@ -50,7 +50,7 @@ export class Radar extends BaseHighChart {
     configuration
         .conditionalsFormatting
         .filter(function(data) {
-            return column && data.field.toLowerCase() === column.toLowerCase();
+            return column && data.field && data.field.toLowerCase() === column.toLowerCase();
         })
         .forEach((data) => {
             if(data.compareOtherField){

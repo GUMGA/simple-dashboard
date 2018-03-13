@@ -3179,7 +3179,7 @@ var Bar = /** @class */ (function (_super) {
         configuration
             .conditionalsFormatting
             .filter(function (data) {
-            return data.field && data.field.toLowerCase() === column.toLowerCase();
+            return data.field && data.field && data.field.toLowerCase() === column.toLowerCase();
         })
             .forEach(function (data) {
             if (data.compareOtherField) {
@@ -4149,7 +4149,7 @@ var Radar = /** @class */ (function (_super) {
         configuration
             .conditionalsFormatting
             .filter(function (data) {
-            return column && data.field.toLowerCase() === column.toLowerCase();
+            return column && data.field && data.field.toLowerCase() === column.toLowerCase();
         })
             .forEach(function (data) {
             if (data.compareOtherField) {
