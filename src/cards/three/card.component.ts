@@ -48,6 +48,7 @@ export class CardThree extends BaseCard {
       });
     } else {
       this.card.fieldOne = Object.assign({}, configuration.fieldOne);
+      this.card.fieldOne.value = '-';
     }
   }
 
@@ -66,12 +67,13 @@ export class CardThree extends BaseCard {
       });
     } else {
       this.card.fieldTwo = Object.assign({}, configuration.fieldTwo);
+      this.card.fieldTwo.value = '-';
     }
   }
 
   protected applyFieldThree(configuration, recordset) {
     if (configuration.fieldThree && configuration.fieldThree.name && recordset.rows && recordset.rows[0]) {
-      let valueThree = recordset.rows[0][this.getPosition(configuration.fieldThree.name)];
+      let valueThree = recordset.rows[0][this.getPosition(configuration.fieldThree.name)] ;
       this.card.fieldThree = Object.assign(configuration.fieldThree,
         { value: CommonProvider.formatValue(valueThree, configuration.fieldThree.format, configuration.fieldThree.formatPrecision) }
       );
@@ -84,6 +86,7 @@ export class CardThree extends BaseCard {
       });
     } else {
       this.card.fieldThree = Object.assign({}, configuration.fieldThree);
+      this.card.fieldThree.value = '-';
     }
   }
 
