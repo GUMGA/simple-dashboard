@@ -70,8 +70,8 @@ export class MapBox {
             config['icon'] = window.Leaflet.icon({
                 iconUrl: this.configuration.mapIcon,
                 iconSize: [
-                    this.configuration.mapiconSize || 40,
-                    this.configuration.mapiconSize || 40
+                    this.configuration.mapIconSize || 40,
+                    this.configuration.mapIconSize || 40
                 ]
             });
         }

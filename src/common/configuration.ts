@@ -39,7 +39,7 @@ export class Configuration {
     iconColor: StringValue;
     icon: StringValue;
     mapIcon: String;
-    mapiconSize: number;
+    mapIconSize: number;
     name: string;
     columns: Array<any>;
     dynamicColumns: Boolean;
