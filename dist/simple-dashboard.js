@@ -15548,6 +15548,7 @@ var CardThree = /** @class */ (function (_super) {
         }
         else {
             this.card.fieldOne = Object.assign({}, configuration.fieldOne);
+            this.card.fieldOne.value = '-';
         }
     };
     CardThree.prototype.applyFieldTwo = function (configuration, recordset) {
@@ -15565,6 +15566,7 @@ var CardThree = /** @class */ (function (_super) {
         }
         else {
             this.card.fieldTwo = Object.assign({}, configuration.fieldTwo);
+            this.card.fieldTwo.value = '-';
         }
     };
     CardThree.prototype.applyFieldThree = function (configuration, recordset) {
@@ -15582,6 +15584,7 @@ var CardThree = /** @class */ (function (_super) {
         }
         else {
             this.card.fieldThree = Object.assign({}, configuration.fieldThree);
+            this.card.fieldThree.value = '-';
         }
     };
     CardThree.prototype.getConditionalsFormatting = function (configuration, field) {
