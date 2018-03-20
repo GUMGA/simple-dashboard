@@ -7,6 +7,8 @@ import * as SolidGauge from 'highcharts/modules/solid-gauge';
 import * as FunnelChart from 'highcharts/modules/funnel';
 import * as HighchartsMapsModule from 'highcharts/modules/map';
 import * as HighchartsHeatMapsModule from 'highcharts/modules/heatmap';
+import 'leaflet/dist/leaflet.css';
+import * as Leaflet from 'leaflet/dist/leaflet-src.js';
 import {Bar, Line, Pie, GaugeV1, GaugeV2, BarLine, BarLinePie, Maps, Funnel, Radar} from './highcharts';
 import {CardOne, CardTwo, CardThree, CardFive, CardFour} from './cards';
 import {FeedOne} from './feed'
@@ -15,7 +17,7 @@ import {YoutubeOne} from './youtube'
 import {IframeOne} from './iframe'
 import {TextOne} from './text'
 import {ImageOne} from './image'
-
+import {MapBox} from './leaflet'
 
 
 HighchartsMore(Highcharts);
@@ -27,6 +29,7 @@ HighchartsHeatMapsModule(Highcharts);
 
 declare let window;
 window.Highcharts = window.Highcharts || Highcharts;
+window.Leaflet = Leaflet;
 
 window.Highcharts.theme = {
     colors: [
@@ -92,6 +95,9 @@ window.mf = window.mf || {
     },
     Image: {
         ImageOne: ImageOne
+    },
+    Leaflet: {
+        Map: MapBox
     }
 }
 

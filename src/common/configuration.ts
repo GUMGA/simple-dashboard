@@ -38,6 +38,8 @@ export class Configuration {
     fontColor: StringValue;
     iconColor: StringValue;
     icon: StringValue;
+    mapIcon: String;
+    mapiconSize: number;
     name: string;
     columns: Array<any>;
     dynamicColumns: Boolean;
@@ -48,6 +50,8 @@ export class Configuration {
     lastUpdate: any;
     showlastUpdate: Boolean;
     colorPalette: string;
+    latField: string;
+    lngField: string;
     invertedColorPalette: Boolean;
     formatPrecision: number;
 
