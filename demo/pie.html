@@ -25,15 +25,15 @@
         angular.module('app', [])
         .controller('ctrl', function($http){
 
-          function getBoard(id){
-            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=6L7E1520876108210C152087430821000O7.I')
+          function getBoard(id, token){
+            $http.get('https://app2m.livedash.com.br/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken='+token)
               .then(function(resp){
                 var card = new mf.Chart.Pie(document.getElementById('chart'), resp.data.data, resp.data);
               });
           }
-  
-          getBoard(4139);
-
+          
+          getBoard(3118, '61L101E1527193863117C152719206311700O101.I');
+          
 
         })
 

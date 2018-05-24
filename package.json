@@ -1,6 +1,6 @@
 {
   "name": "simple-dashboard",
-  "version": "1.25.3",
+  "version": "1.25.4",
   "description": "Chats Simple Dashboard",
   "main": "./src/index.js",
   "directories": {},

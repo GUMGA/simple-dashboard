@@ -30,8 +30,10 @@ export abstract class BaseHighChart {
   public render() :void {
     this.onInit();
     this.processRecordSet(this.recordset, this.configuration);
-    window.Highcharts.chart(this.element, this.getHighChartConfiguration(this.configuration));
-    this.handlingLastUpdate(this.element, this.configuration);
+    if(this.element) {			
+			window.Highcharts.chart(this.element, this.getHighChartConfiguration(this.configuration));
+			this.handlingLastUpdate(this.element, this.configuration);
+		}
   };
   
   protected handlingLastUpdate(element: HTMLElement, configuration: Configuration){

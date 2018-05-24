@@ -137,8 +137,10 @@ var BaseHighChart = /** @class */ (function () {
     BaseHighChart.prototype.render = function () {
         this.onInit();
         this.processRecordSet(this.recordset, this.configuration);
-        window.Highcharts.chart(this.element, this.getHighChartConfiguration(this.configuration));
-        this.handlingLastUpdate(this.element, this.configuration);
+        if (this.element) {
+            window.Highcharts.chart(this.element, this.getHighChartConfiguration(this.configuration));
+            this.handlingLastUpdate(this.element, this.configuration);
+        }
     };
     ;
     BaseHighChart.prototype.handlingLastUpdate = function (element, configuration) {
