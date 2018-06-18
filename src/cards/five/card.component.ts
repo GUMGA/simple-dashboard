@@ -13,7 +13,11 @@ export class CardFive extends BaseCard {
   }
 
   protected processRecordSet(recordset: RecordSet, configuration: Configuration): void {
+    if(configuration.data.rows.length == 0) {
+      configuration.field.value = '0';
+    }
     this.card = Object.assign({}, configuration.field);
+    console.log(this.card)
     if (configuration.field && configuration.field.name && recordset.rows && recordset.rows[0]) {
       let index = this.getPosition(configuration.field.name);
       this.card.value = CommonProvider.formatValue(recordset.rows[0][index], configuration.field.format, configuration.field.formatPrecision);
