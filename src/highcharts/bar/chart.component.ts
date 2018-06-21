@@ -30,7 +30,8 @@ export class Bar extends BaseHighChart {
           let indexAxisY = this.getPosition(axisY.name), values:Array<any> = [];
           recordset.rows.forEach((row, index) => {
              let value = row[indexAxisY];
-             let color = this.getConditionFormatColor(axisY.name, value, configuration, row) || this.getConditionFormatColor(configuration.axisX.name, row[indexAxisX], configuration, row)
+             let color = this.setRandomColorsOnSeries(configuration, index);
+            //  let color = this.getConditionFormatColor(axisY.name, value, configuration, row) || this.getConditionFormatColor(configuration.axisX.name, row[indexAxisX], configuration, row)
              if(color) {
                  values.push({y:Number(value), color: color});
              } else {
@@ -41,6 +42,15 @@ export class Bar extends BaseHighChart {
           this.addSerie(axisY.label ? axisY.label : axisY.name, values, color);
         }
       })
+  }
+
+  private setRandomColorsOnSeries(configuration: Configuration, index) {
+    let result = undefined;
+    let colors = CommonProvider.getColorByPaletteKey(configuration.colorPalette, configuration.invertedColorPalette);
+    configuration.axisY.forEach((data) => {
+        result = colors[index]; 
+    })
+    return result;
   }
 
   private getConditionFormatColor(column, value, configuration: Configuration, row) {

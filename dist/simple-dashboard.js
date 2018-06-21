@@ -15270,7 +15270,11 @@ var CardFive = /** @class */ (function (_super) {
     };
     CardFive.prototype.processRecordSet = function (recordset, configuration) {
         var _this = this;
+        if (configuration.data.rows.length == 0) {
+            configuration.field.value = '0';
+        }
         this.card = Object.assign({}, configuration.field);
+        console.log(this.card);
         if (configuration.field && configuration.field.name && recordset.rows && recordset.rows[0]) {
             var index = this.getPosition(configuration.field.name);
             this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(recordset.rows[0][index], configuration.field.format, configuration.field.formatPrecision);
@@ -15353,6 +15357,9 @@ var CardFour = /** @class */ (function (_super) {
     };
     CardFour.prototype.processRecordSet = function (recordset, configuration) {
         var _this = this;
+        if (configuration.data.rows.length == 0) {
+            configuration.field.value = '0';
+        }
         this.card = Object.assign({}, configuration.field);
         if (configuration.field && configuration.field.name && recordset.rows && recordset.rows[0]) {
             var index = this.getPosition(configuration.field.name);
@@ -15440,6 +15447,9 @@ var CardOne = /** @class */ (function (_super) {
     };
     CardOne.prototype.processRecordSet = function (recordset, configuration) {
         var _this = this;
+        if (configuration.data.rows.length == 0) {
+            configuration.field.value = '0';
+        }
         this.card = Object.assign({}, configuration.field);
         if (configuration.field && configuration.field.icon && configuration.field.icon.value) {
             this.card.icon = configuration.field.icon.value;
@@ -15518,6 +15528,9 @@ var CardThree = /** @class */ (function (_super) {
         this.card = {};
     };
     CardThree.prototype.processRecordSet = function (recordset, configuration) {
+        if (configuration.data.rows.length == 0) {
+            configuration.field.value = '0';
+        }
         this.card = Object.assign({}, configuration.field);
         if (configuration.color && configuration.color.value) {
             this.card.color = configuration.color.value;
@@ -15647,6 +15660,9 @@ var CardTwo = /** @class */ (function (_super) {
     };
     CardTwo.prototype.processRecordSet = function (recordset, configuration) {
         var _this = this;
+        if (configuration.data.rows.length == 0) {
+            configuration.field.value = '0';
+        }
         this.card = Object.assign({}, configuration.field);
         if (configuration.field && configuration.field.icon && configuration.field.icon.value) {
             this.card.icon = configuration.field.icon.value;
