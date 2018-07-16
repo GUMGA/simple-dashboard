@@ -33,14 +33,14 @@
         .controller('ctrl', function($http){
 
 
-          function getBoard(id){
-            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=232L127E1516797784301C151679598430100O127.I')
+          function getBoard(id, token){
+            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken='+token)
               .then(function(resp){
                 var card = new mf.Card.CardOne(document.getElementById('chart'), resp.data.data, resp.data);
               });
           }
 
-          getBoard(3142);
+          getBoard(3434, '61L101E1531753255878C153175145587800O101.I');
 
 
         })

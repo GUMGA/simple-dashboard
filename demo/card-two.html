@@ -35,8 +35,8 @@
         .controller('ctrl', function($http){
 
 
-          function getBoard(id){
-            $http.get('https://gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken=232L127E1518627408448C151862560844800O127.I')
+          function getBoard(id, token){
+            $http.get('https://api.gumga.studio/dashboard-api/api/boards/get-board-data/'+id+'?gumgaToken='+token)
               .then(function(resp){
                 
 
@@ -46,7 +46,7 @@
               });
           }
 
-          getBoard(3554);
+          getBoard(359, '1L1E1531761714900C153176002033700O1.I');
 
 
         })

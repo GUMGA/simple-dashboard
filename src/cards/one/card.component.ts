@@ -13,7 +13,7 @@ export class CardOne extends BaseCard {
   }
 
   protected processRecordSet(recordset: RecordSet, configuration: Configuration): void {
-    if(configuration.data.rows.length == 0) {
+    if (configuration.data.rows.length == 0) {
       configuration.field.value = '0';
     }
     this.card = Object.assign({}, configuration.field);
@@ -34,14 +34,14 @@ export class CardOne extends BaseCard {
       if (recordset.rows && recordset.rows[0]) {
         let cardValue = recordset.rows[0][index];
         this.card.value = CommonProvider.formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
-
-
-        configuration.conditionalsFormatting.forEach(condition => {
+        configuration.data.columnsConditionalFormattings = configuration.data.columnsConditionalFormattings
+          .filter((columnsConditionalFormatting) => columnsConditionalFormatting);
+        configuration.conditionalsFormatting.filter((condition) => condition.compareOtherField && condition.condition).forEach(condition => {
           let indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(condition.field);
           let row = configuration.data.rowsConditionalFormattings[0];
-          if(condition.compareOtherField){
-              let indexColumnConditionCompare = configuration.data.columnsConditionalFormattings.indexOf(condition.fieldCompare);
-              condition.value = row[indexColumnConditionCompare];
+          if (condition.compareOtherField) {
+            let indexColumnConditionCompare = configuration.data.columnsConditionalFormattings.indexOf(condition.fieldCompare);
+            condition.value = row[indexColumnConditionCompare];
           }
           if (CommonProvider.isConditionalFormatting(condition.condition, row[indexColumnCondition], condition.value)) {
             if (condition.icon && condition.icon.value) {
@@ -50,9 +50,9 @@ export class CardOne extends BaseCard {
             if (condition.color && condition.color.value) {
               this.card.color = condition.color.value;
             }
+
           }
         });
-
       }
     }
   }

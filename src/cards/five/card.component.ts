@@ -39,8 +39,9 @@ export class CardFive extends BaseCard {
       if (recordset.rows && recordset.rows[0]) {
         let cardValue = recordset.rows[0][index];
         this.card.value = CommonProvider.formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
-
-        configuration.conditionalsFormatting.forEach(condition => {
+        configuration.data.columnsConditionalFormattings = configuration.data.columnsConditionalFormattings
+          .filter((columnsConditionalFormatting) => columnsConditionalFormatting);
+        configuration.conditionalsFormatting.filter((condition) => condition.compareOtherField && condition.condition).forEach(condition => {
           let indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(condition.field);
           let row = configuration.data.rowsConditionalFormattings[0];
           if (condition.compareOtherField) {
@@ -54,9 +55,9 @@ export class CardFive extends BaseCard {
             if (condition.color && condition.color.value) {
               this.card.color = condition.color.value;
             }
+
           }
         });
-
       }
     }
   }
