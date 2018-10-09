@@ -15270,7 +15270,11 @@ var CardFive = /** @class */ (function (_super) {
     };
     CardFive.prototype.processRecordSet = function (recordset, configuration) {
         var _this = this;
+        if (configuration.data.rows.length == 0) {
+            configuration.field.value = '0';
+        }
         this.card = Object.assign({}, configuration.field);
+        console.log(this.card);
         if (configuration.field && configuration.field.name && recordset.rows && recordset.rows[0]) {
             var index = this.getPosition(configuration.field.name);
             this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(recordset.rows[0][index], configuration.field.format, configuration.field.formatPrecision);
@@ -15292,7 +15296,9 @@ var CardFive = /** @class */ (function (_super) {
             if (recordset.rows && recordset.rows[0]) {
                 var cardValue = recordset.rows[0][index];
                 this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
-                configuration.conditionalsFormatting.forEach(function (condition) {
+                configuration.data.columnsConditionalFormattings = configuration.data.columnsConditionalFormattings
+                    .filter(function (columnsConditionalFormatting) { return columnsConditionalFormatting; });
+                configuration.conditionalsFormatting.filter(function (condition) { return condition.compareOtherField && condition.condition; }).forEach(function (condition) {
                     var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(condition.field);
                     var row = configuration.data.rowsConditionalFormattings[0];
                     if (condition.compareOtherField) {
@@ -15353,6 +15359,9 @@ var CardFour = /** @class */ (function (_super) {
     };
     CardFour.prototype.processRecordSet = function (recordset, configuration) {
         var _this = this;
+        if (configuration.data.rows.length == 0) {
+            configuration.field.value = '0';
+        }
         this.card = Object.assign({}, configuration.field);
         if (configuration.field && configuration.field.name && recordset.rows && recordset.rows[0]) {
             var index = this.getPosition(configuration.field.name);
@@ -15378,8 +15387,9 @@ var CardFour = /** @class */ (function (_super) {
             if (recordset.rows && recordset.rows[0]) {
                 var cardValue = recordset.rows[0][index];
                 this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
-                console.log(configuration);
-                configuration.conditionalsFormatting.forEach(function (condition) {
+                configuration.data.columnsConditionalFormattings = configuration.data.columnsConditionalFormattings
+                    .filter(function (columnsConditionalFormatting) { return columnsConditionalFormatting; });
+                configuration.conditionalsFormatting.filter(function (condition) { return condition.compareOtherField && condition.condition; }).forEach(function (condition) {
                     var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(condition.field);
                     var row = configuration.data.rowsConditionalFormattings[0];
                     if (condition.compareOtherField) {
@@ -15440,6 +15450,9 @@ var CardOne = /** @class */ (function (_super) {
     };
     CardOne.prototype.processRecordSet = function (recordset, configuration) {
         var _this = this;
+        if (configuration.data.rows.length == 0) {
+            configuration.field.value = '0';
+        }
         this.card = Object.assign({}, configuration.field);
         if (configuration.field && configuration.field.icon && configuration.field.icon.value) {
             this.card.icon = configuration.field.icon.value;
@@ -15458,7 +15471,9 @@ var CardOne = /** @class */ (function (_super) {
             if (recordset.rows && recordset.rows[0]) {
                 var cardValue = recordset.rows[0][index];
                 this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
-                configuration.conditionalsFormatting.forEach(function (condition) {
+                configuration.data.columnsConditionalFormattings = configuration.data.columnsConditionalFormattings
+                    .filter(function (columnsConditionalFormatting) { return columnsConditionalFormatting; });
+                configuration.conditionalsFormatting.filter(function (condition) { return condition.compareOtherField && condition.condition; }).forEach(function (condition) {
                     var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(condition.field);
                     var row = configuration.data.rowsConditionalFormattings[0];
                     if (condition.compareOtherField) {
@@ -15518,6 +15533,9 @@ var CardThree = /** @class */ (function (_super) {
         this.card = {};
     };
     CardThree.prototype.processRecordSet = function (recordset, configuration) {
+        if (configuration.data.rows.length == 0) {
+            configuration.field.value = '0';
+        }
         this.card = Object.assign({}, configuration.field);
         if (configuration.color && configuration.color.value) {
             this.card.color = configuration.color.value;
@@ -15647,6 +15665,9 @@ var CardTwo = /** @class */ (function (_super) {
     };
     CardTwo.prototype.processRecordSet = function (recordset, configuration) {
         var _this = this;
+        if (configuration.data.rows.length == 0) {
+            configuration.field.value = '0';
+        }
         this.card = Object.assign({}, configuration.field);
         if (configuration.field && configuration.field.icon && configuration.field.icon.value) {
             this.card.icon = configuration.field.icon.value;
@@ -15665,7 +15686,9 @@ var CardTwo = /** @class */ (function (_super) {
             if (recordset.rows && recordset.rows[0]) {
                 var cardValue = recordset.rows[0][index];
                 this.card.value = __WEBPACK_IMPORTED_MODULE_2__common_providers__["a" /* CommonProvider */].formatValue(cardValue, configuration.field.format, configuration.field.formatPrecision);
-                configuration.conditionalsFormatting.forEach(function (condition) {
+                configuration.data.columnsConditionalFormattings = configuration.data.columnsConditionalFormattings
+                    .filter(function (columnsConditionalFormatting) { return columnsConditionalFormatting; });
+                configuration.conditionalsFormatting.filter(function (condition) { return condition.field && condition.condition; }).forEach(function (condition) {
                     var indexColumnCondition = configuration.data.columnsConditionalFormattings.indexOf(condition.field);
                     var row = configuration.data.rowsConditionalFormattings[0];
                     if (condition.compareOtherField) {
@@ -17027,7 +17050,9 @@ var Bar = /** @class */ (function (_super) {
             chart: {
                 type: 'column',
                 zoomType: false,
-                spacingBottom: 50,
+                backgroundColor: 'transparent',
+                spacingBottom: 12,
+                spacingLeft: 0,
                 spacingTop: 20
             },
             lang: {
@@ -17036,7 +17061,9 @@ var Bar = /** @class */ (function (_super) {
             title: {
                 text: configuration.title && configuration.title ? configuration.title : '',
                 style: {
-                    fontSize: (this.getFontSize() + 7) + "px"
+                    fontSize: (this.getFontSize() + 7) + "px",
+                    color: '#666',
+                    fontFamily: '"Montserrat", sans-serif',
                 }
             },
             xAxis: {
@@ -17057,7 +17084,10 @@ var Bar = /** @class */ (function (_super) {
             legend: {
                 enabled: configuration ? configuration.showLegendAxisY : true,
                 itemStyle: {
-                    fontSize: this.getFontSize() + "px"
+                    fontSize: this.getFontSize() + "px",
+                    color: '#666',
+                    fontWeight: 'bold',
+                    fontFamily: '"Montserrat", sans-serif',
                 }
             },
             tooltip: {
@@ -17069,7 +17099,10 @@ var Bar = /** @class */ (function (_super) {
             zAxis: {
                 labels: {
                     style: {
-                        fontSize: this.getFontSize() + "px"
+                        fontSize: this.getFontSize() + "px",
+                        color: '#666',
+                        fontWeight: 'bold',
+                        fontFamily: '"Montserrat", sans-serif',
                     }
                 }
             },
@@ -17658,13 +17691,18 @@ var Line = /** @class */ (function (_super) {
         return {
             colors: configuration.dynamicColumns && configuration.colorPalette ? __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].getColorByPaletteKey(configuration.colorPalette, configuration.invertedColorPalette) : __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].getColorsPaletteDefault(configuration.invertedColorPalette),
             chart: {
-                spacingBottom: 50,
+                type: 'areaspline',
+                backgroundColor: 'transparent',
+                spacingBottom: 12,
+                spacingLeft: 0,
                 spacingTop: 20
             },
             title: {
                 text: configuration && configuration.title ? configuration.title : '',
                 style: {
-                    fontSize: (this.getFontSize() + 7) + "px"
+                    fontSize: (this.getFontSize() + 7) + "px",
+                    color: '#666',
+                    fontFamily: '"Montserrat", sans-serif',
                 }
             },
             lang: {
@@ -17685,13 +17723,19 @@ var Line = /** @class */ (function (_super) {
                         return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, mask, configuration.axisX.formatPrecision);
                     },
                     style: {
-                        fontSize: this.getFontSize() + "px"
+                        fontSize: this.getFontSize() + "px",
+                        color: '#666',
+                        fontWeight: 'bold',
+                        fontFamily: '"Montserrat", sans-serif',
                     },
                 }
             },
             legend: {
                 itemStyle: {
-                    fontSize: this.getFontSize() + "px"
+                    fontSize: this.getFontSize() + "px",
+                    color: '#666',
+                    fontWeight: 'bold',
+                    fontFamily: '"Montserrat", sans-serif',
                 }
             },
             yAxis: {
@@ -17704,7 +17748,10 @@ var Line = /** @class */ (function (_super) {
                         return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.value, configuration.format, configuration.formatPrecision);
                     },
                     style: {
-                        fontSize: this.getFontSize() + "px"
+                        fontSize: this.getFontSize() + "px",
+                        color: '#666',
+                        fontWeight: 'bold',
+                        fontFamily: '"Montserrat", sans-serif',
                     }
                 }
             },

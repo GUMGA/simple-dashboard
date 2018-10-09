@@ -18,11 +18,11 @@ export class Line extends BaseHighChart {
             let categorieValue = row[this.getPosition(configuration.axisX.name)];
             this.addCategorie(categorieValue);
         });
-        if(configuration.dynamicColumns) {
+        if (configuration.dynamicColumns) {
             configuration.axisY = [];
             this.recordset.columns
                 .filter((column) => configuration.axisX.name != column)
-                .forEach((column) => configuration.axisY.push({name: column, label:column}));
+                .forEach((column) => configuration.axisY.push({ name: column, label: column }));
         }
         configuration.axisY.forEach(axisY => {
             if (axisY && axisY.name) {
@@ -48,7 +48,7 @@ export class Line extends BaseHighChart {
                 return data.field == name
             })
             .forEach((data) => {
-                if(data.compareOtherField){
+                if (data.compareOtherField) {
                     data.value = row[this.getPosition(data.fieldCompare)];
                 }
                 if (CommonProvider.isConditionalFormatting(data.condition, value, data.value)) {
@@ -61,15 +61,20 @@ export class Line extends BaseHighChart {
 
     protected getHighChartConfiguration(configuration: Configuration) {
         return {
-            colors: configuration.dynamicColumns && configuration.colorPalette ? CommonProvider.getColorByPaletteKey(configuration.colorPalette, configuration.invertedColorPalette) : CommonProvider.getColorsPaletteDefault(configuration.invertedColorPalette) ,
+            colors: configuration.dynamicColumns && configuration.colorPalette ? CommonProvider.getColorByPaletteKey(configuration.colorPalette, configuration.invertedColorPalette) : CommonProvider.getColorsPaletteDefault(configuration.invertedColorPalette),
             chart: {
-                spacingBottom: 50,
+                type: 'areaspline',
+                backgroundColor: 'transparent',
+                spacingBottom: 12,
+                spacingLeft: 0,
                 spacingTop: 20
             },
             title: {
                 text: configuration && configuration.title ? configuration.title : '',
                 style: {
-                    fontSize: (this.getFontSize() + 7) + "px"
+                    fontSize: (this.getFontSize() + 7) + "px",
+                    color: '#666',
+                    fontFamily: '"Montserrat", sans-serif',
                 }
             },
             lang: {
@@ -90,14 +95,20 @@ export class Line extends BaseHighChart {
                         return CommonProvider.formatValue(this.value, mask, configuration.axisX.formatPrecision);
                     },
                     style: {
-                        fontSize: this.getFontSize() + "px"
+                        fontSize: this.getFontSize() + "px",
+                        color: '#666',
+                        fontWeight: 'bold',
+                        fontFamily: '"Montserrat", sans-serif',
                     },
 
                 }
             },
             legend: {
                 itemStyle: {
-                    fontSize: this.getFontSize() + "px"
+                    fontSize: this.getFontSize() + "px",
+                    color: '#666',
+                    fontWeight: 'bold',
+                    fontFamily: '"Montserrat", sans-serif',
                 }
             },
             yAxis: {
@@ -107,11 +118,13 @@ export class Line extends BaseHighChart {
                 },
                 labels: {
                     formatter: function () {
-
                         return CommonProvider.formatValue(this.value, configuration.format, configuration.formatPrecision)
                     },
                     style: {
-                        fontSize: this.getFontSize() + "px"
+                        fontSize: this.getFontSize() + "px",
+                        color: '#666',
+                        fontWeight: 'bold',
+                        fontFamily: '"Montserrat", sans-serif',
                     }
                 }
             },
