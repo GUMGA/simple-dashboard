@@ -17736,7 +17736,8 @@ var Line = /** @class */ (function (_super) {
                     color: '#666',
                     fontWeight: 'bold',
                     fontFamily: '"Montserrat", sans-serif',
-                }
+                },
+                enabled: configuration ? configuration.showLegendAxisY : true
             },
             yAxis: {
                 gridLineWidth: configuration.showGridLineWidthAxisY ? 1 : 0,
@@ -17756,7 +17757,7 @@ var Line = /** @class */ (function (_super) {
                 }
             },
             tooltip: {
-                enabled: configuration ? !configuration.dataLabelAxisY : false,
+                enabled: configuration ? configuration.dataLabelAxisY : false,
                 formatter: function () {
                     return __WEBPACK_IMPORTED_MODULE_1__common_providers__["a" /* CommonProvider */].formatValue(this.y, configuration.format, configuration.formatPrecision);
                 }

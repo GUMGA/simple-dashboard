@@ -109,7 +109,8 @@ export class Line extends BaseHighChart {
                     color: '#666',
                     fontWeight: 'bold',
                     fontFamily: '"Montserrat", sans-serif',
-                }
+                },
+                enabled: configuration ? configuration.showLegendAxisY : true
             },
             yAxis: {
                 gridLineWidth: configuration.showGridLineWidthAxisY ? 1 : 0,
@@ -129,7 +130,7 @@ export class Line extends BaseHighChart {
                 }
             },
             tooltip: {
-                enabled: configuration ? !configuration.dataLabelAxisY : false,
+                enabled: configuration ? configuration.dataLabelAxisY : false,
                 formatter: function () {
                     return CommonProvider.formatValue(this.y, configuration.format, configuration.formatPrecision)
                 }
