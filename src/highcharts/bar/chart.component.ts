@@ -2,6 +2,7 @@ import { BaseHighChart } from '../base';
 import { RecordSet } from '../../common/interfaces';
 import { Configuration } from '../../common/configuration';
 import { CommonProvider } from '../../common/providers';
+import { pSBC } from '../../color.js'
 
 export class Bar extends BaseHighChart {
 
@@ -38,7 +39,7 @@ export class Bar extends BaseHighChart {
                     }
                 });
                 let color = axisY.color && axisY.color.value ? axisY.color.value : null;
-                this.addSerie(axisY.label ? axisY.label : axisY.name, values, color);
+                this.addSerie(axisY.label ? axisY.label : axisY.name, values, color, configuration);
             }
         })
     }
@@ -71,10 +72,12 @@ export class Bar extends BaseHighChart {
             chart: {
                 type: 'column',
                 zoomType: false,
-                backgroundColor: 'transparent',
-                spacingBottom: 12,
-                spacingLeft: 0,
-                spacingTop: 20
+                backgroundColor: configuration.backgroundColor,
+                borderRadius: '8px',
+                spacingBottom: 24,
+                spacingLeft: 24,
+                spacingRight: 24,
+                spacingTop: 24,
             },
             lang: {
                 noData: "Sem dados para apresentar"
@@ -88,6 +91,10 @@ export class Bar extends BaseHighChart {
                 }
             },
             xAxis: {
+                lineWidth: 0,
+                minorTickLength: 0,
+                tickLength: 0,
+                minorGridLineWidth: 0,
                 categories: this.categories,
                 title: {
                     text: configuration ? configuration.axisX.label : 'Titulo do eixo horizontal'
@@ -103,6 +110,8 @@ export class Bar extends BaseHighChart {
                 }
             },
             legend: {
+                align: 'right',
+                verticalAlign: 'top',
                 enabled: configuration ? configuration.showLegendAxisY : true,
                 itemStyle: {
                     fontSize: this.getFontSize() + "px",
@@ -122,15 +131,21 @@ export class Bar extends BaseHighChart {
                     style: {
                         fontSize: this.getFontSize() + "px",
                         color: '#666',
-						fontWeight: 'bold',
-						fontFamily: '"Montserrat", sans-serif',
+                        fontWeight: 'bold',
+                        fontFamily: '"Montserrat", sans-serif',
                     }
                 }
             },
             yAxis: {
                 gridLineWidth: configuration ? configuration.showGridLineWidthAxisY ? 1 : 0 : 1,
                 title: {
-                    text: ''
+                    text: '',
+                    style: {
+                        fontSize: this.getFontSize() + "px",
+                        color: '#666',
+                        fontWeight: 'bold',
+                        fontFamily: '"Montserrat", sans-serif',
+                    }
                 },
                 labels: {
                     formatter: function () {
@@ -151,7 +166,17 @@ export class Bar extends BaseHighChart {
             plotOptions: {
                 column: {
                     stacking: stacking,
+                    borderRadiusTopLeft: 5,
+                    borderRadiusTopRight: 5,
+                    borderRadiusBottomLeft: 2,
+                    borderRadiusBottomRight: 2,
                     dataLabels: {
+                        style: {
+                            fontSize: this.getFontSize() + "px",
+                            color: '#666',
+                            fontWeight: 'bold',
+                            fontFamily: '"Montserrat", sans-serif',
+                        },
                         enabled: configuration ? configuration.dataLabelAxisY : true,
                         formatter: function () {
                             return CommonProvider.formatValue(this.y, configuration.format, configuration.formatPrecision);
@@ -166,11 +191,17 @@ export class Bar extends BaseHighChart {
         this.categories.push(name);
     }
 
-    private addSerie(name: string, values: Array<any>, color: string): void {
+    private addSerie(name: string, values: Array<any>, color: string, configuration: Configuration): void {
         let serie = {
             name: name,
             data: values,
-            color: color,
+            color: configuration.gradientMode ? {
+                linearGradient: [0, 0, 0, 400],
+                stops: [
+                    [0, pSBC(color, 0)],
+                    [1, pSBC(color, 50)],
+                ]
+            } : color,
             dataLabels: {}
         }
         if (!color) {

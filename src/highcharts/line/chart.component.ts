@@ -64,10 +64,14 @@ export class Line extends BaseHighChart {
             colors: configuration.dynamicColumns && configuration.colorPalette ? CommonProvider.getColorByPaletteKey(configuration.colorPalette, configuration.invertedColorPalette) : CommonProvider.getColorsPaletteDefault(configuration.invertedColorPalette),
             chart: {
                 type: 'areaspline',
-                backgroundColor: 'transparent',
-                spacingBottom: 12,
-                spacingLeft: 0,
-                spacingTop: 20
+                backgroundColor: configuration.backgroundColor,
+                borderRadius: '8px',
+                zoomType: false,
+                margin: [0, -150, 0, -150],
+                spacingBottom: 24,
+                spacingLeft: 24,
+                spacingRight: 24,
+                spacingTop: 24,
             },
             title: {
                 text: configuration && configuration.title ? configuration.title : '',
@@ -85,29 +89,40 @@ export class Line extends BaseHighChart {
                 x: -20
             },
             xAxis: {
+                lineWidth: 0,
+                minorTickLength: 0,
+                tickLength: 0,
+                minorGridLineWidth: 0,
                 categories: this.categories,
                 title: {
                     text: configuration ? configuration.axisX.label : 'Titulo do eixo horizontal'
                 },
                 labels: {
+                    itemStyle: {
+                        color: '#aaa',
+                        pointerEvents: 'none',
+                        textTransform: 'uppercase',
+                        fontWeight: '100',
+                        fontFamily: '"Montserrat", sans-serif',
+                        verticalAlign: 'middle'
+                    },
                     formatter: function () {
                         let mask = configuration.axisX && configuration.axisX.format ? configuration.axisX.format : configuration.format;
                         return CommonProvider.formatValue(this.value, mask, configuration.axisX.formatPrecision);
                     },
-                    style: {
-                        fontSize: this.getFontSize() + "px",
-                        color: '#666',
-                        fontWeight: 'bold',
-                        fontFamily: '"Montserrat", sans-serif',
-                    },
-
                 }
             },
             legend: {
+                align: 'right',
+                verticalAlign: 'top',
+                navigation: {
+                    enabled: false
+                },
+                layout: 'horizontal',
                 itemStyle: {
                     fontSize: this.getFontSize() + "px",
                     color: '#666',
-                    fontWeight: 'bold',
+                    fontWeight: '100',
                     fontFamily: '"Montserrat", sans-serif',
                 },
                 enabled: configuration ? configuration.showLegendAxisY : true
@@ -115,16 +130,26 @@ export class Line extends BaseHighChart {
             yAxis: {
                 gridLineWidth: configuration.showGridLineWidthAxisY ? 1 : 0,
                 title: {
-                    text: ''
+                    text: '',
+                    enabled: false
                 },
                 labels: {
+                    enabled: true,
+                    align: 'left',
+                    style: {
+                        color: '#ababab',
+                        fontWeight: 'bold',
+                        fontFamily: '"Montserrat", sans-serif',
+                    },
+                    x: 30,
+                    y: 30,
                     formatter: function () {
                         return CommonProvider.formatValue(this.value, configuration.format, configuration.formatPrecision)
                     },
-                    style: {
+                    itemStyle: {
                         fontSize: this.getFontSize() + "px",
                         color: '#666',
-                        fontWeight: 'bold',
+                        fontWeight: '100',
                         fontFamily: '"Montserrat", sans-serif',
                     }
                 }
@@ -133,7 +158,18 @@ export class Line extends BaseHighChart {
                 enabled: configuration ? configuration.dataLabelAxisY : false,
                 formatter: function () {
                     return CommonProvider.formatValue(this.y, configuration.format, configuration.formatPrecision)
-                }
+                },
+                borderRadius: 20,
+                backgroundColor: 'currentColor',
+                borderWidth: 2,
+                borderColor: 'currentColor',
+                shadow: true,
+                style: {
+                    color: 'white',
+                    fontWeight: '400',
+                    fontFamily: '"Montserrat", sans-serif',
+                },
+                headerFormat: '<span></span>'
             },
             exporting: {
                 enabled: false
@@ -141,6 +177,7 @@ export class Line extends BaseHighChart {
             series: this.series,
             plotOptions: {
                 line: {
+                    size: '100%',
                     dataLabels: {
                         enabled: configuration ? configuration.dataLabelAxisY : true,
                         formatter: function () {
@@ -165,12 +202,14 @@ export class Line extends BaseHighChart {
 
     private addSerie(name: string, values: Array<any>, color: string): void {
         this.series.push({
+            type: 'areaspline',
             name: name,
             data: values,
+            lineWidth: 0,
             color: color,
+            margin: [0, 0, 0, 0],
             dataLabels: {}
-        }
-        );
+        });
     }
 
 }

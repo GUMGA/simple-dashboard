@@ -55,7 +55,15 @@ export class Configuration {
     invertedColorPalette: Boolean;
     formatPrecision: number;
 
+    donutMode: boolean
+    gradientMode: boolean
+    backgroundColor: string;
+
     constructor() {
+      this.donutMode = true;
+      this.gradientMode = true;
+      this.backgroundColor = '#FFF';
+
       this.boardFontSize = 'SMALL';
       this.labelField.format = 'no_format';
       this.showValues = false;

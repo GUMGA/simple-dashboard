@@ -7,6 +7,7 @@ import * as SolidGauge from 'highcharts/modules/solid-gauge';
 import * as FunnelChart from 'highcharts/modules/funnel';
 import * as HighchartsMapsModule from 'highcharts/modules/map';
 import * as HighchartsHeatMapsModule from 'highcharts/modules/heatmap';
+import * as HighchartsBorderRadius from 'highcharts-border-radius';
 import 'leaflet/dist/leaflet.css';
 import * as Leaflet from 'leaflet/dist/leaflet-src.js';
 import {Bar, Line, Pie, GaugeV1, GaugeV2, BarLine, BarLinePie, Maps, Funnel, Radar} from './highcharts';
@@ -26,6 +27,7 @@ SolidGauge(Highcharts);
 FunnelChart(Highcharts);
 HighchartsMapsModule(Highcharts);
 HighchartsHeatMapsModule(Highcharts);
+HighchartsBorderRadius(Highcharts);
 
 declare let window;
 window.Highcharts = window.Highcharts || Highcharts;
