@@ -57,9 +57,11 @@ export class Configuration {
 
     donutMode: boolean
     gradientMode: boolean
+    fillLine: boolean
     backgroundColor: string;
 
     constructor() {
+      this.fillLine = true;
       this.donutMode = true;
       this.gradientMode = true;
       this.backgroundColor = '#FFF';

@@ -35,7 +35,7 @@ export class Line extends BaseHighChart {
                     }
                 });
                 let color = colorAxisY ? colorAxisY : axisY.color ? axisY.color.value : undefined;
-                this.addSerie(axisY.label ? axisY.label : axisY.name, values, color);
+                this.addSerie(axisY.label ? axisY.label : axisY.name, values, color, configuration);
             }
         });
     }
@@ -66,8 +66,9 @@ export class Line extends BaseHighChart {
                 type: 'areaspline',
                 backgroundColor: configuration.backgroundColor,
                 borderRadius: '8px',
+                margin: [0, -12, 0, -12],
                 zoomType: false,
-                margin: [0, -150, 0, -150],
+                reflow: true,
                 spacingBottom: 24,
                 spacingLeft: 24,
                 spacingRight: 24,
@@ -128,6 +129,7 @@ export class Line extends BaseHighChart {
                 enabled: configuration ? configuration.showLegendAxisY : true
             },
             yAxis: {
+                minPadding: 0,
                 gridLineWidth: configuration.showGridLineWidthAxisY ? 1 : 0,
                 title: {
                     text: '',
@@ -135,13 +137,14 @@ export class Line extends BaseHighChart {
                 },
                 labels: {
                     enabled: true,
+                    floating: true,
                     align: 'left',
                     style: {
                         color: '#ababab',
                         fontWeight: 'bold',
                         fontFamily: '"Montserrat", sans-serif',
                     },
-                    x: 30,
+                    x: 34,
                     y: 30,
                     formatter: function () {
                         return CommonProvider.formatValue(this.value, configuration.format, configuration.formatPrecision)
@@ -175,9 +178,21 @@ export class Line extends BaseHighChart {
                 enabled: false
             },
             series: this.series,
+            pane: {
+                size: '100%',
+                center: ['100%', '100%']
+            },
             plotOptions: {
+                series: {
+                    margin: 0,
+                    pointPadding: 0,
+                    groupPadding: 0,
+                    borderWidth: 0,
+                    shadow: false
+                },
                 line: {
-                    size: '100%',
+                    padding: 0,
+                    align: 'left',
                     dataLabels: {
                         enabled: configuration ? configuration.dataLabelAxisY : true,
                         formatter: function () {
@@ -200,14 +215,16 @@ export class Line extends BaseHighChart {
         this.categories.push(name);
     }
 
-    private addSerie(name: string, values: Array<any>, color: string): void {
+    private addSerie(name: string, values: Array<any>, color: string, configuration: Configuration): void {
         this.series.push({
-            type: 'areaspline',
+            type: configuration.fillLine ? 'areaspline' : 'spline',
+            lineWidth: configuration.fillLine ? 0 : 2,
             name: name,
+            marker: {
+                enabled: false
+            },
             data: values,
-            lineWidth: 0,
             color: color,
-            margin: [0, 0, 0, 0],
             dataLabels: {}
         });
     }
